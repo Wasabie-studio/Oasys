@@ -221,11 +221,11 @@
   .scell h4{font-size:1.1rem;font-weight:500;line-height:1.24;color:var(--ink);max-width:18ch;transition:color .4s}
   .scell:hover h4{color:#fff}
   /* ---- Sectors: pinned horizontal-scroll system ---- */
-  .sx-inner{max-width:var(--maxw);margin:0 auto;padding-inline:var(--gutter)}
+  .sx-inner{width:100%;max-width:var(--maxw);margin:0 auto;padding-inline:var(--gutter)}
   .sx-stage{padding-block:var(--section)}
-  .sx-viewport{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;outline:none}
+  .sx-viewport{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;outline:none;align-self:flex-start}
   .sx-viewport::-webkit-scrollbar{display:none}
-  .sx-track{display:flex;gap:clamp(1rem,2.2vw,1.9rem);padding-block:.4rem;width:max-content}
+  .sx-track{display:flex;gap:clamp(1rem,2.2vw,1.9rem);padding-block:.4rem;padding-inline:var(--gutter);width:max-content}
   .sx-track .scell{flex:0 0 auto;width:clamp(232px,76vw,300px);height:clamp(238px,40vh,330px);min-height:0;border:1px solid var(--hair);border-radius:var(--r);scroll-snap-align:center}
   .sx-progress{position:relative;height:2px;margin-top:clamp(1.6rem,3vh,2.4rem);background:var(--hair);border-radius:2px;overflow:hidden}
   .sx-progress span{position:absolute;inset:0;background:var(--forest);border-radius:2px;transform:scaleX(0);transform-origin:left center}
@@ -507,8 +507,9 @@
         <div class="s-head">
       <div class="bignum"><span class="bn">09</span><span class="bn-cap" data-i="sec_cap">Sectors of intervention</span></div>
       <h2 data-i="sec_h">The sectors that matter most for Africa's development</h2>
-    </div>
-        <div class="sx-viewport" tabindex="0" role="group" aria-label="Sectors of intervention — scroll horizontally">
+        </div>
+      </div>
+      <div class="sx-viewport" tabindex="0" role="group" aria-label="Sectors of intervention — scroll horizontally">
           <div class="sx-track">
             <div class="scell"><div class="scell-bg"></div><span class="snum">01</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc1">Health &amp; Social Protection</h4></div>
             <div class="scell"><div class="scell-bg"></div><span class="snum">02</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc2">Technical &amp; Vocational Training</h4></div>
@@ -521,8 +522,7 @@
             <div class="scell"><div class="scell-bg"></div><span class="snum">09</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc9">IT &amp; Digital Solutions</h4></div>
           </div>
         </div>
-        <div class="sx-progress" aria-hidden="true"><span></span></div>
-      </div>
+      <div class="sx-inner"><div class="sx-progress" aria-hidden="true"><span></span></div></div>
     </div>
   </div>
 </section>
@@ -830,6 +830,16 @@
     var maxX=0,targetX=0,curX=0,raf=null,on=false;
     function measure(){
       var t=track.style.transform; track.style.transform='none';
+      // Anchor the viewport's left to the screen edge (cards slide off-screen left),
+      // but stop its right edge at the content column so the right gutter stays.
+      var headInner=section.querySelector('.sx-inner');
+      var ir=headInner.getBoundingClientRect(), cs=getComputedStyle(headInner);
+      var contentLeft=ir.left+(parseFloat(cs.paddingLeft)||0);
+      var contentRight=ir.right-(parseFloat(cs.paddingRight)||0);
+      var vpLeft=viewport.getBoundingClientRect().left;
+      viewport.style.width=Math.max(0,contentRight-vpLeft)+'px';
+      track.style.paddingLeft=Math.max(0,contentLeft-vpLeft)+'px';
+      track.style.paddingRight='0px';
       maxX=Math.max(0, track.scrollWidth - viewport.clientWidth);
       track.style.transform=t;
       pin.style.height=(window.innerHeight+maxX)+'px';
@@ -857,6 +867,7 @@
       on=false; section.classList.remove('sx-on'); section.classList.add('sx-native');
       if(raf){cancelAnimationFrame(raf);raf=null;}
       pin.style.height=''; track.style.transform='';
+      viewport.style.width=''; track.style.paddingLeft=''; track.style.paddingRight='';
       if(bar) bar.style.transform='scaleX(0)';
     }
     function decide(){ (mqPin.matches && !mqReduce.matches) ? enablePinned() : enableNative(); }
