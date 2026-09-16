@@ -220,6 +220,20 @@
   .scell:hover .sarw{opacity:1;transform:none}
   .scell h4{font-size:1.1rem;font-weight:500;line-height:1.24;color:var(--ink);max-width:18ch;transition:color .4s}
   .scell:hover h4{color:#fff}
+  /* ---- Sectors: pinned horizontal-scroll system ---- */
+  .sx-inner{max-width:var(--maxw);margin:0 auto;padding-inline:var(--gutter)}
+  .sx-stage{padding-block:var(--section)}
+  .sx-viewport{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;outline:none}
+  .sx-viewport::-webkit-scrollbar{display:none}
+  .sx-track{display:flex;gap:clamp(1rem,2.2vw,1.9rem);padding-block:.4rem;width:max-content}
+  .sx-track .scell{flex:0 0 auto;width:clamp(232px,76vw,300px);height:clamp(300px,52vh,430px);min-height:0;border:1px solid var(--hair);border-radius:var(--r);scroll-snap-align:center}
+  .sx-progress{position:relative;height:2px;margin-top:clamp(1.6rem,3vh,2.4rem);background:var(--hair);border-radius:2px;overflow:hidden}
+  .sx-progress span{position:absolute;inset:0;background:var(--forest);border-radius:2px;transform:scaleX(0);transform-origin:left center}
+  .sx-native .sx-progress{display:none}
+  .sx-on .sx-stage{position:sticky;top:0;height:100vh;min-height:540px;display:flex;flex-direction:column;justify-content:center;padding-block:clamp(2rem,5vh,4rem)}
+  .sx-on .sx-viewport{overflow:hidden;scroll-snap-type:none}
+  .sx-on .sx-track{will-change:transform}
+  .sx-on .sx-track .scell{width:clamp(300px,26vw,380px);height:min(60vh,520px);scroll-snap-align:none}
 
   /* ---- WORLDWIDE (dark map + region list) ---- */
   .world{background:var(--forest-deeper);color:var(--on-dark)}
@@ -465,21 +479,28 @@
 
 <!-- SECTORS -->
 <section class="sec sectors" id="sectors">
-  <div class="wrap">
-    <div class="s-head">
-      <div class="bignum" data-reveal><span class="bn">09</span><span class="bn-cap" data-i="sec_cap">Sectors of intervention</span></div>
-      <h2 data-reveal style="--d:.08s" data-i="sec_h">The sectors that matter most for Africa's development</h2>
+  <div class="sx-pin">
+    <div class="sx-stage">
+      <div class="sx-inner">
+        <div class="s-head">
+      <div class="bignum"><span class="bn">09</span><span class="bn-cap" data-i="sec_cap">Sectors of intervention</span></div>
+      <h2 data-i="sec_h">The sectors that matter most for Africa's development</h2>
     </div>
-    <div class="sgrid">
-      <div class="scell" data-reveal><div class="scell-bg"></div><span class="snum">01</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc1">Health &amp; Social Protection</h4></div>
-      <div class="scell" data-reveal style="--d:.04s"><div class="scell-bg"></div><span class="snum">02</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc2">Technical &amp; Vocational Training</h4></div>
-      <div class="scell" data-reveal style="--d:.08s"><div class="scell-bg"></div><span class="snum">03</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc3">Agribusiness &amp; Agricultural Value Chains</h4></div>
-      <div class="scell" data-reveal style="--d:.04s"><div class="scell-bg"></div><span class="snum">04</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc4">Environment, Sustainability &amp; Climate Change</h4></div>
-      <div class="scell" data-reveal style="--d:.08s"><div class="scell-bg"></div><span class="snum">05</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc5">Local Governance, Decentralisation &amp; Urban Planning</h4></div>
-      <div class="scell" data-reveal style="--d:.12s"><div class="scell-bg"></div><span class="snum">06</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc6">Population, Gender &amp; Human Rights</h4></div>
-      <div class="scell" data-reveal style="--d:.08s"><div class="scell-bg"></div><span class="snum">07</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc7">Social &amp; Community Entrepreneurship</h4></div>
-      <div class="scell" data-reveal style="--d:.12s"><div class="scell-bg"></div><span class="snum">08</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc8">SME Support</h4></div>
-      <div class="scell" data-reveal style="--d:.16s"><div class="scell-bg"></div><span class="snum">09</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc9">IT &amp; Digital Solutions</h4></div>
+        <div class="sx-viewport" tabindex="0" role="group" aria-label="Sectors of intervention — scroll horizontally">
+          <div class="sx-track">
+            <div class="scell"><div class="scell-bg"></div><span class="snum">01</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc1">Health &amp; Social Protection</h4></div>
+            <div class="scell"><div class="scell-bg"></div><span class="snum">02</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc2">Technical &amp; Vocational Training</h4></div>
+            <div class="scell"><div class="scell-bg"></div><span class="snum">03</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc3">Agribusiness &amp; Agricultural Value Chains</h4></div>
+            <div class="scell"><div class="scell-bg"></div><span class="snum">04</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc4">Environment, Sustainability &amp; Climate Change</h4></div>
+            <div class="scell"><div class="scell-bg"></div><span class="snum">05</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc5">Local Governance, Decentralisation &amp; Urban Planning</h4></div>
+            <div class="scell"><div class="scell-bg"></div><span class="snum">06</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc6">Population, Gender &amp; Human Rights</h4></div>
+            <div class="scell"><div class="scell-bg"></div><span class="snum">07</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc7">Social &amp; Community Entrepreneurship</h4></div>
+            <div class="scell"><div class="scell-bg"></div><span class="snum">08</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc8">SME Support</h4></div>
+            <div class="scell"><div class="scell-bg"></div><span class="snum">09</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc9">IT &amp; Digital Solutions</h4></div>
+          </div>
+        </div>
+        <div class="sx-progress" aria-hidden="true"><span></span></div>
+      </div>
     </div>
   </div>
 </section>
@@ -763,5 +784,59 @@
     function apply(m,l){document.querySelectorAll('[data-i]').forEach(function(el){var k=el.getAttribute('data-i');if(m[k]!=null)el.innerHTML=m[k];});document.documentElement.setAttribute('lang',l);}
     en.addEventListener('click',function(){apply(EN,'en');en.setAttribute('aria-pressed','true');fr.setAttribute('aria-pressed','false');});
     fr.addEventListener('click',function(){apply(FR,'fr');fr.setAttribute('aria-pressed','true');en.setAttribute('aria-pressed','false');});
+  })();
+</script>
+<script>
+  /* Sectors: convert vertical scroll into smooth horizontal travel (desktop pointer);
+     native horizontal swipe on touch / reduced-motion. */
+  (function(){
+    var section=document.getElementById('sectors');
+    if(!section) return;
+    var pin=section.querySelector('.sx-pin'),
+        viewport=section.querySelector('.sx-viewport'),
+        track=section.querySelector('.sx-track'),
+        bar=section.querySelector('.sx-progress span');
+    if(!pin||!viewport||!track) return;
+    var mqPin=matchMedia('(min-width:820px) and (hover:hover) and (pointer:fine)'),
+        mqReduce=matchMedia('(prefers-reduced-motion:reduce)');
+    var maxX=0,targetX=0,curX=0,raf=null,on=false;
+    function measure(){
+      var t=track.style.transform; track.style.transform='none';
+      maxX=Math.max(0, track.scrollWidth - viewport.clientWidth);
+      track.style.transform=t;
+      pin.style.height=(window.innerHeight+maxX)+'px';
+    }
+    function readScroll(){
+      var top=pin.getBoundingClientRect().top;
+      targetX=-Math.min(Math.max(-top,0),maxX);
+      tick();
+    }
+    function tick(){ if(!raf) raf=requestAnimationFrame(frame); }
+    function frame(){
+      raf=null;
+      curX += (targetX-curX)*0.11;
+      if(Math.abs(targetX-curX)<0.3) curX=targetX;
+      track.style.transform='translate3d('+curX+'px,0,0)';
+      if(bar) bar.style.transform='scaleX('+(maxX>0?Math.min(Math.max(-curX/maxX,0),1):0)+')';
+      if(curX!==targetX) raf=requestAnimationFrame(frame);
+    }
+    function enablePinned(){
+      on=true; section.classList.add('sx-on'); section.classList.remove('sx-native');
+      curX=0; targetX=0; track.style.transform='translate3d(0,0,0)';
+      measure(); readScroll();
+    }
+    function enableNative(){
+      on=false; section.classList.remove('sx-on'); section.classList.add('sx-native');
+      if(raf){cancelAnimationFrame(raf);raf=null;}
+      pin.style.height=''; track.style.transform='';
+      if(bar) bar.style.transform='scaleX(0)';
+    }
+    function decide(){ (mqPin.matches && !mqReduce.matches) ? enablePinned() : enableNative(); }
+    window.addEventListener('scroll',function(){ if(on) readScroll(); },{passive:true});
+    var rz; window.addEventListener('resize',function(){ clearTimeout(rz); rz=setTimeout(function(){ if(on){ measure(); readScroll(); } },160); },{passive:true});
+    if(mqPin.addEventListener){mqPin.addEventListener('change',decide);mqReduce.addEventListener('change',decide);}
+    else{mqPin.addListener(decide);mqReduce.addListener(decide);}
+    decide();
+    window.addEventListener('load',function(){ if(on){ measure(); readScroll(); } });
   })();
 </script>
