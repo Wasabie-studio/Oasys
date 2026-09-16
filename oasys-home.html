@@ -326,12 +326,12 @@
   .frow{display:grid;grid-template-columns:1fr 1fr;gap:1rem}@media (max-width:480px){.frow{grid-template-columns:1fr}}
   form.cform .btn{justify-content:center;margin-top:.3rem}
   /* ---- Contact: unified two-panel card (redesign) ---- */
-  .ccard{display:grid;grid-template-columns:.9fr 1.1fr;background:var(--panel);border:1px solid var(--border);border-radius:clamp(18px,2.2vw,26px);overflow:hidden;box-shadow:0 30px 70px -40px rgba(20,32,26,.28)}
-  .cleft{position:relative;background:var(--surface);padding:clamp(1.9rem,4vw,3.2rem);display:flex;align-items:center}
+  .ccard{display:grid;grid-template-columns:.9fr 1.1fr;background:var(--panel);border:1px solid var(--border);border-radius:clamp(18px,2.2vw,26px);overflow:hidden;box-shadow:0 1px 3px rgba(20,32,26,.04),0 14px 30px -12px rgba(20,32,26,.10),0 44px 80px -40px rgba(20,32,26,.16)}
+  .cleft{position:relative;background:linear-gradient(158deg,color-mix(in srgb,var(--forest) 9%,var(--panel)),var(--panel) 66%);padding:clamp(1.9rem,4vw,3.2rem);display:flex;align-items:center}
   .cleft-inner{position:relative;z-index:1;width:100%}
   .cleft--img{background-image:var(--cimg);background-size:cover;background-position:center}
   .cleft--img::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(247,247,244,.9),rgba(247,247,244,.8))}
-  .cright{background:var(--panel);padding:clamp(1.7rem,3.5vw,2.8rem)}
+  .cright{background:var(--panel);padding:clamp(1.7rem,3.5vw,2.8rem);border-left:1px solid var(--border)}
   .cintro{max-width:36ch}
   .cdetails{margin-top:2rem;gap:1.15rem}
   .cd{grid-template-columns:auto 1fr;gap:.9rem;align-items:center}
@@ -345,7 +345,7 @@
   .field label{font-size:.8rem}
   .field input,.field textarea{background:var(--panel);border-radius:12px;padding:.9rem 1rem}
   form.cform .btn{width:100%;justify-content:center;padding:1rem 1.2rem;margin-top:.4rem;font-size:1rem}
-  @media (max-width:820px){.ccard{grid-template-columns:1fr}}
+  @media (max-width:820px){.ccard{grid-template-columns:1fr}.cright{border-left:0;border-top:1px solid var(--border)}}
 
   /* ---- footer ---- */
   footer.site{background:var(--bg);border-top:1px solid var(--hair)}
