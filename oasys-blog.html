@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OASYS · News & Insights</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f8f7f4;
+    --panel:#ffffff;
+    --surface:#f1f0ec;
+    --surface-2:#eae8e3;
+    --ink:#1a1a18;
+    --body:#40403c;
+    --muted:#676662;
+    --faint:#8f8e8a;
+    --border:#e8e6e1;
+    --hair:#e2e0da;
+    --forest:#0d5c44;
+    --forest-deep:#0e2b20;
+    --forest-deeper:#0a2018;
+    --signal:#2ab34e;
+    --on-dark:#f1f0ec;
+    --on-dark-mut:#a6a49f;
+    --on-dark-hair:#284537;
+    --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+    --sans:"Inter","Helvetica Neue",Arial,sans-serif;
+    --maxw:1200px;
+    --gutter:clamp(1.25rem,5vw,3.5rem);
+    --section:clamp(4rem,8vw,7.5rem);
+    --ease:cubic-bezier(.19,1,.22,1);
+    --r:14px;
+  }
+  :root{color-scheme:light}
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--body);font-family:var(--sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  h1,h2,h3,h4,h5{font-family:var(--serif);color:var(--ink);margin:0;font-weight:500;letter-spacing:-0.015em;text-wrap:balance;line-height:1.1}
+  p{margin:0;text-wrap:pretty}
+  a{color:inherit}
+  img,svg{max-width:100%}
+  ::selection{background:var(--forest);color:#fff}
+  :focus-visible{outline:2px solid var(--forest);outline-offset:3px;border-radius:2px}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--gutter)}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+  html.js-motion [data-reveal]{opacity:0;transform:translateY(20px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:var(--d,0s)}
+  html.js-motion [data-reveal].in{opacity:1;transform:none}
+  [hidden]{display:none!important}
+
+  /* image placeholder (mockup) */
+  .imgph{position:relative;background:
+      linear-gradient(135deg,color-mix(in srgb,var(--forest) 22%,var(--surface)),var(--surface-2));
+      overflow:hidden;border-radius:var(--r)}
+  .imgph::after{content:attr(data-ph);position:absolute;left:50%;bottom:.9rem;transform:translateX(-50%);
+      font-family:var(--sans);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:color-mix(in srgb,var(--ink) 45%,transparent);
+      background:color-mix(in srgb,var(--bg) 55%,transparent);padding:.26rem .58rem;border-radius:800px;white-space:nowrap}
+  .imgph .cam{position:absolute;inset:0;display:grid;place-items:center;opacity:.4;color:var(--forest);font-size:1.6rem}
+
+  /* buttons */
+  .btn{font-family:var(--sans);font-weight:600;font-size:.94rem;border-radius:800px;padding:.8rem 1.55rem;cursor:pointer;border:1.5px solid transparent;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;transition:transform .2s var(--ease),background .2s,color .2s,border-color .2s}
+  .btn .arw{transition:transform .3s var(--ease)}
+  .btn:hover .arw{transform:translate(3px,-3px)}
+  .btn-line{background:transparent;color:var(--ink);border-color:var(--border)}
+  .btn-line:hover{border-color:var(--ink);transform:translateY(-2px)}
+  .txtlink{font-family:var(--sans);font-weight:600;font-size:.93rem;color:var(--forest);text-decoration:none;display:inline-flex;align-items:center;gap:.4rem}
+  .txtlink .arw{transition:transform .3s var(--ease)}
+  .txtlink:hover .arw{transform:translate(3px,-3px)}
+
+  /* ---- topline + nav ---- */
+  .topline{border-bottom:1px solid var(--hair);font-size:.78rem;color:var(--faint)}
+  .topline .wrap{display:flex;justify-content:space-between;align-items:center;min-height:36px;gap:1rem}
+  .topline a{color:inherit;text-decoration:none}.topline a:hover{color:var(--body)}
+  .topline .tr{display:flex;gap:1.3rem;align-items:center}
+  @media (max-width:640px){.topline .tl{display:none}}
+  nav.main{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s}
+  nav.main.scrolled{border-bottom-color:var(--hair)}
+  nav.main .wrap{display:flex;align-items:center;justify-content:space-between;min-height:70px;gap:1rem}
+  .logo{font-family:var(--serif);font-weight:600;font-size:1.45rem;color:var(--ink);text-decoration:none;display:inline-flex;align-items:baseline;gap:.1em}
+  .logo .dot{width:.28em;height:.28em;border-radius:50%;background:var(--signal);display:inline-block}
+  .navlinks{display:flex;gap:1.9rem}
+  .navlinks a{font-size:.92rem;font-weight:500;color:var(--body);text-decoration:none;position:relative}
+  .navlinks a::after{content:"";position:absolute;left:0;bottom:-4px;height:1.5px;width:0;background:var(--forest);transition:width .3s var(--ease)}
+  .navlinks a:hover{color:var(--ink)}.navlinks a:hover::after{width:100%}
+  .navlinks a[aria-current="page"]{color:var(--ink)}
+  .navlinks a[aria-current="page"]::after{width:100%}
+  .navtools{display:flex;align-items:center;gap:.7rem}
+  .lang{display:inline-flex;gap:.1rem;font-size:.78rem;font-weight:600}
+  .lang button{border:0;background:transparent;color:var(--faint);cursor:pointer;padding:.3rem .3rem;font-family:var(--sans);font-weight:600}
+  .lang button[aria-pressed="true"]{color:var(--ink)}.lang .sep{color:var(--hair)}
+  .burger{display:none}
+  @media (max-width:880px){.navlinks{display:none}.burger{display:grid;place-items:center;width:38px;height:38px;border:1px solid var(--border);border-radius:9px;background:transparent;color:var(--ink);cursor:pointer;font-size:1.1rem}}
+
+  /* ---- blog hero ---- */
+  .eyebrow{font-family:var(--sans);font-weight:600;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--forest);display:block;margin-bottom:1rem}
+  .bloghero{background:var(--bg);border-bottom:1px solid var(--hair)}
+  .bloghero .wrap{padding-block:clamp(3.5rem,7vw,5.5rem) clamp(1.8rem,3.5vw,2.6rem)}
+  .bloghero h1{font-size:clamp(2.2rem,5vw,3.6rem);max-width:24ch;font-weight:500;line-height:1.05}
+  .bloghero .lead{color:var(--body);max-width:52ch;margin-top:1.1rem;font-size:1.08rem}
+
+  /* ---- filters ---- */
+  .filters{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:clamp(1.8rem,3.5vw,2.6rem)}
+  .filters button{font-family:var(--sans);font-weight:500;font-size:.86rem;color:var(--body);background:transparent;border:1px solid var(--border);border-radius:800px;padding:.5rem 1.05rem;cursor:pointer;transition:background .2s var(--ease),color .2s,border-color .2s,transform .2s var(--ease)}
+  .filters button:hover{border-color:var(--ink);color:var(--ink)}
+  .filters button[aria-pressed="true"]{background:var(--forest);border-color:var(--forest);color:#fff}
+
+  /* ---- blog list ---- */
+  .bloglist{background:var(--bg)}
+  .bloglist .wrap{padding-block:clamp(2.4rem,5vw,3.6rem) var(--section)}
+  .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.8rem,3.2vw,2.8rem) clamp(1.4rem,2.5vw,2.2rem)}
+  @media (max-width:900px){.pgrid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:600px){.pgrid{grid-template-columns:1fr}}
+
+  .post{display:flex;flex-direction:column;text-decoration:none;color:inherit;border:1px solid var(--hair);border-radius:var(--r);background:var(--panel);overflow:hidden;
+    transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s}
+  .post:hover{transform:translateY(-5px);box-shadow:0 26px 54px -32px rgba(20,32,25,.4);border-color:var(--border)}
+  .post-media{position:relative;aspect-ratio:16/11;border-radius:0}
+  .post-media::after{bottom:.7rem}
+  .post-media .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,26,19,0) 55%,rgba(10,26,19,.14) 100%);opacity:0;transition:opacity .4s var(--ease)}
+  .post:hover .post-media .scrim{opacity:1}
+  .post-arw{position:absolute;top:.8rem;right:.8rem;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.94);color:var(--forest);display:grid;place-items:center;font-size:.95rem;
+    opacity:0;transform:translateY(-6px) scale(.9);transition:opacity .35s var(--ease),transform .35s var(--ease)}
+  .post:hover .post-arw{opacity:1;transform:none}
+  .post-body{padding:1.15rem 1.25rem 1.4rem;display:flex;flex-direction:column;gap:.6rem;flex:1}
+  .post-date{font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums;letter-spacing:.02em}
+  .post-title{font-family:var(--serif);font-size:1.2rem;line-height:1.22;color:var(--ink);font-weight:500;letter-spacing:-0.01em;transition:color .25s}
+  .post:hover .post-title{color:var(--forest)}
+  .post-cat{margin-top:auto;padding-top:.7rem;display:inline-flex;align-items:center;gap:.5rem;font-family:var(--sans);font-size:.76rem;font-weight:600;letter-spacing:.02em;color:var(--forest);text-transform:none}
+  .post-cat .dot{width:6px;height:6px;border-radius:50%;background:var(--signal);flex:none}
+
+  .noresults{color:var(--muted);font-size:1rem;padding:2rem 0}
+
+  /* ---- footer ---- */
+  footer.site{background:var(--bg);border-top:1px solid var(--hair)}
+  footer.site .wrap{padding-block:clamp(3rem,6vw,4.5rem) 2rem}
+  .fgrid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:2rem}
+  @media (max-width:820px){.fgrid{grid-template-columns:1fr 1fr;gap:2.2rem}}
+  @media (max-width:520px){.fgrid{grid-template-columns:1fr}}
+  footer .fabout{margin-top:1rem;max-width:34ch;font-size:.92rem;color:var(--muted)}
+  footer .fp{margin-top:1.4rem}
+  footer h5{font-family:var(--sans);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 1.1rem;font-weight:600}
+  footer ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.6rem}
+  footer ul a{color:var(--body);text-decoration:none;font-size:.92rem}footer ul a:hover{color:var(--forest)}
+  .fbottom{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-top:clamp(2.4rem,5vw,3.4rem);padding-top:1.4rem;border-top:1px solid var(--hair);font-size:.82rem;color:var(--faint)}
+</style>
+</head>
+<body>
+
+<div class="topline"><div class="wrap">
+  <span class="tl" data-i="tl_addr">VDN, Cité Horizon, Villa N C03 · Dakar-Fann, Sénégal</span>
+  <span class="tr"><a href="tel:+221338019085">+221 33 801 90 85</a><a href="mailto:mail@oasysgroupe.com">mail@oasysgroupe.com</a><a href="#" aria-label="LinkedIn">LinkedIn</a></span>
+</div></div>
+
+<nav class="main" id="nav"><div class="wrap">
+  <a class="logo" href="oasys-home.html#top">OAS<span class="dot"></span>YS</a>
+  <div class="navlinks">
+    <a href="oasys-home.html#about" data-i="nav_about">About</a>
+    <a href="oasys-home.html#services" data-i="nav_services">Services</a>
+    <a href="oasys-home.html#sectors" data-i="nav_sectors">Sectors</a>
+    <a href="oasys-home.html#team" data-i="nav_team">Team</a>
+    <a href="oasys-blog.html" aria-current="page" data-i="nav_blog">News</a>
+    <a href="oasys-home.html#contact" data-i="nav_contact">Contact</a>
+  </div>
+  <div class="navtools">
+    <div class="lang" role="group" aria-label="Language"><button id="lang-en" aria-pressed="true">EN</button><span class="sep">/</span><button id="lang-fr" aria-pressed="false">FR</button></div>
+    <button class="burger" id="burger" aria-label="Menu">≡</button>
+  </div>
+</div></nav>
+
+<a id="top"></a>
+
+<!-- BLOG HERO -->
+<header class="bloghero">
+  <div class="wrap">
+    <span class="eyebrow" data-reveal data-i="blog_eye">News &amp; Insights</span>
+    <h1 data-reveal style="--d:.06s" data-i="blog_h">Field notes from the projects we support</h1>
+    <p class="lead" data-reveal style="--d:.12s" data-i="blog_lead">Updates, milestones and perspectives from OASYS missions across Africa, Asia, Europe and the Caribbean.</p>
+    <div class="filters" id="filters" data-reveal style="--d:.18s" role="group" aria-label="Filter articles">
+      <button data-filter="all" aria-pressed="true" data-i="f_all">All</button>
+      <button data-filter="agribusiness" aria-pressed="false" data-i="f_agri">Agribusiness</button>
+      <button data-filter="climate" aria-pressed="false" data-i="f_climate">Climate &amp; Environment</button>
+      <button data-filter="health" aria-pressed="false" data-i="f_health">Health &amp; Social</button>
+      <button data-filter="training" aria-pressed="false" data-i="f_training">Training &amp; Evaluation</button>
+      <button data-filter="governance" aria-pressed="false" data-i="f_gov">Governance</button>
+      <button data-filter="digital" aria-pressed="false" data-i="f_digital">Digital</button>
+    </div>
+  </div>
+</header>
+
+<!-- BLOG LIST -->
+<section class="bloglist">
+  <div class="wrap">
+    <div class="pgrid" id="pgrid">
+
+      <a class="post" href="#" data-cat="agribusiness" data-reveal>
+        <div class="post-media imgph" data-ph="Agribusiness forum · Monrovia"><span class="cam">◎</span><span class="scrim"></span><span class="post-arw">↗</span></div>
+        <div class="post-body">
+          <div class="post-date">27.02.2026</div>
+          <h3 class="post-title" data-i="p1">Liberia is open for agribusiness investment</h3>
+          <span class="post-cat"><span class="dot"></span><span data-i="f_agri">Agribusiness</span></span>
+        </div>
+      </a>
+
+      <a class="post" href="#" data-cat="governance" data-reveal style="--d:.05s">
+        <div class="post-media imgph" data-ph="Institutional partnership"><span class="cam">◎</span><span class="scrim"></span><span class="post-arw">↗</span></div>
+        <div class="post-body">
+          <div class="post-date">17.02.2026</div>
+          <h3 class="post-title" data-i="p2">Strengthening the EU–Senegal institutional partnership</h3>
+          <span class="post-cat"><span class="dot"></span><span data-i="f_gov">Governance</span></span>
+        </div>
+      </a>
+
+      <a class="post" href="#" data-cat="health" data-reveal style="--d:.1s">
+        <div class="post-media imgph" data-ph="National agriculture fair"><span class="cam">◎</span><span class="scrim"></span><span class="post-arw">↗</span></div>
+        <div class="post-body">
+          <div class="post-date">12.01.2026</div>
+          <h3 class="post-title" data-i="p3">Supporting food and nutrition security in Liberia</h3>
+          <span class="post-cat"><span class="dot"></span><span data-i="f_health">Health &amp; Social</span></span>
+        </div>
+      </a>
+
+      <a class="post" href="#" data-cat="training" data-reveal>
+        <div class="post-media imgph" data-ph="Field extension team"><span class="cam">◎</span><span class="scrim"></span><span class="post-arw">↗</span></div>
+        <div class="post-body">
+          <div class="post-date">08.01.2026</div>
+          <h3 class="post-title" data-i="p4">Capacity building for agricultural extension services</h3>
+          <span class="post-cat"><span class="dot"></span><span data-i="f_training">Training &amp; Evaluation</span></span>
+        </div>
+      </a>
+
+      <a class="post" href="#" data-cat="climate" data-reveal style="--d:.05s">
+        <div class="post-media imgph" data-ph="Training of trainers · GAPs"><span class="cam">◎</span><span class="scrim"></span><span class="post-arw">↗</span></div>
+        <div class="post-body">
+          <div class="post-date">19.12.2025</div>
+          <h3 class="post-title" data-i="p5">Training of trainers on climate-smart agriculture</h3>
+          <span class="post-cat"><span class="dot"></span><span data-i="f_climate">Climate &amp; Environment</span></span>
+        </div>
+      </a>
+
+      <a class="post" href="#" data-cat="governance" data-reveal style="--d:.1s">
+        <div class="post-media imgph" data-ph="Signing · West Africa"><span class="cam">◎</span><span class="scrim"></span><span class="post-arw">↗</span></div>
+        <div class="post-body">
+          <div class="post-date">03.12.2025</div>
+          <h3 class="post-title" data-i="p6">New framework contract signed in West Africa</h3>
+          <span class="post-cat"><span class="dot"></span><span data-i="f_gov">Governance</span></span>
+        </div>
+      </a>
+
+      <a class="post" href="#" data-cat="governance" data-reveal>
+        <div class="post-media imgph" data-ph="Decentralisation programme"><span class="cam">◎</span><span class="scrim"></span><span class="post-arw">↗</span></div>
+        <div class="post-body">
+          <div class="post-date">21.11.2025</div>
+          <h3 class="post-title" data-i="p7">OASYS joins a regional decentralisation programme</h3>
+          <span class="post-cat"><span class="dot"></span><span data-i="f_gov">Governance</span></span>
+        </div>
+      </a>
+
+      <a class="post" href="#" data-cat="training" data-reveal style="--d:.05s">
+        <div class="post-media imgph" data-ph="Evaluation mission · Sahel"><span class="cam">◎</span><span class="scrim"></span><span class="post-arw">↗</span></div>
+        <div class="post-body">
+          <div class="post-date">06.11.2025</div>
+          <h3 class="post-title" data-i="p8">Field evaluation mission completed in the Sahel</h3>
+          <span class="post-cat"><span class="dot"></span><span data-i="f_training">Training &amp; Evaluation</span></span>
+        </div>
+      </a>
+
+      <a class="post" href="#" data-cat="digital" data-reveal style="--d:.1s">
+        <div class="post-media imgph" data-ph="e-Government platform"><span class="cam">◎</span><span class="scrim"></span><span class="post-arw">↗</span></div>
+        <div class="post-body">
+          <div class="post-date">22.10.2025</div>
+          <h3 class="post-title" data-i="p9">Digital solutions for public service delivery</h3>
+          <span class="post-cat"><span class="dot"></span><span data-i="f_digital">Digital</span></span>
+        </div>
+      </a>
+
+    </div>
+    <p class="noresults" id="noresults" hidden data-i="none">No articles in this category yet.</p>
+  </div>
+</section>
+
+<footer class="site"><div class="wrap">
+  <div class="fgrid">
+    <div>
+      <a class="logo" href="oasys-home.html#top">OAS<span class="dot"></span>YS</a>
+      <p class="fabout" data-i="ft_about">Consulting and technical assistance for development projects and programs around the world. Based in Dakar, Senegal, since 2009.</p>
+      <p class="fp"><a class="txtlink" href="#" data-i="ft_profile">Download our company profile <span class="arw">↗</span></a></p>
+    </div>
+    <div><h5 data-i="ft_nav">Navigate</h5><ul>
+      <li><a href="oasys-home.html#about" data-i="nav_about2">About</a></li><li><a href="oasys-home.html#services" data-i="nav_services2">Services</a></li>
+      <li><a href="oasys-home.html#sectors" data-i="nav_sectors2">Sectors</a></li><li><a href="oasys-home.html#team" data-i="nav_team2">Team</a></li></ul></div>
+    <div><h5 data-i="ft_more">More</h5><ul>
+      <li><a href="oasys-blog.html" data-i="ft_blog">News</a></li><li><a href="oasys-home.html#contact" data-i="nav_contact2">Contact</a></li><li><a href="#" data-i="ft_careers">Careers</a></li></ul></div>
+    <div><h5 data-i="ft_reach">Reach us</h5><ul>
+      <li><a href="tel:+221338019085">+221 33 801 90 85</a></li><li><a href="mailto:mail@oasysgroupe.com">mail@oasysgroupe.com</a></li><li><span data-i="ft_addr">Dakar-Fann, Sénégal</span></li></ul></div>
+  </div>
+  <div class="fbottom"><span>© 2026 OASYS Groupe. <span data-i="ft_rights">All rights reserved.</span></span><span data-i="ft_credit">Redesign concept · Wasabie Studio</span></div>
+</div></footer>
+
+<script>
+  (function(){var n=document.getElementById('nav');addEventListener('scroll',function(){n.classList.toggle('scrolled',scrollY>8);},{passive:true});})();
+
+  (function(){var burger=document.getElementById('burger'),links=document.querySelector('.navlinks');
+    burger.addEventListener('click',function(){var open=links.style.display==='flex';
+      links.style.cssText=open?'':'display:flex;position:absolute;top:70px;left:0;right:0;flex-direction:column;gap:1.1rem;background:var(--bg);padding:1.5rem var(--gutter);border-bottom:1px solid var(--hair)';});})();
+
+  /* category filter */
+  (function(){
+    var bar=document.getElementById('filters'); if(!bar)return;
+    var btns=bar.querySelectorAll('button');
+    var posts=document.querySelectorAll('#pgrid .post');
+    var none=document.getElementById('noresults');
+    bar.addEventListener('click',function(e){
+      var b=e.target.closest('button'); if(!b)return;
+      btns.forEach(function(x){x.setAttribute('aria-pressed', x===b?'true':'false');});
+      var f=b.getAttribute('data-filter'),shown=0;
+      posts.forEach(function(p){
+        var ok=(f==='all'||p.getAttribute('data-cat')===f);
+        p.hidden=!ok; if(ok)shown++;
+      });
+      if(none)none.hidden=shown>0;
+    });
+  })();
+
+  /* reveal on scroll */
+  (function(){
+    var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+    if(reduce||!('IntersectionObserver' in window))return;
+    document.documentElement.classList.add('js-motion');
+    var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});},{threshold:.14,rootMargin:'0px 0px -6% 0px'});
+    document.querySelectorAll('[data-reveal]').forEach(function(el){io.observe(el);});
+  })();
+
+  /* bilingual */
+  var FR={
+    tl_addr:"VDN, Cité Horizon, Villa N C03 · Dakar-Fann, Sénégal",
+    nav_about:"À propos",nav_services:"Services",nav_sectors:"Secteurs",nav_team:"Équipe",nav_blog:"Actualités",nav_contact:"Contact",
+    blog_eye:"Actualités & Perspectives",
+    blog_h:"Notes de terrain des projets que nous accompagnons",
+    blog_lead:"Actualités, jalons et regards issus des missions d'OASYS en Afrique, en Asie, en Europe et dans les Caraïbes.",
+    f_all:"Tout",f_agri:"Agroalimentaire",f_climate:"Climat & Environnement",f_health:"Santé & Social",f_training:"Formation & Évaluation",f_gov:"Gouvernance",f_digital:"Numérique",
+    p1:"Le Liberia s'ouvre à l'investissement agroalimentaire",
+    p2:"Renforcer le partenariat institutionnel UE–Sénégal",
+    p3:"Soutenir la sécurité alimentaire et nutritionnelle au Liberia",
+    p4:"Renforcement des capacités des services de vulgarisation agricole",
+    p5:"Formation de formateurs à l'agriculture intelligente face au climat",
+    p6:"Nouveau contrat-cadre signé en Afrique de l'Ouest",
+    p7:"OASYS rejoint un programme régional de décentralisation",
+    p8:"Mission d'évaluation de terrain achevée au Sahel",
+    p9:"Solutions numériques pour les services publics",
+    none:"Aucun article dans cette catégorie pour le moment.",
+    ft_about:"Conseil et assistance technique pour les projets et programmes de développement dans le monde. Basé à Dakar, au Sénégal, depuis 2009.",
+    ft_profile:"Télécharger notre profil d'entreprise",ft_nav:"Naviguer",ft_more:"Plus",ft_reach:"Nous joindre",ft_blog:"Actualités",ft_careers:"Carrières",
+    nav_about2:"À propos",nav_services2:"Services",nav_sectors2:"Secteurs",nav_team2:"Équipe",nav_contact2:"Contact",ft_addr:"Dakar-Fann, Sénégal",
+    ft_rights:"Tous droits réservés.",ft_credit:"Concept de refonte · Wasabie Studio"
+  };
+  var EN={};
+  (function(){
+    document.querySelectorAll('[data-i]').forEach(function(el){EN[el.getAttribute('data-i')]=el.innerHTML;});
+    var en=document.getElementById('lang-en'),fr=document.getElementById('lang-fr');
+    function apply(m,l){document.querySelectorAll('[data-i]').forEach(function(el){var k=el.getAttribute('data-i');if(m[k]!=null)el.innerHTML=m[k];});document.documentElement.setAttribute('lang',l);}
+    en.addEventListener('click',function(){apply(EN,'en');en.setAttribute('aria-pressed','true');fr.setAttribute('aria-pressed','false');});
+    fr.addEventListener('click',function(){apply(FR,'fr');fr.setAttribute('aria-pressed','true');en.setAttribute('aria-pressed','false');});
+  })();
+</script>
+</body>
+</html>
