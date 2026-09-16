@@ -274,11 +274,12 @@
   .tcard{scroll-snap-align:start}
   .tphoto{aspect-ratio:1/1.12;border-radius:var(--r);overflow:hidden;position:relative}
   .tphoto .fill{position:absolute;inset:0;background:linear-gradient(160deg,#c9d2cc,#9fb0a6);filter:grayscale(1) contrast(.95);transition:filter .4s var(--ease),transform .5s var(--ease)}
-  .tcard:hover .tphoto .fill{filter:grayscale(0) contrast(1);transform:scale(1.03);background:linear-gradient(160deg,color-mix(in srgb,var(--forest) 35%,#cdd6d0),#8aa596)}
+  .tcard:hover .tphoto .fill{filter:grayscale(.4) contrast(1);transform:scale(1.03);background:linear-gradient(160deg,color-mix(in srgb,var(--forest) 15%,#d3d5cf),#b6bcb4)}
   .tphoto .mono{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--serif);font-weight:500;font-size:2.4rem;color:rgba(20,32,26,.35)}
-  .tphoto .tbio{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;justify-content:flex-end;gap:.35rem;padding:1.1rem;color:var(--on-dark);background:linear-gradient(to top,rgba(10,32,24,.94) 34%,rgba(10,32,24,.62) 66%,rgba(10,32,24,0));transform:translateY(101%);transition:transform .45s var(--ease)}
-  .tcard:hover .tphoto .tbio,.tcard:focus-within .tphoto .tbio{transform:translateY(0)}
-  .tphoto .tbio p{margin:0;font-size:.82rem;line-height:1.45;color:var(--on-dark)}
+  .tphoto .tbio{position:absolute;left:0;right:0;bottom:0;z-index:3;display:flex;flex-direction:column;gap:.28rem;padding:.85rem .95rem .95rem;color:var(--body);background:rgba(248,247,244,.82);backdrop-filter:blur(10px) saturate(1.04);-webkit-backdrop-filter:blur(10px) saturate(1.04);border-top:1px solid rgba(255,255,255,.55);box-shadow:0 -1px 0 rgba(20,32,26,.05);opacity:0;transform:translateY(10px);transition:opacity .35s var(--ease),transform .4s var(--ease)}
+  .tcard:hover .tphoto .tbio,.tcard:focus-within .tphoto .tbio{opacity:1;transform:translateY(0)}
+  .tphoto .tbio p{margin:0;font-size:.79rem;line-height:1.4;color:var(--body)}
+  .tphoto .tbio p:first-child{color:var(--ink);font-weight:500}
   .tname{font-family:var(--serif);font-weight:600;color:var(--ink);font-size:1.15rem;margin-top:1rem}
   .trole{font-size:.88rem;color:var(--forest);font-weight:600;margin-top:.2rem}
   .trole .een{color:var(--muted);font-weight:400}
