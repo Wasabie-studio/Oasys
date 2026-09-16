@@ -835,9 +835,8 @@
       var headInner=section.querySelector('.sx-inner');
       var ir=headInner.getBoundingClientRect(), cs=getComputedStyle(headInner);
       var contentLeft=ir.left+(parseFloat(cs.paddingLeft)||0);
-      var contentRight=ir.right-(parseFloat(cs.paddingRight)||0);
       var vpLeft=viewport.getBoundingClientRect().left;
-      viewport.style.width=Math.max(0,contentRight-vpLeft)+'px';
+      viewport.style.width=Math.max(0,document.documentElement.clientWidth-vpLeft)+'px';
       track.style.paddingLeft=Math.max(0,contentLeft-vpLeft)+'px';
       track.style.paddingRight='0px';
       maxX=Math.max(0, track.scrollWidth - viewport.clientWidth);
