@@ -221,11 +221,11 @@
   .scell h4{font-size:1.1rem;font-weight:500;line-height:1.24;color:var(--ink);max-width:18ch;transition:color .4s}
   .scell:hover h4{color:#fff}
   /* ---- Sectors: pinned horizontal-scroll system ---- */
-  .sx-inner{max-width:var(--maxw);margin:0 auto;padding-inline:var(--gutter)}
+  .sx-inner{width:100%;max-width:var(--maxw);margin:0 auto;padding-inline:var(--gutter)}
   .sx-stage{padding-block:var(--section)}
   .sx-viewport{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;outline:none}
   .sx-viewport::-webkit-scrollbar{display:none}
-  .sx-track{display:flex;gap:clamp(1rem,2.2vw,1.9rem);padding-block:.4rem;width:max-content}
+  .sx-track{display:flex;gap:clamp(1rem,2.2vw,1.9rem);padding-block:.4rem;padding-left:calc((100% - min(100%, var(--maxw)))/2 + var(--gutter));padding-right:clamp(1.25rem,3vw,2.5rem);width:max-content}
   .sx-track .scell{flex:0 0 auto;width:clamp(232px,76vw,300px);height:clamp(238px,40vh,330px);min-height:0;border:1px solid var(--hair);border-radius:var(--r);scroll-snap-align:center}
   .sx-progress{position:relative;height:2px;margin-top:clamp(1.6rem,3vh,2.4rem);background:var(--hair);border-radius:2px;overflow:hidden}
   .sx-progress span{position:absolute;inset:0;background:var(--forest);border-radius:2px;transform:scaleX(0);transform-origin:left center}
@@ -507,8 +507,9 @@
         <div class="s-head">
       <div class="bignum"><span class="bn">09</span><span class="bn-cap" data-i="sec_cap">Sectors of intervention</span></div>
       <h2 data-i="sec_h">The sectors that matter most for Africa's development</h2>
-    </div>
-        <div class="sx-viewport" tabindex="0" role="group" aria-label="Sectors of intervention — scroll horizontally">
+        </div>
+      </div>
+      <div class="sx-viewport" tabindex="0" role="group" aria-label="Sectors of intervention — scroll horizontally">
           <div class="sx-track">
             <div class="scell"><div class="scell-bg"></div><span class="snum">01</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc1">Health &amp; Social Protection</h4></div>
             <div class="scell"><div class="scell-bg"></div><span class="snum">02</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc2">Technical &amp; Vocational Training</h4></div>
@@ -521,8 +522,7 @@
             <div class="scell"><div class="scell-bg"></div><span class="snum">09</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc9">IT &amp; Digital Solutions</h4></div>
           </div>
         </div>
-        <div class="sx-progress" aria-hidden="true"><span></span></div>
-      </div>
+      <div class="sx-inner"><div class="sx-progress" aria-hidden="true"><span></span></div></div>
     </div>
   </div>
 </section>
