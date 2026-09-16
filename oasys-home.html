@@ -276,6 +276,9 @@
   .tphoto .fill{position:absolute;inset:0;background:linear-gradient(160deg,#c9d2cc,#9fb0a6);filter:grayscale(1) contrast(.95);transition:filter .4s var(--ease),transform .5s var(--ease)}
   .tcard:hover .tphoto .fill{filter:grayscale(0) contrast(1);transform:scale(1.03);background:linear-gradient(160deg,color-mix(in srgb,var(--forest) 35%,#cdd6d0),#8aa596)}
   .tphoto .mono{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--serif);font-weight:500;font-size:2.4rem;color:rgba(20,32,26,.35)}
+  .tphoto .tbio{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;justify-content:flex-end;gap:.35rem;padding:1.1rem;color:var(--on-dark);background:linear-gradient(to top,rgba(10,32,24,.94) 34%,rgba(10,32,24,.62) 66%,rgba(10,32,24,0));transform:translateY(101%);transition:transform .45s var(--ease)}
+  .tcard:hover .tphoto .tbio,.tcard:focus-within .tphoto .tbio{transform:translateY(0)}
+  .tphoto .tbio p{margin:0;font-size:.82rem;line-height:1.45;color:var(--on-dark)}
   .tname{font-family:var(--serif);font-weight:600;color:var(--ink);font-size:1.15rem;margin-top:1rem}
   .trole{font-size:.88rem;color:var(--forest);font-weight:600;margin-top:.2rem}
   .trole .een{color:var(--muted);font-weight:400}
@@ -541,10 +544,10 @@
       </div>
     </div>
     <div class="t-track" id="t-track">
-      <article class="tcard" data-reveal><div class="tphoto"><div class="fill"></div><span class="mono">OS</span></div><div class="tname">Ousmane Amadou Sy</div><div class="trole" data-i="tm1r">PDG <span class="een">· Chief Executive Officer</span></div></article>
-      <article class="tcard" data-reveal style="--d:.06s"><div class="tphoto"><div class="fill"></div><span class="mono">JD</span></div><div class="tname">Jean Michel Diouf</div><div class="trole" data-i="tm2r">Directeur Technique <span class="een">· Technical Director</span></div></article>
-      <article class="tcard" data-reveal style="--d:.12s"><div class="tphoto"><div class="fill"></div><span class="mono">MN</span></div><div class="tname">Marie Madeleine Ndione</div><div class="trole" data-i="tm3r">Responsable des Opérations <span class="een">· Head of Operations</span></div></article>
-      <article class="tcard" data-reveal style="--d:.18s"><div class="tphoto"><div class="fill"></div><span class="mono">AB</span></div><div class="tname">Aminata Ba</div><div class="trole" data-i="tm4r">Chargée de Projets <span class="een">· Project Manager</span></div></article>
+      <article class="tcard" data-reveal><div class="tphoto"><div class="fill"></div><span class="mono">OS</span><div class="tbio"><p>20+ years leading development programmes across West Africa.</p><p>Founded OASYS in Dakar in 2009.</p><p>Speaks French, English, and Wolof.</p></div></div><div class="tname">Ousmane Amadou Sy</div><div class="trole" data-i="tm1r">PDG <span class="een">· Chief Executive Officer</span></div></article>
+      <article class="tcard" data-reveal style="--d:.06s"><div class="tphoto"><div class="fill"></div><span class="mono">JD</span><div class="tbio"><p>Leads technical delivery on monitoring and evaluation.</p><p>Background in public health and data systems.</p><p>Based in Dakar since 2012.</p></div></div><div class="tname">Jean Michel Diouf</div><div class="trole" data-i="tm2r">Directeur Technique <span class="een">· Technical Director</span></div></article>
+      <article class="tcard" data-reveal style="--d:.12s"><div class="tphoto"><div class="fill"></div><span class="mono">MN</span><div class="tbio"><p>Coordinates field teams across 15+ countries.</p><p>Specialist in procurement and logistics.</p><p>Joined OASYS in 2015.</p></div></div><div class="tname">Marie Madeleine Ndione</div><div class="trole" data-i="tm3r">Responsable des Opérations <span class="een">· Head of Operations</span></div></article>
+      <article class="tcard" data-reveal style="--d:.18s"><div class="tphoto"><div class="fill"></div><span class="mono">AB</span><div class="tbio"><p>Manages grant-funded programmes end to end.</p><p>Focus on capacity building and training.</p><p>MSc in Development Economics.</p></div></div><div class="tname">Aminata Ba</div><div class="trole" data-i="tm4r">Chargée de Projets <span class="een">· Project Manager</span></div></article>
     </div>
     <div class="t-foot"><a class="txtlink" href="#" data-i="tm_link">Meet the full team <span class="arw">↗</span></a></div>
   </div>
