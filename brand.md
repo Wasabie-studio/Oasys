@@ -21,10 +21,12 @@ Purpose: lock a color + type system for Phase 2 visual design. Colors below are 
 
 **Read on it:** the green is the whole identity — it's a credible, institutional forest green (not a bright "tech" green), which fits a Dakar-based development-consulting firm working with governments and NGOs. Recommend keeping `#115B44` as the one non-negotiable brand color. `#24B242` is a legitimate secondary accent (CTAs, highlights, icons) but reads a little more "startup" — use it sparingly rather than as a second primary. Drop `#202135` unless a section genuinely needs a dark navy alternative to the green — right now it's used inconsistently.
 
-**Proposed system for the redesign:**
+**Proposed system for the redesign (locked with client, Sep 2026):**
 
-- **Primary:** `#115B44` (Forest Green) — nav, primary buttons, key headings, active states
-- **Accent:** `#24B242` (Signal Green) — small highlights, icons, hover/active accents only — never large fills
+- **Primary — dark green:** `#0D5C44` — nav, primary buttons, key headings, active states, dark section accents
+- **Accent — light green:** `#2AB34E` — small highlights, icons, hover/active accents, map region highlight; never large fills
+- Very-dark section grounds (near-black green): `#0E2B20` and `#0A2018` — Services, Worldwide map, footer
+- (Earlier values `#115B44` / `#24B242` came from the current live site; superseded by the two above.)
 - **Ink:** `#1B1B1B` (near-black, warmer than pure `#000`) — body headings
 - **Body:** `#3A3A3A` — paragraph text
 - **Muted:** `#6B6B6B` — captions, meta text (dates, labels)
