@@ -17,7 +17,7 @@ Client: OASYS — consulting & technical assistance for development projects, Da
 - **Primary — dark green:** `#0D5C44` — used as a *secondary/tertiary* accent, not the dominant colour.
 - **Accent — light green:** `#2AB34E` — small highlights, hovers, icons, map region highlight only.
 - **Section grounds (near-black green):** `#0E2B20` (Services) and `#0A2018` (map/footer).
-- **Base:** clean off-white `#F7F8F3` with white cards. **Light mode only** (no dark mode).
+- **Base:** clean neutral off-white `#F8F7F4` (no green tint) with white cards. **Light mode only** (no dark mode).
 - **Type:** Source Serif 4 (display/headings) + Inter (body/UI). Both cover full French accents.
 - **Two green sections:** the Services (areas of expertise) block and the Worldwide map. Everything else is off-white.
 
