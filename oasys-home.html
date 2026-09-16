@@ -3,7 +3,7 @@
 <title>OASYS Homepage</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#f8f7f4;
@@ -141,19 +141,25 @@
   .about .a-body .txtlink{margin-top:1.6rem}
 
   /* ---- NUMBERS ---- */
-  .numbers{background:var(--surface);border-block:1px solid var(--hair)}
-  .numbers .wrap{padding-block:clamp(3rem,6vw,4.5rem)}
-  .numbers h2{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:2.2rem}
-  .ngrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
-  @media (max-width:760px){.ngrid{grid-template-columns:1fr 1fr;gap:2.2rem 1.5rem}}
-  .nstat .nrow{display:flex;align-items:baseline;gap:.15rem}
-  .nstat .n{font-family:var(--serif);font-weight:500;font-size:clamp(2.4rem,4.6vw,3.4rem);color:var(--ink);line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-0.02em}
-  .nstat .u{font-family:var(--serif);font-size:2rem;color:var(--signal)}
-  .nstat .uline{height:2px;background:var(--hair);margin:.9rem 0 .7rem;position:relative;overflow:hidden}
-  .nstat .uline::after{content:"";position:absolute;inset:0;width:0;background:var(--forest);transition:width 1s var(--ease)}
-  .nstat.drawn .uline::after{width:100%}
-  .nstat .l{font-size:.9rem;color:var(--muted);max-width:16ch;line-height:1.35}
-  .tbc{font-size:.5em;color:var(--faint);border:1px solid var(--border);border-radius:4px;padding:.1em .35em;margin-left:.4em;vertical-align:.7em;letter-spacing:.06em;font-family:var(--sans);font-weight:600}
+  .numbers{background:var(--bg);border-block:1px solid var(--hair)}
+  .numbers .wrap{padding-block:clamp(3.5rem,7vw,5.5rem)}
+  .numbers h2{font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:clamp(2rem,4vw,3.2rem)}
+  .ngrid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(1.2rem,3vw,2.5rem);align-items:start}
+  @media (max-width:820px){.ngrid{grid-template-columns:1fr 1fr;gap:2.6rem 1.5rem}}
+  @media (max-width:520px){.ngrid{grid-template-columns:1fr}}
+  .nstat{cursor:default}
+  .nrow{display:flex;align-items:flex-start;gap:.6rem}
+  .nstat .n{font-family:var(--sans);font-weight:300;font-size:clamp(3.4rem,7.5vw,6.2rem);color:#c3c8c3;line-height:.82;font-variant-numeric:tabular-nums;letter-spacing:-0.04em;transition:color .45s var(--ease)}
+  .nstat .u{font-family:var(--sans);font-weight:300;color:inherit}
+  .nstat .l{font-size:.92rem;color:var(--muted);max-width:9ch;line-height:1.25;padding-top:.5rem}
+  .uline{height:1px;background:var(--hair);margin-top:clamp(1rem,2vw,1.6rem);transition:background .45s,height .45s}
+  .ncta{display:none;align-items:center;gap:.7rem;margin-top:1.3rem;font-family:var(--sans);font-weight:600;font-size:.95rem;color:var(--ink);text-decoration:none}
+  .ncta .ic{width:34px;height:34px;border-radius:50%;background:var(--signal);color:#fff;display:grid;place-items:center;font-size:.85rem;transition:transform .3s var(--ease)}
+  .ncta:hover .ic{transform:translate(2px,-2px)}
+  .nstat.active .n{color:var(--ink)}
+  .nstat.active .uline{background:var(--ink);height:2px}
+  .nstat.active .ncta{display:inline-flex}
+  .tbc{font-size:.62rem;color:var(--faint);border:1px solid var(--border);border-radius:4px;padding:.1em .4em;margin-left:.4em;letter-spacing:.06em;font-family:var(--sans);font-weight:600;vertical-align:middle}
 
   /* ---- SERVICES (dark: focus tiles + expertise rows) ---- */
   .services{background:var(--forest-deep);color:var(--on-dark)}
@@ -413,11 +419,27 @@
 <!-- NUMBERS -->
 <div class="numbers"><div class="wrap">
   <h2 data-reveal data-i="num_h">True experience</h2>
-  <div class="ngrid">
-    <div class="nstat" data-reveal><div class="nrow"><span class="n" data-count="15">15</span><span class="u">+</span></div><div class="uline"></div><div class="l" data-i="num1">Years of experience</div></div>
-    <div class="nstat" data-reveal style="--d:.08s"><div class="nrow"><span class="n" data-count="255">255</span><span class="tbc">TBC</span></div><div class="uline"></div><div class="l" data-i="num2">Missions completed</div></div>
-    <div class="nstat" data-reveal style="--d:.16s"><div class="nrow"><span class="n" data-count="40">40</span><span class="tbc">TBC</span></div><div class="uline"></div><div class="l" data-i="num3">Countries of intervention</div></div>
-    <div class="nstat" data-reveal style="--d:.24s"><div class="nrow"><span class="n" data-count="350">350</span><span class="tbc">TBC</span></div><div class="uline"></div><div class="l" data-i="num4">Experts in our network</div></div>
+  <div class="ngrid" id="ngrid">
+    <div class="nstat" data-reveal>
+      <div class="nrow"><span class="n"><span data-count="15">15</span><span class="u">+</span></span><span class="l" data-i="num1">Years of experience</span></div>
+      <div class="uline"></div>
+      <a class="ncta" href="#about"><span class="ic">↗</span><span data-i="ncta1">About us</span></a>
+    </div>
+    <div class="nstat" data-reveal style="--d:.08s">
+      <div class="nrow"><span class="n" data-count="255">255</span><span class="l" data-i="num2">Missions completed <span class="tbc">TBC</span></span></div>
+      <div class="uline"></div>
+      <a class="ncta" href="#services"><span class="ic">↗</span><span data-i="ncta2">See our work</span></a>
+    </div>
+    <div class="nstat" data-reveal style="--d:.16s">
+      <div class="nrow"><span class="n" data-count="40">40</span><span class="l" data-i="num3">Countries of intervention <span class="tbc">TBC</span></span></div>
+      <div class="uline"></div>
+      <a class="ncta" href="#services"><span class="ic">↗</span><span data-i="ncta3">Where we work</span></a>
+    </div>
+    <div class="nstat" data-reveal style="--d:.24s">
+      <div class="nrow"><span class="n" data-count="350">350</span><span class="l" data-i="num4">Experts in our network <span class="tbc">TBC</span></span></div>
+      <div class="uline"></div>
+      <a class="ncta" href="#team"><span class="ic">↗</span><span data-i="ncta4">Meet the team</span></a>
+    </div>
   </div>
 </div></div>
 
@@ -640,6 +662,14 @@
     mapWrap&&mapWrap.addEventListener('mouseleave',function(){setActive(null);});
   })();
 
+  /* numbers: highlight one stat, hover to switch */
+  (function(){
+    var stats=document.querySelectorAll('#ngrid .nstat'); if(!stats.length)return;
+    function setActive(s){stats.forEach(function(x){x.classList.toggle('active',x===s);});}
+    stats.forEach(function(s){s.addEventListener('mouseenter',function(){setActive(s);});});
+    setActive(stats[1]||stats[0]);
+  })();
+
   /* services alt: index + preview with wipe-up */
   (function(){
     var list=document.getElementById('svcxList'); if(!list)return;
@@ -686,7 +716,7 @@
     /* also observe standalone count targets not wrapped in reveal */
     document.querySelectorAll('[data-count]').forEach(function(el){io.observe(el);});
     function runCount(el){if(el.dataset.done)return;var t=parseInt(el.getAttribute('data-count'),10);if(isNaN(t))return;el.dataset.done=1;
-      var dur=1100,s=null;function step(ts){if(!s)s=ts;var p=Math.min((ts-s)/dur,1);el.textContent=Math.round(t*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step);else el.textContent=t;}requestAnimationFrame(step);}
+      var dur=2200,s=null;function step(ts){if(!s)s=ts;var p=Math.min((ts-s)/dur,1);el.textContent=Math.round(t*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step);else el.textContent=t;}requestAnimationFrame(step);}
   })();
 
   /* bilingual */
@@ -701,7 +731,8 @@
     about_p1:"OASYS est un cabinet de conseil et d'assistance technique basé à Dakar, au Sénégal. Depuis 2009, nous identifions les besoins en expertise des projets de développement et l'apportons directement aux gouvernements, ONG, fondations et institutions qui les mettent en œuvre.",
     about_p2:"Chaque mission commence par la même question : de quoi ce projet a-t-il besoin pour réussir ?",
     about_learn:"En savoir plus sur nous",
-    num_h:"Une expérience réelle",num1:"Ans d'expérience",num2:"Missions réalisées",num3:"Pays d'intervention",num4:"Experts dans notre réseau",
+    num_h:"Une expérience réelle",num1:"Ans d'expérience",num2:"Missions réalisées <span class=\"tbc\">TBC</span>",num3:"Pays d'intervention <span class=\"tbc\">TBC</span>",num4:"Experts dans notre réseau <span class=\"tbc\">TBC</span>",
+    ncta1:"À propos",ncta2:"Voir nos travaux",ncta3:"Où nous intervenons",ncta4:"Découvrir l'équipe",
     svc_eye:"Services",svc_h:"Deux façons de contribuer, sept domaines d'expertise",
     svc_sub:"Nous renforçons les équipes qui mettent en œuvre les projets et améliorons la gouvernance qui les encadre, avec des experts qualifiés partout dans le monde.",
     fa1_tag:"Axe 1",fa1_h:"Renforcement des capacités",fa1_p:"Renforcer les équipes et organisations qui mettent en œuvre les projets, pour qu'elles les gèrent de façon autonome et efficace.",
