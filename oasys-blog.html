@@ -363,6 +363,7 @@
     p8:"Mission d'évaluation de terrain achevée au Sahel",
     p9:"Solutions numériques pour les services publics",
     none:"Aucun article dans cette catégorie pour le moment.",
+    pm_body:"Article complet à venir. Ce texte est un contenu provisoire pour le prototype &mdash; l'article publié présentera le contexte du projet, ce qui a été réalisé et le résultat sur le terrain.",
     ft_about:"Conseil et assistance technique pour les projets et programmes de développement dans le monde. Basé à Dakar, au Sénégal, depuis 2009.",
     ft_profile:"Télécharger notre profil d'entreprise",ft_nav:"Naviguer",ft_more:"Plus",ft_reach:"Nous joindre",ft_blog:"Actualités",ft_sectors:"Secteurs",ft_careers:"Carrières",
     nav_about2:"À propos",nav_services2:"Services",nav_sectors2:"Secteurs",nav_team2:"Équipe",nav_contact2:"Contact",ft_addr:"Dakar-Fann, Sénégal",
@@ -373,8 +374,8 @@
     document.querySelectorAll('[data-i]').forEach(function(el){EN[el.getAttribute('data-i')]=el.innerHTML;});
     var en=document.getElementById('lang-en'),fr=document.getElementById('lang-fr');
     function apply(m,l){document.querySelectorAll('[data-i]').forEach(function(el){var k=el.getAttribute('data-i');if(m[k]!=null)el.innerHTML=m[k];});document.documentElement.setAttribute('lang',l);}
-    en.addEventListener('click',function(){apply(EN,'en');en.setAttribute('aria-pressed','true');fr.setAttribute('aria-pressed','false');});
-    fr.addEventListener('click',function(){apply(FR,'fr');fr.setAttribute('aria-pressed','true');en.setAttribute('aria-pressed','false');});
+    en.addEventListener('click',function(){apply(EN,'en');en.setAttribute('aria-pressed','true');fr.setAttribute('aria-pressed','false');var pmX=document.querySelector('.pmodal-x');if(pmX)pmX.setAttribute('aria-label','Close');});
+    fr.addEventListener('click',function(){apply(FR,'fr');fr.setAttribute('aria-pressed','true');en.setAttribute('aria-pressed','false');var pmX=document.querySelector('.pmodal-x');if(pmX)pmX.setAttribute('aria-label','Fermer');});
   })();
 </script>
 
@@ -385,7 +386,7 @@
     <div class="pmodal-date" id="pm-date"></div>
     <span class="post-cat" id="pm-cat"></span>
     <h3 class="pmodal-title" id="pm-title"></h3>
-    <p class="pmodal-body" id="pm-body">Full article coming soon. This is placeholder copy for the prototype &mdash; the published piece will carry the project background, what was delivered, and the outcome on the ground.</p>
+    <p class="pmodal-body" id="pm-body" data-i="pm_body">Full article coming soon. This is placeholder copy for the prototype &mdash; the published piece will carry the project background, what was delivered, and the outcome on the ground.</p>
   </div>
 </div>
 <script>
