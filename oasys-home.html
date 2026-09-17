@@ -335,8 +335,8 @@
   .contact{background:var(--surface);border-top:1px solid var(--hair)}
   /* partner-with-us banner */
   .partner-cta{background:var(--bg);border-top:1px solid var(--hair)}
-  .pcta-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(2rem,6vw,5rem);align-items:center}
-  @media (max-width:860px){.pcta-grid{grid-template-columns:1fr;gap:2rem}}
+  .pcta-grid{display:grid;grid-template-columns:auto minmax(auto,30rem);justify-content:center;gap:clamp(3rem,7vw,8rem);align-items:center}
+  @media (max-width:960px){.pcta-grid{grid-template-columns:1fr;gap:2rem;justify-content:start}}
   .pcta-h{font-family:var(--serif);font-size:clamp(2.1rem,5vw,3.4rem);line-height:1.04;max-width:13ch;font-weight:500;color:var(--ink);margin:0;letter-spacing:-0.015em}
   .pcta-right{max-width:34rem}
   .pcta-lead{color:var(--body);font-size:1.06rem;line-height:1.6;margin:0 0 1.6rem;max-width:36ch}
