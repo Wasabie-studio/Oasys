@@ -208,7 +208,9 @@
   .sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--hair);border:1px solid var(--hair);border-radius:var(--r);overflow:hidden}
   @media (max-width:820px){.sgrid{grid-template-columns:1fr 1fr}}
   @media (max-width:520px){.sgrid{grid-template-columns:1fr}}
-  .scell{position:relative;isolation:isolate;overflow:hidden;background:var(--panel);min-height:180px;padding:1.5rem;display:flex;align-items:flex-end;cursor:pointer}
+  .scell{position:relative;isolation:isolate;overflow:hidden;background:var(--panel);min-height:180px;padding:1.5rem;display:flex;align-items:flex-end;cursor:pointer;text-decoration:none;color:inherit}
+  .headlink{text-decoration:none;color:inherit;display:inline-block}
+  .rbig,.rsmall,.tcard{cursor:pointer}
   .scell .scell-bg{position:absolute;inset:0;z-index:-2;opacity:0;transform:scale(1.09);transition:opacity .5s var(--ease),transform .65s var(--ease);
       background:linear-gradient(150deg,color-mix(in srgb,var(--forest) 62%,#1c5f43) 0%,#0e2b20 100%)}
   .scell .scell-tag{position:absolute;bottom:.7rem;right:.9rem;z-index:1;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55);opacity:0;transition:opacity .45s}
@@ -448,8 +450,8 @@
     <h1 data-reveal style="--d:.08s" data-i="hero_h">Technical expertise, delivered where development happens</h1>
     <p class="sub" data-reveal style="--d:.16s" data-i="hero_sub">We bring the right expertise directly to the governments, NGOs, and institutions running development projects, from plan to real results.</p>
     <div class="cta-row" data-reveal style="--d:.24s">
-      <a class="btn btn-hero" href="#services"><span data-i="hero_cta1">Discover our work</span> <span class="arw">↗</span></a>
-      <a class="txtlink" href="#contact" data-i="hero_cta2">Contact us <span class="arw">↗</span></a>
+      <a class="btn btn-hero" href="oasys-services.html"><span data-i="hero_cta1">Discover our work</span> </a>
+      <a class="txtlink" href="#contact" data-i="hero_cta2">Contact us </a>
     </div>
   </div>
   <aside class="glasscard" data-reveal style="--d:.3s">
@@ -468,7 +470,7 @@
       <h2 data-i="about_h">A reference in consulting and technical assistance</h2>
       <p data-i="about_p1" style="margin-top:1.2rem">OASYS is a consulting and technical assistance firm based in Dakar, Senegal. Since 2009, we identify where development projects need the right expertise, and bring it directly to the governments, NGOs, foundations, and institutions delivering them.</p>
       <p data-i="about_p2">Every engagement starts with the same question: what does this project need to succeed?</p>
-      <a class="txtlink" href="#" data-i="about_learn">Learn more about us <span class="arw">↗</span></a>
+      <a class="txtlink" href="#" data-i="about_learn">Learn more about us </a>
     </div>
   </div>
 </section>
@@ -480,17 +482,17 @@
     <div class="nstat" data-reveal>
       <div class="nrow"><span class="n"><span data-count="15">15</span><span class="u">+</span></span><span class="l" data-i="num1">Years of experience</span></div>
       <div class="uline"></div>
-      <a class="ncta" href="#about"><span class="ic">↗</span><span data-i="ncta1">About us</span></a>
+      <a class="ncta" href="#about"><span data-i="ncta1">About us</span></a>
     </div>
     <div class="nstat" data-reveal style="--d:.08s">
       <div class="nrow"><span class="n" data-count="255">255</span><span class="l" data-i="num2">Missions completed</span></div>
       <div class="uline"></div>
-      <a class="ncta" href="#services"><span class="ic">↗</span><span data-i="ncta2">See our work</span></a>
+      <a class="ncta" href="oasys-services.html"><span data-i="ncta2">See our work</span></a>
     </div>
     <div class="nstat" data-reveal style="--d:.16s">
       <div class="nrow"><span class="n" data-count="350">350</span><span class="l" data-i="num4">Experts in our network</span></div>
       <div class="uline"></div>
-      <a class="ncta" href="#team"><span class="ic">↗</span><span data-i="ncta4">Meet the team</span></a>
+      <a class="ncta" href="#team"><span data-i="ncta4">Meet the team</span></a>
     </div>
   </div>
 </div></div>
@@ -500,23 +502,23 @@
   <div class="wrap">
     <div class="shead">
       <span class="eyebrow">Services</span>
-      <h2>Two ways we contribute, seven areas of expertise</h2>
+      <a class="headlink" href="oasys-services.html"><h2>Two ways we contribute, seven areas of expertise</h2></a>
       <p>We strengthen the teams implementing development projects, and improve the governance that supports them, delivered by qualified experts worldwide.</p>
     </div>
     <div class="svcx-grid">
       <ol class="svcx-list" id="svcxList">
-        <li class="svcx-item active" data-n="01" data-title="Funding &amp; Grants Management" data-desc="Project financing and grants, from planning and disbursement through to reporting." data-bg="linear-gradient(150deg,#1c6b4a,#0e2b20)"><span class="sx-n">01</span><span class="sx-t">Funding &amp; Grants Management</span><span class="sx-d">↗</span></li>
-        <li class="svcx-item" data-n="02" data-title="Planning, Monitoring, Evaluation &amp; Learning" data-desc="Tracking progress, measuring results, and turning lessons into knowledge." data-bg="var(--card2)"><span class="sx-n">02</span><span class="sx-t">Planning, Monitoring, Evaluation &amp; Learning</span><span class="sx-d">↗</span></li>
-        <li class="svcx-item" data-n="03" data-title="Procurement &amp; Supply Chain Management" data-desc="The right supplies and equipment, at the right place, at the right time." data-bg="linear-gradient(150deg,#17594a,#0a2018)"><span class="sx-n">03</span><span class="sx-t">Procurement &amp; Supply Chain Management</span><span class="sx-d">↗</span></li>
-        <li class="svcx-item" data-n="04" data-title="Governance, Reform &amp; Strategic Monitoring" data-desc="Strengthening how institutions are run and following reforms through." data-bg="linear-gradient(150deg,#23704e,#0e2b20)"><span class="sx-n">04</span><span class="sx-t">Governance, Reform &amp; Strategic Monitoring</span><span class="sx-d">↗</span></li>
-        <li class="svcx-item" data-n="05" data-title="Digital &amp; Innovative Solutions" data-desc="Digital tools that make projects easier to manage, track, and report on." data-bg="linear-gradient(150deg,#1c6b4a,#123028)"><span class="sx-n">05</span><span class="sx-t">Digital &amp; Innovative Solutions</span><span class="sx-d">↗</span></li>
-        <li class="svcx-item" data-n="06" data-title="Process &amp; Activity Facilitation" data-desc="Facilitating the workshops and activities that keep projects moving." data-bg="linear-gradient(150deg,#205f45,#0a2018)"><span class="sx-n">06</span><span class="sx-t">Process &amp; Activity Facilitation</span><span class="sx-d">↗</span></li>
-        <li class="svcx-item" data-n="07" data-title="Custom Training" data-desc="From transformational leadership to PBF, AI, and data protection." data-bg="linear-gradient(150deg,#2a7d59,#0e2b20)"><span class="sx-n">07</span><span class="sx-t">Custom Training</span><span class="sx-d">↗</span></li>
+        <li class="svcx-item active" data-n="01" data-title="Funding &amp; Grants Management" data-desc="Project financing and grants, from planning and disbursement through to reporting." data-bg="linear-gradient(150deg,#1c6b4a,#0e2b20)"><span class="sx-n">01</span><span class="sx-t">Funding &amp; Grants Management</span></li>
+        <li class="svcx-item" data-n="02" data-title="Planning, Monitoring, Evaluation &amp; Learning" data-desc="Tracking progress, measuring results, and turning lessons into knowledge." data-bg="var(--card2)"><span class="sx-n">02</span><span class="sx-t">Planning, Monitoring, Evaluation &amp; Learning</span></li>
+        <li class="svcx-item" data-n="03" data-title="Procurement &amp; Supply Chain Management" data-desc="The right supplies and equipment, at the right place, at the right time." data-bg="linear-gradient(150deg,#17594a,#0a2018)"><span class="sx-n">03</span><span class="sx-t">Procurement &amp; Supply Chain Management</span></li>
+        <li class="svcx-item" data-n="04" data-title="Governance, Reform &amp; Strategic Monitoring" data-desc="Strengthening how institutions are run and following reforms through." data-bg="linear-gradient(150deg,#23704e,#0e2b20)"><span class="sx-n">04</span><span class="sx-t">Governance, Reform &amp; Strategic Monitoring</span></li>
+        <li class="svcx-item" data-n="05" data-title="Digital &amp; Innovative Solutions" data-desc="Digital tools that make projects easier to manage, track, and report on." data-bg="linear-gradient(150deg,#1c6b4a,#123028)"><span class="sx-n">05</span><span class="sx-t">Digital &amp; Innovative Solutions</span></li>
+        <li class="svcx-item" data-n="06" data-title="Process &amp; Activity Facilitation" data-desc="Facilitating the workshops and activities that keep projects moving." data-bg="linear-gradient(150deg,#205f45,#0a2018)"><span class="sx-n">06</span><span class="sx-t">Process &amp; Activity Facilitation</span></li>
+        <li class="svcx-item" data-n="07" data-title="Custom Training" data-desc="From transformational leadership to PBF, AI, and data protection." data-bg="linear-gradient(150deg,#2a7d59,#0e2b20)"><span class="sx-n">07</span><span class="sx-t">Custom Training</span></li>
       </ol>
       <div class="svcx-preview">
         <div class="pv-img show" id="pvImg"></div>
         <div class="pv-scrim"></div>
-        <span class="pv-arw">↗</span>
+        
         <div class="pv-meta">
           <span class="pv-num" id="pvNum">01</span>
           <h3 class="pv-title" id="pvTitle">Funding &amp; Grants Management</h3>
@@ -534,21 +536,21 @@
       <div class="sx-inner">
         <div class="s-head">
       <div class="bignum"><span class="bn">09</span><span class="bn-cap" data-i="sec_cap">Sectors of intervention</span></div>
-      <h2 data-i="sec_h">The sectors that matter most for Africa's development</h2>
+      <a class="headlink" href="oasys-services.html#sectors"><h2 data-i="sec_h">The sectors that matter most for Africa's development</h2></a>
         </div>
       </div>
       <div class="sx-scroll">
         <div class="sx-viewport" tabindex="0" role="group" aria-label="Sectors of intervention — scroll horizontally">
           <div class="sx-track">
-            <div class="scell"><div class="scell-bg"></div><span class="snum">01</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc1">Health &amp; Social Protection</h4></div>
-            <div class="scell"><div class="scell-bg"></div><span class="snum">02</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc2">Technical &amp; Vocational Training</h4></div>
-            <div class="scell"><div class="scell-bg"></div><span class="snum">03</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc3">Agribusiness &amp; Agricultural Value Chains</h4></div>
-            <div class="scell"><div class="scell-bg"></div><span class="snum">04</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc4">Environment, Sustainability &amp; Climate Change</h4></div>
-            <div class="scell"><div class="scell-bg"></div><span class="snum">05</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc5">Local Governance, Decentralisation &amp; Urban Planning</h4></div>
-            <div class="scell"><div class="scell-bg"></div><span class="snum">06</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc6">Population, Gender &amp; Human Rights</h4></div>
-            <div class="scell"><div class="scell-bg"></div><span class="snum">07</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc7">Social &amp; Community Entrepreneurship</h4></div>
-            <div class="scell"><div class="scell-bg"></div><span class="snum">08</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc8">SME Support</h4></div>
-            <div class="scell"><div class="scell-bg"></div><span class="snum">09</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc9">IT &amp; Digital Solutions</h4></div>
+            <a class="scell" href="oasys-services.html#sectors"><div class="scell-bg"></div><span class="snum">01</span><span class="scell-tag">Photo</span><h4 data-i="sc1">Health &amp; Social Protection</h4></a>
+            <a class="scell" href="oasys-services.html#sectors"><div class="scell-bg"></div><span class="snum">02</span><span class="scell-tag">Photo</span><h4 data-i="sc2">Technical &amp; Vocational Training</h4></a>
+            <a class="scell" href="oasys-services.html#sectors"><div class="scell-bg"></div><span class="snum">03</span><span class="scell-tag">Photo</span><h4 data-i="sc3">Agribusiness &amp; Agricultural Value Chains</h4></a>
+            <a class="scell" href="oasys-services.html#sectors"><div class="scell-bg"></div><span class="snum">04</span><span class="scell-tag">Photo</span><h4 data-i="sc4">Environment, Sustainability &amp; Climate Change</h4></a>
+            <a class="scell" href="oasys-services.html#sectors"><div class="scell-bg"></div><span class="snum">05</span><span class="scell-tag">Photo</span><h4 data-i="sc5">Local Governance, Decentralisation &amp; Urban Planning</h4></a>
+            <a class="scell" href="oasys-services.html#sectors"><div class="scell-bg"></div><span class="snum">06</span><span class="scell-tag">Photo</span><h4 data-i="sc6">Population, Gender &amp; Human Rights</h4></a>
+            <a class="scell" href="oasys-services.html#sectors"><div class="scell-bg"></div><span class="snum">07</span><span class="scell-tag">Photo</span><h4 data-i="sc7">Social &amp; Community Entrepreneurship</h4></a>
+            <a class="scell" href="oasys-services.html#sectors"><div class="scell-bg"></div><span class="snum">08</span><span class="scell-tag">Photo</span><h4 data-i="sc8">SME Support</h4></a>
+            <a class="scell" href="oasys-services.html#sectors"><div class="scell-bg"></div><span class="snum">09</span><span class="scell-tag">Photo</span><h4 data-i="sc9">IT &amp; Digital Solutions</h4></a>
           </div>
         </div>
       </div>
@@ -562,7 +564,7 @@
   <div class="wrap">
     <div class="whead">
       <div data-reveal><span class="eyebrow" data-i="w_eye">Worldwide projects</span><h2 data-i="w_h">Rooted in Dakar, working across four continents</h2></div>
-      <a class="wpill" href="#" data-reveal style="--d:.1s" data-i="w_pill">↗ See all projects</a>
+      <a class="wpill" href="#" data-reveal style="--d:.1s" data-i="w_pill">See all projects</a>
     </div>
     <div class="wgrid">
       <div data-reveal>
@@ -571,10 +573,10 @@
 </svg>
       </div>
       <div class="regions">
-        <div class="region" data-region="africa" data-reveal><span class="rarw">↗</span><span class="rn" data-i="rg1">Africa</span><span class="rc"><b>48</b> <span data-i="proj">projects</span></span></div>
-        <div class="region" data-region="asia" data-reveal><span class="rarw">↗</span><span class="rn" data-i="rg2">Asia</span><span class="rc"><b>11</b> <span data-i="proj2">projects</span></span></div>
-        <div class="region" data-region="europe" data-reveal><span class="rarw">↗</span><span class="rn" data-i="rg3">Europe</span><span class="rc"><b>23</b> <span data-i="proj3">projects</span></span></div>
-        <div class="region" data-region="caribbean" data-reveal><span class="rarw">↗</span><span class="rn" data-i="rg4">Caribbean</span><span class="rc"><b>13</b> <span data-i="proj4">projects</span></span></div>
+        <div class="region" data-region="africa" data-reveal><span class="rn" data-i="rg1">Africa</span><span class="rc"><b>48</b> <span data-i="proj">projects</span></span></div>
+        <div class="region" data-region="asia" data-reveal><span class="rn" data-i="rg2">Asia</span><span class="rc"><b>11</b> <span data-i="proj2">projects</span></span></div>
+        <div class="region" data-region="europe" data-reveal><span class="rn" data-i="rg3">Europe</span><span class="rc"><b>23</b> <span data-i="proj3">projects</span></span></div>
+        <div class="region" data-region="caribbean" data-reveal><span class="rn" data-i="rg4">Caribbean</span><span class="rc"><b>13</b> <span data-i="proj4">projects</span></span></div>
       </div>
     </div>
   </div>
@@ -642,26 +644,26 @@
   <div class="wrap">
     <div class="shead">
       <span class="eyebrow" data-i="res_eye">Results</span>
-      <h2 data-i="res_h">Recent work in the field</h2>
+      <a class="headlink" href="oasys-blog.html"><h2 data-i="res_h">Recent work in the field</h2></a>
     </div>
     <div class="rgrid">
-      <article class="rbig" data-reveal>
+      <article class="rbig" data-reveal onclick="location.href='oasys-blog.html'">
         <div class="rimg"></div>
         <span class="ph-note" style="position:absolute;top:1rem;right:1rem;color:rgba(255,255,255,.5);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase">Result photo</span>
         <div class="rc-in">
           <span class="rtag" data-i="res1_tag">Digital Health · Côte d'Ivoire</span>
           <h3 data-i="res1_h">M-Vaccin deployed across 49 health districts</h3>
           <div class="rmeta">
-            <a class="btn btn-dark" href="#"><span data-i="res1_cta">View result</span> <span class="arw">↗</span></a>
+            <a class="btn btn-dark" href="oasys-blog.html"><span data-i="res1_cta">View result</span> </a>
             <span class="partner" data-i="res1_by">Funded by Gavi</span>
           </div>
         </div>
       </article>
-      <article class="rsmall" data-reveal style="--d:.08s">
+      <article class="rsmall" data-reveal style="--d:.08s" onclick="location.href='oasys-blog.html'">
         <div class="imgph rs-img" data-ph="Result photo"></div>
         <div class="rs-b"><span class="rtag" data-i="res2_tag">Public Sector · Senegal</span><h4 data-i="res2_h">OBIS presented to the Ministry of Health</h4><span class="partner" data-i="res2_by">Ministry of Health, Senegal</span></div>
       </article>
-      <article class="rsmall" data-reveal style="--d:.16s">
+      <article class="rsmall" data-reveal style="--d:.16s" onclick="location.href='oasys-blog.html'">
         <div class="imgph rs-img" data-ph="Result photo"></div>
         <div class="rs-b"><span class="rtag" data-i="res3_tag">Technical Assistance</span><h4 data-i="res3_h">Engagement with the Gates Foundation</h4><span class="partner" data-i="res3_by">Gates Foundation</span></div>
       </article>
@@ -675,16 +677,16 @@
     <div class="thead">
       <div data-reveal>
         <span class="eyebrow" data-i="tm_eye">Our team</span>
-        <h2 data-i="tm_h">The team behind every mission</h2>
+        <a class="headlink" href="oasys-about.html#team"><h2 data-i="tm_h">The team behind every mission</h2></a>
       </div>
     </div>
     <div class="t-track" id="t-track">
-      <article class="tcard" data-reveal><div class="tphoto"><div class="fill"></div><span class="mono">OS</span></div><div class="tname">Ousmane Amadou Sy</div><div class="trole" data-i="tm1r">PDG <span class="een">· Chief Executive Officer</span></div></article>
-      <article class="tcard" data-reveal style="--d:.06s"><div class="tphoto"><div class="fill"></div><span class="mono">JD</span></div><div class="tname">Jean Michel Diouf</div><div class="trole" data-i="tm2r">Directeur Technique <span class="een">· Technical Director</span></div></article>
-      <article class="tcard" data-reveal style="--d:.12s"><div class="tphoto"><div class="fill"></div><span class="mono">MN</span></div><div class="tname">Marie Madeleine Ndione</div><div class="trole" data-i="tm3r">Responsable des Opérations <span class="een">· Head of Operations</span></div></article>
-      <article class="tcard" data-reveal style="--d:.18s"><div class="tphoto"><div class="fill"></div><span class="mono">AB</span></div><div class="tname">Aminata Ba</div><div class="trole" data-i="tm4r">Chargée de Projets <span class="een">· Project Manager</span></div></article>
+      <article class="tcard" data-reveal onclick="location.href='oasys-about.html#team'"><div class="tphoto"><div class="fill"></div><span class="mono">OS</span></div><div class="tname">Ousmane Amadou Sy</div><div class="trole" data-i="tm1r">PDG <span class="een">· Chief Executive Officer</span></div></article>
+      <article class="tcard" data-reveal style="--d:.06s" onclick="location.href='oasys-about.html#team'"><div class="tphoto"><div class="fill"></div><span class="mono">JD</span></div><div class="tname">Jean Michel Diouf</div><div class="trole" data-i="tm2r">Directeur Technique <span class="een">· Technical Director</span></div></article>
+      <article class="tcard" data-reveal style="--d:.12s" onclick="location.href='oasys-about.html#team'"><div class="tphoto"><div class="fill"></div><span class="mono">MN</span></div><div class="tname">Marie Madeleine Ndione</div><div class="trole" data-i="tm3r">Responsable des Opérations <span class="een">· Head of Operations</span></div></article>
+      <article class="tcard" data-reveal style="--d:.18s" onclick="location.href='oasys-about.html#team'"><div class="tphoto"><div class="fill"></div><span class="mono">AB</span></div><div class="tname">Aminata Ba</div><div class="trole" data-i="tm4r">Chargée de Projets <span class="een">· Project Manager</span></div></article>
     </div>
-    <div class="t-foot"><a class="txtlink" href="#" data-i="tm_link">Meet the full team <span class="arw">↗</span></a></div>
+    <div class="t-foot"><a class="txtlink" href="oasys-about.html#team" data-i="tm_link">Meet the full team </a></div>
   </div>
 </section>
 
@@ -719,7 +721,7 @@
           </div>
           <div class="field"><label data-i="f_email">Email</label><input type="email" placeholder="you@organisation.org"></div>
           <div class="field"><label data-i="f_msg">Message</label><textarea rows="4" placeholder="Tell us about your project or expertise"></textarea></div>
-          <button class="btn btn-solid" type="submit"><span data-i="f_send">Send message</span> <span class="arw">↗</span></button>
+          <button class="btn btn-solid" type="submit"><span data-i="f_send">Send message</span> </button>
         </form>
       </div>
     </div>
@@ -731,7 +733,7 @@
     <div>
       <a class="logo" href="#top">OAS<span class="dot"></span>YS</a>
       <p class="fabout" data-i="ft_about">Consulting and technical assistance for development projects and programs around the world. Based in Dakar, Senegal, since 2009.</p>
-      <p class="fp"><a class="txtlink" href="#" data-i="ft_profile">Download our company profile <span class="arw">↗</span></a></p>
+      <p class="fp"><a class="txtlink" href="#" data-i="ft_profile">Download our company profile </a></p>
     </div>
     <div><h5 data-i="ft_nav">Navigate</h5><ul>
       <li><a href="oasys-about.html" data-i="nav_about2">About</a></li><li><a href="oasys-services.html" data-i="nav_services2">Services</a></li>
@@ -870,7 +872,7 @@
     sec_eye:"Secteurs",sec_cap:"Secteurs d'intervention",sec_h:"Les secteurs les plus importants pour le développement de l'Afrique",
     sec_sub:"De la santé à la résilience climatique, de l'agriculture à l'emploi des jeunes, nos experts interviennent dans les secteurs clés du développement de l'Afrique.",
     sc1:"Santé & protection sociale",sc2:"Formation technique & professionnelle",sc3:"Agrobusiness & chaînes de valeur agricoles",sc4:"Environnement, durabilité & climat",sc5:"Gouvernance locale, décentralisation & urbanisme",sc6:"Population, genre & droits humains",sc7:"Entrepreneuriat social & communautaire",sc8:"Appui aux PME",sc9:"Solutions informatiques & digitales",
-    w_eye:"Projets dans le monde",w_h:"Ancrée à Dakar, active sur quatre continents",w_pill:"↗ Voir tous les projets",
+    w_eye:"Projets dans le monde",w_h:"Ancrée à Dakar, active sur quatre continents",w_pill:"Voir tous les projets",
     rg1:"Afrique",rg2:"Asie",rg3:"Europe",rg4:"Caraïbes",proj:"projets",proj2:"projets",proj3:"projets",proj4:"projets",
     res_eye:"Résultats",res_h:"Travaux récents sur le terrain",
     res1_tag:"Santé digitale · Côte d'Ivoire",res1_h:"M-Vaccin déployé dans 49 districts sanitaires",res1_cta:"Voir le résultat",res1_by:"Financé par Gavi",
