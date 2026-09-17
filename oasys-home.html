@@ -855,7 +855,7 @@
       track.style.paddingRight=gutter+'px';
       maxX=Math.max(0, track.scrollWidth - viewport.clientWidth);
       track.style.transform=t;
-      leadIn=Math.round(window.innerHeight*0.6);
+      leadIn=Math.round(window.innerHeight);
       pin.style.height=(window.innerHeight+leadIn+maxX*SPEED)+'px';
     }
     function readScroll(){
