@@ -467,8 +467,19 @@
     if(window.__observeReveals)window.__observeReveals(host);
   }
 
+  /* ---- deep-link: open a specific service from #svc-N and scroll to it ---- */
+  function svcFromHash(){
+    var m=/^#svc-(\d+)$/.exec(location.hash);
+    if(m){ var i=parseInt(m[1],10)-1; if(i>=0 && i<SERVICES.length){ activeSvc=i; return true; } }
+    return false;
+  }
+  function scrollToServices(){ var sec=document.getElementById('services'); if(sec) sec.scrollIntoView({block:'start'}); }
+
+  svcFromHash();
   renderServices();
   renderSectors();
+  if(/^#svc-\d+$/.test(location.hash)) setTimeout(scrollToServices,60);
+  window.addEventListener('hashchange',function(){ if(svcFromHash()){ renderServices(); scrollToServices(); } });
 
   /* ---- nav scroll state ---- */
   (function(){var n=document.getElementById('nav');addEventListener('scroll',function(){n.classList.toggle('scrolled',scrollY>8);},{passive:true});})();

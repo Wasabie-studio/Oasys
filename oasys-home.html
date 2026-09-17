@@ -818,7 +818,7 @@
     }
     items.forEach(function(it){
       it.addEventListener('mouseenter',function(){activate(it);});
-      it.addEventListener('click',function(){activate(it);});
+      it.addEventListener('click',function(){ location.href='oasys-services.html#svc-'+parseInt(it.dataset.n,10); });
     });
     if(items[0])img.style.backgroundImage=items[0].dataset.bg;
   })();
