@@ -85,7 +85,8 @@
   .ahero h1{font-size:clamp(2.1rem,4.6vw,3.3rem);max-width:18ch;font-weight:500;line-height:1.06}
   .ahero .lead{color:var(--body);font-size:1.08rem;margin-top:1.2rem;max-width:52ch}
   .ahero p.sub{color:var(--muted);margin-top:1rem;max-width:52ch}
-  .a-img{aspect-ratio:4/3.4;min-height:280px}
+  .a-img{aspect-ratio:4/3.4;min-height:280px;border-radius:var(--r);overflow:hidden}
+  .a-img img{width:100%;height:100%;object-fit:cover;object-position:center 28%;display:block}
   .a-cta{margin-top:1.8rem;display:flex;flex-wrap:wrap;gap:.7rem}
   /* stats strip */
   .astats{background:var(--surface);border-bottom:1px solid var(--hair)}
@@ -203,7 +204,7 @@
           <a class="btn btn-line" href="oasys-services.html" data-i="ab_cta2">Our services</a>
         </div>
       </div>
-      <div class="imgph a-img" data-ph="About · OASYS team, Dakar" data-reveal style="--d:.1s"><span class="cam">◎</span></div>
+      <div class="a-img" data-reveal style="--d:.1s"><img src="assets/team-photo.webp" alt="The OASYS team, Dakar" loading="lazy"></div>
     </div>
   </div>
 </header>
