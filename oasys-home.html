@@ -333,6 +333,18 @@
 
   /* ---- CONTACT ---- */
   .contact{background:var(--surface);border-top:1px solid var(--hair)}
+  /* partner-with-us banner */
+  .partner-cta{background:var(--bg);border-top:1px solid var(--hair)}
+  .pcta-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(2rem,6vw,5rem);align-items:center}
+  @media (max-width:860px){.pcta-grid{grid-template-columns:1fr;gap:2rem}}
+  .pcta-h{font-family:var(--serif);font-size:clamp(2.1rem,5vw,3.4rem);line-height:1.04;max-width:13ch;font-weight:500;color:var(--ink);margin:0;letter-spacing:-0.015em}
+  .pcta-right{max-width:34rem}
+  .pcta-lead{color:var(--body);font-size:1.06rem;line-height:1.6;margin:0 0 1.6rem;max-width:36ch}
+  .pcta-rows{margin-top:1.9rem;border-top:1px solid var(--hair)}
+  .pcta-row{display:flex;flex-direction:column;gap:.25rem;padding:.95rem 0;border-bottom:1px solid var(--hair)}
+  .pcta-k{font-family:var(--sans);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+  .pcta-v{font-size:1rem;color:var(--ink);text-decoration:none;width:max-content;transition:color .25s var(--ease)}
+  a.pcta-v:hover{color:var(--forest)}
   .contact .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4.5rem)}
   @media (max-width:860px){.contact .cgrid{grid-template-columns:1fr;gap:2.5rem}}
   .contact h2{font-size:clamp(2rem,4vw,3rem)}
@@ -723,6 +735,27 @@
           <div class="field"><label data-i="f_msg">Message</label><textarea rows="4" placeholder="Tell us about your project or expertise"></textarea></div>
           <button class="btn btn-solid" type="submit"><span data-i="f_send">Send message</span> </button>
         </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNER WITH US -->
+<section class="sec partner-cta">
+  <div class="wrap">
+    <div class="pcta-grid" data-reveal>
+      <div class="pcta-left">
+        <span class="eyebrow" data-i="pc_eye">Partner with us</span>
+        <h2 class="pcta-h" data-i="pc_h">Bring OASYS expertise to your region.</h2>
+      </div>
+      <div class="pcta-right">
+        <p class="pcta-lead" data-i="pc_p">Become a partner and bring trusted technical expertise to the development projects and institutions in your region.</p>
+        <a class="btn btn-solid" href="oasys-contact.html" data-i="pc_cta">Become a partner</a>
+        <div class="pcta-rows">
+          <div class="pcta-row"><span class="pcta-k" data-i="pc_email_k">Email</span><a class="pcta-v" href="mailto:mail@oasysgroupe.com">mail@oasysgroupe.com</a></div>
+          <div class="pcta-row"><span class="pcta-k" data-i="pc_phone_k">Dakar</span><a class="pcta-v" href="tel:+221338019085">+221 33 801 90 85</a></div>
+          <div class="pcta-row"><span class="pcta-k" data-i="pc_office_k">Office</span><span class="pcta-v">VDN, Cité Horizon · Dakar-Fann, Sénégal</span></div>
+        </div>
       </div>
     </div>
   </div>
