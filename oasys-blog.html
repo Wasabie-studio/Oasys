@@ -79,8 +79,9 @@
   nav.main{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s}
   nav.main.scrolled{border-bottom-color:var(--hair)}
   nav.main .wrap{display:flex;align-items:center;justify-content:space-between;min-height:70px;gap:1rem}
-  .logo{font-family:var(--serif);font-weight:600;font-size:1.45rem;color:var(--ink);text-decoration:none;display:inline-flex;align-items:baseline;gap:.1em}
+  .logo{font-family:var(--serif);font-weight:600;font-size:1.45rem;color:var(--ink);text-decoration:none;display:inline-flex;align-items:center;gap:.1em}
   .logo .dot{width:.28em;height:.28em;border-radius:50%;background:var(--signal);display:inline-block}
+  .logo-img{display:block;height:32px;width:auto}
   .navlinks{display:flex;gap:1.9rem}
   .navlinks a{font-size:.92rem;font-weight:500;color:var(--body);text-decoration:none;position:relative}
   .navlinks a::after{content:"";position:absolute;left:0;bottom:-4px;height:1.5px;width:0;background:var(--forest);transition:width .3s var(--ease)}
@@ -155,7 +156,7 @@
 </div></div>
 
 <nav class="main" id="nav"><div class="wrap">
-  <a class="logo" href="oasys-home.html#top">OAS<span class="dot"></span>YS</a>
+  <a class="logo" href="oasys-home.html#top" aria-label="OASYS — home"><img class="logo-img" src="assets/oasys-logo.svg" alt="OASYS"></a>
   <div class="navlinks">
     <a href="oasys-home.html#about" data-i="nav_about">About</a>
     <a href="oasys-services.html" data-i="nav_services">Services</a>
