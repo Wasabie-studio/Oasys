@@ -235,11 +235,6 @@
   .sx-on .sx-track{will-change:transform}
   .sx-on .sx-track .scell{width:clamp(300px,26vw,380px);height:min(46vh,400px);scroll-snap-align:none}
   .sx-scroll{position:relative}
-  .sx-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:4;width:clamp(42px,3vw,52px);height:clamp(42px,3vw,52px);display:none;align-items:center;justify-content:center;border-radius:50%;border:1px solid var(--hair);background:rgba(255,255,255,.82);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:var(--ink);font-family:var(--sans);font-size:1.5rem;line-height:1;padding-bottom:.15em;cursor:pointer;box-shadow:0 8px 20px -10px rgba(20,32,26,.35);transition:background .2s,transform .2s}
-  .sx-arrow:hover{background:#fff;transform:translateY(-50%) scale(1.06)}
-  .sx-prev{left:clamp(.8rem,2.5vw,2rem)}
-  .sx-next{right:clamp(.8rem,2.5vw,2rem)}
-  .sx-on .sx-arrow{display:flex}
 
   /* ---- WORLDWIDE (dark map + region list) ---- */
   .world{background:var(--forest-deeper);color:var(--on-dark)}
@@ -561,8 +556,6 @@
             <div class="scell"><div class="scell-bg"></div><span class="snum">09</span><span class="sarw">↗</span><span class="scell-tag">Photo</span><h4 data-i="sc9">IT &amp; Digital Solutions</h4></div>
           </div>
         </div>
-        <button class="sx-arrow sx-prev" type="button" aria-label="Previous sectors">‹</button>
-        <button class="sx-arrow sx-next" type="button" aria-label="Next sectors">›</button>
       </div>
       <div class="sx-inner"><div class="sx-progress" aria-hidden="true"><span></span></div></div>
     </div>
@@ -937,9 +930,7 @@
     var pin=section.querySelector('.sx-pin'),
         viewport=section.querySelector('.sx-viewport'),
         track=section.querySelector('.sx-track'),
-        bar=section.querySelector('.sx-progress span'),
-        prevBtn=section.querySelector('.sx-prev'),
-        nextBtn=section.querySelector('.sx-next');
+        bar=section.querySelector('.sx-progress span');
     if(!pin||!viewport||!track) return;
     var mqPin=matchMedia('(min-width:820px) and (hover:hover) and (pointer:fine)'),
         mqReduce=matchMedia('(prefers-reduced-motion:reduce)');
@@ -955,7 +946,8 @@
       var vpLeft=viewport.getBoundingClientRect().left;
       viewport.style.width=Math.max(0,document.documentElement.clientWidth-vpLeft)+'px';
       track.style.paddingLeft=Math.max(0,contentLeft-vpLeft)+'px';
-      track.style.paddingRight=gutter+'px';
+      // Bigger breathing room on the right at the end of the scroll.
+      track.style.paddingRight=Math.max(Math.round(gutter*2.6),140)+'px';
       maxX=Math.max(0, track.scrollWidth - viewport.clientWidth);
       track.style.transform=t;
       leadIn=Math.round(window.innerHeight*2);
@@ -989,15 +981,6 @@
       viewport.style.width=''; track.style.paddingLeft=''; track.style.paddingRight='';
       if(bar) bar.style.transform='scaleX(0)';
     }
-    function step(dir){
-      var cell=track.querySelector('.scell'); if(!cell) return;
-      var gap=parseFloat(getComputedStyle(track).columnGap)||0;
-      var s=cell.getBoundingClientRect().width+gap;
-      if(on) window.scrollBy({top:dir*s*SPEED,behavior:'smooth'});
-      else viewport.scrollBy({left:dir*s,behavior:'smooth'});
-    }
-    if(prevBtn) prevBtn.addEventListener('click',function(){step(-1);});
-    if(nextBtn) nextBtn.addEventListener('click',function(){step(1);});
     function decide(){ (mqPin.matches && !mqReduce.matches) ? enablePinned() : enableNative(); }
     window.addEventListener('scroll',function(){ if(on) readScroll(); },{passive:true});
     var rz; window.addEventListener('resize',function(){ clearTimeout(rz); rz=setTimeout(function(){ if(on){ measure(); readScroll(); } },160); },{passive:true});
