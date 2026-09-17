@@ -290,10 +290,14 @@
   .tmon .shead{margin-bottom:clamp(2.2rem,4vw,3.2rem)}
   .tmon-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.2rem,2.5vw,1.8rem)}
   @media (max-width:860px){.tmon-grid{grid-template-columns:1fr}}
-  .tmon-card{margin:0;background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:clamp(1.4rem,2.5vw,1.9rem);display:flex;flex-direction:column;gap:1.3rem}
+  .tmon-card{margin:0;position:relative;background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:clamp(1.4rem,2.5vw,1.9rem);display:flex;flex-direction:column;gap:1.3rem;transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s}
+  .tmon-card::before{content:"";position:absolute;left:clamp(1.4rem,2.5vw,1.9rem);right:clamp(1.4rem,2.5vw,1.9rem);top:0;height:2px;background:var(--signal);border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+  .tmon-card:hover,.tmon-card.active{transform:translateY(-6px);box-shadow:0 24px 50px -30px rgba(20,32,26,.32);border-color:color-mix(in srgb,var(--signal) 28%,var(--border))}
+  .tmon-card:hover::before,.tmon-card.active::before{transform:scaleX(1)}
+  .tmon-card:hover .tmon-av,.tmon-card.active .tmon-av{border-color:var(--signal)}
   .tmon-q{font-family:var(--serif);font-size:clamp(1.05rem,1.5vw,1.2rem);line-height:1.5;color:var(--ink);margin:0}
   .tmon-by{display:flex;align-items:center;gap:.8rem;margin-top:auto}
-  .tmon-av{width:44px;height:44px;flex:none;border-radius:50%;background:var(--surface);border:1px solid var(--hair)}
+  .tmon-av{width:44px;height:44px;flex:none;border-radius:50%;background:var(--surface);border:1px solid var(--hair);transition:border-color .4s var(--ease)}
   .tmon-name{display:block;font-weight:600;color:var(--ink);font-size:.92rem}
   .tmon-role{display:block;font-size:.8rem;color:var(--muted)}
 
@@ -791,6 +795,20 @@
       s.addEventListener('mouseenter',function(){setActive(s);});
       s.addEventListener('mouseleave',function(){s.classList.remove('active');});
     });
+  })();
+
+  /* testimonials: gentle auto-cycling highlight */
+  (function(){
+    var cards=document.querySelectorAll('#testimonials .tmon-card'); if(cards.length<2)return;
+    if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+    var i=0,hover=false;
+    function set(n){cards.forEach(function(c,k){c.classList.toggle('active',k===n);});}
+    cards.forEach(function(c){
+      c.addEventListener('mouseenter',function(){hover=true;set(-1);});
+      c.addEventListener('mouseleave',function(){hover=false;});
+    });
+    set(0);
+    setInterval(function(){ if(hover)return; i=(i+1)%cards.length; set(i); },3600);
   })();
 
   /* services alt: index + preview with wipe-up */
