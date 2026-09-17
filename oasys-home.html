@@ -288,18 +288,22 @@
   /* ---- TESTIMONIALS ---- */
   .tmon h2{font-size:clamp(1.8rem,3.6vw,2.6rem);max-width:18ch}
   .tmon .shead{margin-bottom:clamp(2.2rem,4vw,3.2rem)}
-  .tmon-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.2rem,2.5vw,1.8rem)}
-  @media (max-width:860px){.tmon-grid{grid-template-columns:1fr}}
-  .tmon-card{margin:0;position:relative;background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:clamp(1.4rem,2.5vw,1.9rem);display:flex;flex-direction:column;gap:1.3rem;transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s}
-  .tmon-card::before{content:"";position:absolute;left:clamp(1.4rem,2.5vw,1.9rem);right:clamp(1.4rem,2.5vw,1.9rem);top:0;height:2px;background:var(--signal);border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
-  .tmon-card:hover,.tmon-card.active{transform:translateY(-6px);box-shadow:0 24px 50px -30px rgba(20,32,26,.32);border-color:color-mix(in srgb,var(--signal) 28%,var(--border))}
-  .tmon-card:hover::before,.tmon-card.active::before{transform:scaleX(1)}
-  .tmon-card:hover .tmon-av,.tmon-card.active .tmon-av{border-color:var(--signal)}
-  .tmon-q{font-family:var(--serif);font-size:clamp(1.05rem,1.5vw,1.2rem);line-height:1.5;color:var(--ink);margin:0}
-  .tmon-by{display:flex;align-items:center;gap:.8rem;margin-top:auto}
-  .tmon-av{width:44px;height:44px;flex:none;border-radius:50%;background:var(--surface);border:1px solid var(--hair);transition:border-color .4s var(--ease)}
+  .tmon-rotator{max-width:640px;margin:0 auto}
+  .tmon-card{margin:0;position:relative;background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:clamp(1.7rem,3.2vw,2.5rem);overflow:hidden;box-shadow:0 26px 54px -34px rgba(20,32,26,.30)}
+  .tmon-card::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--signal)}
+  .tmon-stage{display:grid}
+  .tmon-slide{grid-area:1/1;display:flex;flex-direction:column;gap:1.4rem;opacity:0;transform:translateY(12px);transition:opacity .6s var(--ease),transform .6s var(--ease);pointer-events:none}
+  .tmon-slide.active{opacity:1;transform:none;pointer-events:auto}
+  .tmon-q{font-family:var(--serif);font-size:clamp(1.15rem,1.9vw,1.42rem);line-height:1.5;color:var(--ink);margin:0}
+  .tmon-by{display:flex;align-items:center;gap:.8rem}
+  .tmon-av{width:44px;height:44px;flex:none;border-radius:50%;background:var(--surface);border:1px solid var(--signal);transition:border-color .4s var(--ease)}
   .tmon-name{display:block;font-weight:600;color:var(--ink);font-size:.92rem}
   .tmon-role{display:block;font-size:.8rem;color:var(--muted)}
+  .tmon-dots{display:flex;justify-content:center;gap:.5rem;margin-top:1.4rem}
+  .tmon-dot{width:8px;height:8px;padding:0;border:none;border-radius:50%;background:var(--hair);cursor:pointer;transition:background .3s var(--ease),transform .3s var(--ease)}
+  .tmon-dot:hover{background:var(--muted)}
+  .tmon-dot.active{background:var(--signal);transform:scale(1.3)}
+  @media (prefers-reduced-motion:reduce){.tmon-slide{transition:opacity .15s linear;transform:none}}
 
   /* ---- PARTNERS & CLIENTS (logo marquee) ---- */
   .sec.partners{background:var(--surface);padding-block:var(--section)}
@@ -595,19 +599,28 @@
       <span class="eyebrow" data-i="tmo_eye">Testimonials</span>
       <h2 data-i="tmo_h">In their words</h2>
     </div>
-    <div class="tmon-grid">
-      <blockquote class="tmon-card" data-reveal>
-        <p class="tmon-q" data-i="tmo_q1">“OASYS brought the technical depth and local knowledge our programme needed, and delivered every milestone on time.”</p>
-        <figcaption class="tmon-by"><span class="tmon-av" aria-hidden="true"></span><span><span class="tmon-name" data-i="tmo_n1">Name Surname</span><span class="tmon-role" data-i="tmo_r1">Programme Director · Organisation</span></span></figcaption>
+    <div class="tmon-rotator" data-reveal>
+      <blockquote class="tmon-card">
+        <div class="tmon-stage">
+          <div class="tmon-slide active">
+            <p class="tmon-q" data-i="tmo_q1">“OASYS brought the technical depth and local knowledge our programme needed, and delivered every milestone on time.”</p>
+            <figcaption class="tmon-by"><span class="tmon-av" aria-hidden="true"></span><span><span class="tmon-name" data-i="tmo_n1">Name Surname</span><span class="tmon-role" data-i="tmo_r1">Programme Director · Organisation</span></span></figcaption>
+          </div>
+          <div class="tmon-slide">
+            <p class="tmon-q" data-i="tmo_q2">“A rigorous, hands-on partner from the first planning session through to the final evaluation.”</p>
+            <figcaption class="tmon-by"><span class="tmon-av" aria-hidden="true"></span><span><span class="tmon-name" data-i="tmo_n2">Name Surname</span><span class="tmon-role" data-i="tmo_r2">Head of Operations · Ministry</span></span></figcaption>
+          </div>
+          <div class="tmon-slide">
+            <p class="tmon-q" data-i="tmo_q3">“They understood our objectives and translated them into measurable results on the ground.”</p>
+            <figcaption class="tmon-by"><span class="tmon-av" aria-hidden="true"></span><span><span class="tmon-name" data-i="tmo_n3">Name Surname</span><span class="tmon-role" data-i="tmo_r3">Country Lead · Foundation</span></span></figcaption>
+          </div>
+        </div>
       </blockquote>
-      <blockquote class="tmon-card" data-reveal style="--d:.08s">
-        <p class="tmon-q" data-i="tmo_q2">“A rigorous, hands-on partner from the first planning session through to the final evaluation.”</p>
-        <figcaption class="tmon-by"><span class="tmon-av" aria-hidden="true"></span><span><span class="tmon-name" data-i="tmo_n2">Name Surname</span><span class="tmon-role" data-i="tmo_r2">Head of Operations · Ministry</span></span></figcaption>
-      </blockquote>
-      <blockquote class="tmon-card" data-reveal style="--d:.16s">
-        <p class="tmon-q" data-i="tmo_q3">“They understood our objectives and translated them into measurable results on the ground.”</p>
-        <figcaption class="tmon-by"><span class="tmon-av" aria-hidden="true"></span><span><span class="tmon-name" data-i="tmo_n3">Name Surname</span><span class="tmon-role" data-i="tmo_r3">Country Lead · Foundation</span></span></figcaption>
-      </blockquote>
+      <div class="tmon-dots" role="tablist" aria-label="Testimonials">
+        <button class="tmon-dot active" type="button" role="tab" aria-selected="true" aria-label="Testimonial 1"></button>
+        <button class="tmon-dot" type="button" role="tab" aria-selected="false" aria-label="Testimonial 2"></button>
+        <button class="tmon-dot" type="button" role="tab" aria-selected="false" aria-label="Testimonial 3"></button>
+      </div>
     </div>
   </div>
 </section>
@@ -796,18 +809,28 @@
     });
   })();
 
-  /* testimonials: gentle auto-cycling highlight */
+  /* testimonials: single rotating quote — swaps every 4s with a subtle fade+rise */
   (function(){
-    var cards=document.querySelectorAll('#testimonials .tmon-card'); if(cards.length<2)return;
-    if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
-    var i=0,hover=false;
-    function set(n){cards.forEach(function(c,k){c.classList.toggle('active',k===n);});}
-    cards.forEach(function(c){
-      c.addEventListener('mouseenter',function(){hover=true;set(-1);});
-      c.addEventListener('mouseleave',function(){hover=false;});
-    });
-    set(0);
-    setInterval(function(){ if(hover)return; i=(i+1)%cards.length; set(i); },3600);
+    var root=document.querySelector('#testimonials .tmon-rotator'); if(!root)return;
+    var slides=root.querySelectorAll('.tmon-slide'),
+        dots=root.querySelectorAll('.tmon-dot');
+    if(slides.length<2)return;
+    var i=0,paused=false,timer=null,DUR=4000,
+        reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+    function show(n){
+      i=(n+slides.length)%slides.length;
+      slides.forEach(function(s,k){s.classList.toggle('active',k===i);});
+      dots.forEach(function(d,k){var a=k===i;d.classList.toggle('active',a);d.setAttribute('aria-selected',a?'true':'false');});
+    }
+    function start(){ stop(); timer=setInterval(function(){ if(!paused)show(i+1); },DUR); }
+    function stop(){ if(timer){clearInterval(timer);timer=null;} }
+    dots.forEach(function(d,k){ d.addEventListener('click',function(){ show(k); if(!reduce)start(); }); });
+    root.addEventListener('mouseenter',function(){paused=true;});
+    root.addEventListener('mouseleave',function(){paused=false;});
+    root.addEventListener('focusin',function(){paused=true;});
+    root.addEventListener('focusout',function(){paused=false;});
+    show(0);
+    if(!reduce) start();
   })();
 
   /* services alt: index + preview with wipe-up */
@@ -920,12 +943,11 @@
     if(!pin||!viewport||!track) return;
     var mqPin=matchMedia('(min-width:820px) and (hover:hover) and (pointer:fine)'),
         mqReduce=matchMedia('(prefers-reduced-motion:reduce)');
-    var maxX=0,targetX=0,curX=0,raf=null,on=false,SPEED=2,leadIn=0,collapsed=false,lastY=0;
-    function extraDist(){ return leadIn*2 + maxX*SPEED; }
-    function setPinHeight(){ pin.style.height=(window.innerHeight+(collapsed?0:extraDist()))+'px'; }
-    function pinDocTop(){ return pin.getBoundingClientRect().top+(window.scrollY||window.pageYOffset); }
+    var maxX=0,targetX=0,curX=0,raf=null,on=false,SPEED=2,leadIn=0;
     function measure(){
       var t=track.style.transform; track.style.transform='none';
+      // Anchor the viewport's left to the screen edge (cards slide off-screen left),
+      // but stop its right edge at the content column so the right gutter stays.
       var headInner=section.querySelector('.sx-inner');
       var ir=headInner.getBoundingClientRect(), cs=getComputedStyle(headInner);
       var gutter=parseFloat(cs.paddingLeft)||0;
@@ -937,30 +959,12 @@
       maxX=Math.max(0, track.scrollWidth - viewport.clientWidth);
       track.style.transform=t;
       leadIn=Math.round(window.innerHeight*2);
-      setPinHeight();
+      pin.style.height=(window.innerHeight+leadIn+maxX*SPEED+leadIn)+'px';
     }
     function readScroll(){
-      var y=window.scrollY||window.pageYOffset;
-      var dir=y>lastY?1:(y<lastY?-1:0);
-      var pTop=pinDocTop(), rel=y-pTop, extra=extraDist();
-      if(!collapsed && dir<0 && rel>0 && rel<extra){
-        /* scrolling UP inside the pinned region -> release seamlessly, freeze cards */
-        collapsed=true; setPinHeight();
-        var sb=document.documentElement.style.scrollBehavior;
-        document.documentElement.style.scrollBehavior='auto';
-        window.scrollTo(0,pTop);
-        document.documentElement.style.scrollBehavior=sb;
-        lastY=pTop; return;
-      }
-      if(collapsed && dir>0 && rel<0){
-        /* scrolling DOWN from above -> re-arm; interaction replays from the start */
-        collapsed=false; curX=0; targetX=0; track.style.transform='translate3d(0,0,0)';
-        setPinHeight();
-        y=window.scrollY||window.pageYOffset; pTop=pinDocTop(); rel=y-pTop;
-      }
-      lastY=y;
-      if(collapsed) return;
-      var eff=Math.min(Math.max(rel-leadIn,0),maxX*SPEED);
+      var top=pin.getBoundingClientRect().top;
+      var scrolled=Math.max(-top,0)-leadIn;
+      var eff=Math.min(Math.max(scrolled,0),maxX*SPEED);
       targetX = maxX>0 ? -(eff/SPEED) : 0;
       tick();
     }
@@ -975,12 +979,11 @@
     }
     function enablePinned(){
       on=true; section.classList.add('sx-on'); section.classList.remove('sx-native');
-      collapsed=false; curX=0; targetX=0; track.style.transform='translate3d(0,0,0)';
-      lastY=window.scrollY||window.pageYOffset;
+      curX=0; targetX=0; track.style.transform='translate3d(0,0,0)';
       measure(); readScroll();
     }
     function enableNative(){
-      on=false; collapsed=false; section.classList.remove('sx-on'); section.classList.add('sx-native');
+      on=false; section.classList.remove('sx-on'); section.classList.add('sx-native');
       if(raf){cancelAnimationFrame(raf);raf=null;}
       pin.style.height=''; track.style.transform='';
       viewport.style.width=''; track.style.paddingLeft=''; track.style.paddingRight='';
