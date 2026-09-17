@@ -420,10 +420,10 @@
   .svcx-item:hover,.svcx-item.active{padding-left:1.1rem;background:rgba(255,255,255,.04)}
   .svcx-item.active .sx-t{color:#fff}
   .svcx-item.active .sx-d{opacity:1;background:var(--signal);border-color:var(--signal);color:#06210f;transform:rotate(45deg)}
-  .svcx-preview{position:relative;border-radius:var(--r);overflow:hidden;min-height:360px;border:1px solid var(--on-dark-hair);display:flex;flex-direction:column;justify-content:flex-end;background:#0a2018}
-  .pv-img{position:absolute;inset:0;z-index:-2;background-size:cover;background-position:center;clip-path:inset(100% 0 0 0);transition:clip-path .7s var(--ease)}
+  .svcx-preview{position:relative;z-index:0;border-radius:var(--r);overflow:hidden;min-height:360px;border:1px solid var(--on-dark-hair);display:flex;flex-direction:column;justify-content:flex-end;background:#0a2018}
+  .pv-img{position:absolute;inset:0;z-index:-2;background-size:cover;background-position:center 32%;clip-path:inset(100% 0 0 0);transition:clip-path .7s var(--ease)}
   .pv-img.show{clip-path:inset(0 0 0 0)}
-  .pv-scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(8,26,19,.12),rgba(8,26,19,.85))}
+  .pv-scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(8,26,19,.05),rgba(8,26,19,.35) 55%,rgba(8,26,19,.82))}
   .pv-meta{padding:1.9rem}
   .pv-num{font-family:var(--serif);color:var(--signal);font-size:.95rem}
   .pv-title{color:#fff;font-size:clamp(1.4rem,2.4vw,1.95rem);font-weight:500;margin:.5rem 0 .55rem;max-width:20ch;line-height:1.12}
@@ -520,7 +520,7 @@
     </div>
     <div class="svcx-grid">
       <ol class="svcx-list" id="svcxList">
-        <li class="svcx-item active" data-n="01" data-title="Funding &amp; Grants Management" data-desc="Project financing and grants, from planning and disbursement through to reporting." data-bg="linear-gradient(150deg,#1c6b4a,#0e2b20)"><span class="sx-n">01</span><span class="sx-t">Funding &amp; Grants Management</span></li>
+        <li class="svcx-item active" data-n="01" data-title="Funding &amp; Grants Management" data-desc="Project financing and grants, from planning and disbursement through to reporting." data-bg="linear-gradient(150deg,#1c6b4a,#0e2b20)" data-img="assets/funding-card.webp"><span class="sx-n">01</span><span class="sx-t">Funding &amp; Grants Management</span></li>
         <li class="svcx-item" data-n="02" data-title="Planning, Monitoring, Evaluation &amp; Learning" data-desc="Tracking progress, measuring results, and turning lessons into knowledge." data-bg="var(--card2)"><span class="sx-n">02</span><span class="sx-t">Planning, Monitoring, Evaluation &amp; Learning</span></li>
         <li class="svcx-item" data-n="03" data-title="Procurement &amp; Supply Chain Management" data-desc="The right supplies and equipment, at the right place, at the right time." data-bg="linear-gradient(150deg,#17594a,#0a2018)"><span class="sx-n">03</span><span class="sx-t">Procurement &amp; Supply Chain Management</span></li>
         <li class="svcx-item" data-n="04" data-title="Governance, Reform &amp; Strategic Monitoring" data-desc="Strengthening how institutions are run and following reforms through." data-bg="linear-gradient(150deg,#23704e,#0e2b20)"><span class="sx-n">04</span><span class="sx-t">Governance, Reform &amp; Strategic Monitoring</span></li>
@@ -847,14 +847,14 @@
       items.forEach(function(x){x.classList.remove('active');});
       it.classList.add('active');
       num.textContent=it.dataset.n; title.textContent=it.dataset.title; desc.textContent=it.dataset.desc;
-      img.style.backgroundImage=it.dataset.bg;
+      img.style.backgroundImage=it.dataset.img?('url("'+it.dataset.img+'")'):it.dataset.bg;
       img.classList.remove('show'); void img.offsetWidth; img.classList.add('show');
     }
     items.forEach(function(it){
       it.addEventListener('mouseenter',function(){activate(it);});
       it.addEventListener('click',function(){ location.href='oasys-services.html#svc-'+parseInt(it.dataset.n,10); });
     });
-    if(items[0])img.style.backgroundImage=items[0].dataset.bg;
+    if(items[0])img.style.backgroundImage=items[0].dataset.img?('url("'+items[0].dataset.img+'")'):items[0].dataset.bg;
   })();
 
 
