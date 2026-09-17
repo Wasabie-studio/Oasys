@@ -827,7 +827,7 @@
     if(!pin||!viewport||!track) return;
     var mqPin=matchMedia('(min-width:820px) and (hover:hover) and (pointer:fine)'),
         mqReduce=matchMedia('(prefers-reduced-motion:reduce)');
-    var maxX=0,targetX=0,curX=0,raf=null,on=false;
+    var maxX=0,targetX=0,curX=0,raf=null,on=false,SPEED=1.5;
     function measure(){
       var t=track.style.transform; track.style.transform='none';
       // Anchor the viewport's left to the screen edge (cards slide off-screen left),
@@ -841,11 +841,12 @@
       track.style.paddingRight='0px';
       maxX=Math.max(0, track.scrollWidth - viewport.clientWidth);
       track.style.transform=t;
-      pin.style.height=(window.innerHeight+maxX)+'px';
+      pin.style.height=(window.innerHeight+maxX*SPEED)+'px';
     }
     function readScroll(){
       var top=pin.getBoundingClientRect().top;
-      targetX=-Math.min(Math.max(-top,0),maxX);
+      var scrolled=Math.min(Math.max(-top,0),maxX*SPEED);
+      targetX = maxX>0 ? -(scrolled/SPEED) : 0;
       tick();
     }
     function tick(){ if(!raf) raf=requestAnimationFrame(frame); }
