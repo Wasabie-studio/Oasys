@@ -103,8 +103,9 @@
   /* TEAM */
   .team{background:var(--bg)}
   .team .wrap{padding-block:var(--section)}
-  .team-head{max-width:44ch}
-  .team-head h2{font-size:clamp(2.2rem,4.6vw,3.5rem);margin-top:.7rem;text-wrap:balance}
+  .team-head{max-width:none}
+  .team-head h2{font-size:clamp(1.6rem,3.4vw,2.6rem);margin-top:.7rem;white-space:nowrap;line-height:1.14}
+  @media (max-width:520px){.team-head h2{font-size:clamp(1.4rem,7vw,1.9rem)}}
   .team-head p{color:var(--muted);margin-top:1rem;font-size:1.05rem;max-width:52ch}
   .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.1rem,2.4vw,1.8rem);margin-top:clamp(2rem,4vw,3rem)}
   @media (max-width:820px){.team-grid{grid-template-columns:repeat(2,1fr)}}
@@ -183,7 +184,6 @@
     <a href="oasys-home.html" data-i="nav_home">Home</a>
     <a href="oasys-about.html" aria-current="page" data-i="nav_about">About</a>
     <a href="oasys-services.html" data-i="nav_services">Services</a>
-    <a href="oasys-about.html#team" data-i="nav_team">Team</a>
     <a href="oasys-blog.html" data-i="nav_blog">News</a>
     <a href="oasys-home.html#contact" data-i="nav_contact">Contact</a>
   </div>
@@ -226,7 +226,7 @@
   <div class="wrap">
     <div class="team-head" data-reveal>
       <span class="eyebrow" data-i="tm_eye">Meet the team</span>
-      <h2 data-i="tm_h">The people who make the work happen</h2>
+      <h2 data-i="tm_h">The people who make<br>the work happen</h2>
       <p data-i="tm_p">A multidisciplinary team of consultants and associates, based in Dakar and deployed across our missions worldwide.</p>
     </div>
     <div class="team-grid" id="teamGrid" data-reveal><!-- injected by JS --></div>
