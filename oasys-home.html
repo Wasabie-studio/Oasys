@@ -216,12 +216,16 @@
   .scell .scell-tag{position:absolute;bottom:.7rem;right:.9rem;z-index:1;font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55);opacity:0;transition:opacity .45s}
   .scell:hover .scell-bg{opacity:1;transform:scale(1)}
   .scell:hover .scell-tag{opacity:1}
+  .scell.has-img .scell-bg{opacity:1;transform:scale(1.04)}
+  .scell.has-img:hover .scell-bg{transform:scale(1)}
   .scell .snum{position:absolute;top:1.2rem;left:1.5rem;font-family:var(--serif);font-size:.85rem;color:var(--faint);transition:color .4s}
   .scell:hover .snum{color:rgba(255,255,255,.7)}
+  .scell.has-img .snum{color:rgba(255,255,255,.75)}
   .scell .sarw{position:absolute;top:1rem;right:1rem;color:#fff;font-size:1.15rem;opacity:0;transform:translateY(6px) rotate(-8deg);transition:opacity .4s,transform .45s var(--ease)}
   .scell:hover .sarw{opacity:1;transform:none}
   .scell h4{font-size:1.1rem;font-weight:500;line-height:1.24;color:var(--ink);max-width:18ch;transition:color .4s}
   .scell:hover h4{color:#fff}
+  .scell.has-img h4{color:#fff}
   /* ---- Sectors: pinned horizontal-scroll system ---- */
   .sx-inner{width:100%;max-width:var(--maxw);margin:0 auto;padding-inline:var(--gutter)}
   .sx-stage{padding-block:var(--section)}
