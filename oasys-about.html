@@ -16,7 +16,7 @@
     --on-dark:#f1f0ec;--on-dark-mut:#a6a49f;--on-dark-hair:#284537;
     --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
     --sans:"Inter","Helvetica Neue",Arial,sans-serif;
-    --maxw:1200px;--gutter:clamp(1rem,3vw,2rem);--section:clamp(4rem,8vw,7.5rem);
+    --maxw:1400px;--gutter:clamp(0.9rem,2.4vw,1.5rem);--section:clamp(4rem,8vw,7.5rem);
     --ease:cubic-bezier(.19,1,.22,1);--r:14px;
   }
   :root{color-scheme:light}
@@ -96,10 +96,10 @@
   .astat .l{color:var(--muted);font-size:.92rem;margin-top:.5rem}
 
   /* STORYTELLING (scroll fade) */
-  .story{position:relative;height:200vh;background:var(--forest-deep)}
+  .story{position:relative;height:150vh;background:var(--forest-deep)}
   .story-track{position:sticky;top:0;height:100vh;display:grid;place-items:center;overflow:hidden;padding-inline:var(--gutter)}
   .story-eye{position:absolute;top:clamp(2rem,6vh,4rem);left:50%;transform:translateX(-50%);font-family:var(--sans);font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--signal);opacity:.7}
-  .story-line{font-family:var(--serif);font-weight:500;font-size:clamp(2.3rem,8.5vw,6rem);color:var(--on-dark);text-align:center;max-width:16ch;line-height:1.05;letter-spacing:-0.02em;opacity:0;transform:translateY(34px);will-change:opacity,transform}
+  .story-line{font-family:var(--serif);font-weight:500;font-size:clamp(1.25rem,4vw,2.3rem);color:var(--on-dark);text-align:center;max-width:none;white-space:nowrap;line-height:1.2;letter-spacing:-0.01em;opacity:0;transform:translateY(22px);will-change:opacity,transform}
   .story-line .hl{color:var(--signal)}
   .story-cue{position:absolute;bottom:clamp(1.5rem,5vh,3rem);left:50%;transform:translateX(-50%);color:var(--on-dark-mut);font-size:1.4rem;animation:bob 1.8s ease-in-out infinite}
   @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(7px)}}
@@ -185,6 +185,7 @@
 <nav class="main" id="nav"><div class="wrap">
   <a class="logo" href="oasys-home.html#top" aria-label="OASYS — home"><img class="logo-img" src="assets/oasys-logo.svg" alt="OASYS"></a>
   <div class="navlinks">
+    <a href="oasys-home.html" data-i="nav_home">Home</a>
     <a href="oasys-about.html" aria-current="page" data-i="nav_about">About</a>
     <a href="oasys-services.html" data-i="nav_services">Services</a>
     <a href="oasys-about.html#team" data-i="nav_team">Team</a>
@@ -218,16 +219,6 @@
   </div>
 </header>
 
-<!-- STATS -->
-<section class="astats">
-  <div class="wrap">
-    <div class="astat" data-reveal><div class="n"><span data-count="15">15</span><span class="u">+</span></div><div class="l" data-i="st1">Years of experience</div></div>
-    <div class="astat" data-reveal style="--d:.06s"><div class="n"><span data-count="255">255</span></div><div class="l" data-i="st2">Missions completed</div></div>
-    <div class="astat" data-reveal style="--d:.12s"><div class="n"><span data-count="4">4</span></div><div class="l" data-i="st3">Continents</div></div>
-    <div class="astat" data-reveal style="--d:.18s"><div class="n"><span data-count="40">40</span><span class="u">+</span></div><div class="l" data-i="st4">Experts &amp; associates</div></div>
-  </div>
-</section>
-
 <!-- STORYTELLING -->
 <section class="story" id="story" aria-label="Meet the team">
   <div class="story-track">
@@ -245,7 +236,6 @@
       <h2 data-i="tm_h">The people who make the work happen</h2>
       <p data-i="tm_p">A multidisciplinary team of consultants and associates, based in Dakar and deployed across our missions worldwide.</p>
     </div>
-    <div class="imgph team-photo" data-ph="Full team photo · OASYS Groupe" data-reveal><span class="cam">◎</span></div>
     <div class="team-grid" id="teamGrid" data-reveal><!-- injected by JS --></div>
   </div>
 </section>
@@ -413,7 +403,7 @@
   /* bilingual */
   var FR={
     tl_addr:"VDN, Cité Horizon, Villa N C03 · Dakar-Fann, Sénégal",
-    nav_about:"À propos",nav_services:"Services",nav_team:"Équipe",nav_blog:"Actualités",nav_contact:"Contact",
+    nav_home:"Accueil",nav_about:"À propos",nav_services:"Services",nav_team:"Équipe",nav_blog:"Actualités",nav_contact:"Contact",
     ab_eye:"À propos",
     ab_h:"Une référence du conseil et de l'assistance technique",
     ab_p1:"OASYS est un cabinet de conseil et d'assistance technique basé à Dakar, au Sénégal. Depuis 2009, nous identifions les besoins d'expertise des projets de développement et l'apportons directement aux gouvernements, ONG, fondations et institutions qui les mettent en œuvre.",
