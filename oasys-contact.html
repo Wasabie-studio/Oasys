@@ -71,43 +71,36 @@
   @media (max-width:880px){.navlinks{display:none}.burger{display:grid;place-items:center;width:38px;height:38px;border:1px solid var(--border);border-radius:9px;background:transparent;color:var(--ink);cursor:pointer;font-size:1.1rem}}
 
   /* hero */
-  .chero{background:var(--bg)}
-  .chero .wrap{padding-block:clamp(3rem,6vw,4.5rem) clamp(1.5rem,3vw,2.5rem);text-align:center}
-  .chero h1{font-size:clamp(2.3rem,5.5vw,3.8rem);font-weight:500;line-height:1.03;margin-inline:auto;max-width:20ch}
-  .chero .lead{color:var(--body);font-size:1.1rem;margin:1.1rem auto 0;max-width:56ch}
-
-  /* form */
-  .cform{background:var(--bg)}
-  .cform .wrap{padding-block:clamp(1.5rem,3vw,2.5rem) var(--section)}
-  .cform-card{max-width:780px;margin:0 auto;background:var(--panel);border:1px solid var(--hair);border-radius:var(--r);padding:clamp(1.6rem,3.6vw,3rem);box-shadow:0 30px 60px -48px rgba(20,32,25,.5)}
+  /* two-column contact layout */
+  .contact{background:var(--bg)}
+  .contact .wrap{padding-block:clamp(3rem,6vw,5rem) var(--section)}
+  .contact-grid{display:grid;grid-template-columns:0.92fr 1.08fr;gap:clamp(1.8rem,4vw,3.5rem);align-items:start}
+  @media (max-width:880px){.contact-grid{grid-template-columns:1fr;gap:2.4rem}}
+  /* left column */
+  .contact-left h1{font-size:clamp(2.1rem,4.6vw,3.3rem);font-weight:500;line-height:1.04;max-width:16ch}
+  .contact-left .lead{color:var(--body);font-size:1.08rem;margin-top:1.1rem;max-width:46ch}
+  .cinfo-stack{margin-top:clamp(1.8rem,3.5vw,2.6rem);display:flex;flex-direction:column;gap:.75rem}
+  .icard{background:var(--forest);border:1px solid transparent;border-radius:var(--r);padding:1.05rem 1.25rem;text-decoration:none;color:var(--on-dark);
+    display:flex;align-items:center;gap:1rem;transition:transform .3s var(--ease),background .3s}
+  .icard:hover{transform:translateY(-3px);background:var(--forest-deep)}
+  .icard .ic{flex:none;width:44px;height:44px;border-radius:50%;background:color-mix(in srgb,#fff 12%,transparent);color:#fff;display:grid;place-items:center;font-size:1.15rem}
+  .icard .itxt{display:flex;flex-direction:column;gap:.15rem;min-width:0}
+  .icard .il{font-family:var(--sans);font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--on-dark-mut)}
+  .icard .iv{font-family:var(--serif);font-size:1.1rem;color:var(--on-dark);font-weight:500;line-height:1.25;letter-spacing:-0.01em}
+  .icard .iv.sm{font-size:.98rem;font-family:var(--sans);font-weight:500}
+  /* right column form */
+  .cform-card{background:var(--panel);border:1px solid var(--hair);border-radius:var(--r);padding:clamp(1.6rem,3.4vw,2.6rem);box-shadow:0 30px 60px -48px rgba(20,32,25,.5)}
   .field{margin-bottom:1.15rem}
   .field label{display:block;font-family:var(--sans);font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
   .field input,.field select,.field textarea{width:100%;font-family:var(--sans);font-size:1rem;color:var(--ink);background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem;transition:border-color .25s,background .25s}
   .field input::placeholder,.field textarea::placeholder{color:var(--faint)}
   .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--forest);background:var(--panel)}
-  .field textarea{resize:vertical;min-height:140px}
+  .field textarea{resize:vertical;min-height:130px}
   .field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23676662' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center}
   .frow{display:grid;grid-template-columns:1fr 1fr;gap:1.15rem}
   @media (max-width:560px){.frow{grid-template-columns:1fr}}
   .cform-card .btn-solid{width:100%;justify-content:center;margin-top:.3rem}
   .cform-note{margin-top:.9rem;color:var(--muted);font-size:.84rem;text-align:center}
-
-  /* contact info */
-  .cinfo{background:var(--surface);border-top:1px solid var(--hair)}
-  .cinfo .wrap{padding-block:var(--section)}
-  .cinfo-head{text-align:center;max-width:52ch;margin:0 auto clamp(2rem,4vw,3rem)}
-  .cinfo-head h2{font-size:clamp(1.7rem,3.4vw,2.4rem)}
-  .cinfo-head p{color:var(--muted);margin-top:.9rem}
-  .cinfo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(1rem,2vw,1.4rem)}
-  @media (max-width:860px){.cinfo-grid{grid-template-columns:repeat(2,1fr)}}
-  @media (max-width:480px){.cinfo-grid{grid-template-columns:1fr}}
-  .icard{background:var(--panel);border:1px solid var(--hair);border-radius:var(--r);padding:1.5rem 1.4rem;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:.55rem;
-    transition:transform .35s var(--ease),border-color .35s,box-shadow .35s var(--ease)}
-  .icard:hover{transform:translateY(-4px);border-color:var(--border);box-shadow:0 22px 44px -32px rgba(20,32,25,.4)}
-  .icard .ic{width:42px;height:42px;border-radius:50%;background:color-mix(in srgb,var(--forest) 10%,var(--panel));color:var(--forest);display:grid;place-items:center;font-size:1.1rem;margin-bottom:.3rem}
-  .icard .il{font-family:var(--sans);font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
-  .icard .iv{font-family:var(--serif);font-size:1.12rem;color:var(--ink);font-weight:500;line-height:1.25;letter-spacing:-0.01em}
-  .icard .iv.sm{font-size:1rem;font-family:var(--sans);font-weight:500;color:var(--body)}
 
   /* footer */
   footer.site{background:var(--bg);border-top:1px solid var(--hair)}
@@ -147,19 +140,38 @@
 
 <a id="top"></a>
 
-<!-- HERO -->
-<header class="chero">
+<!-- CONTACT: left = intro + details, right = universal form -->
+<section class="contact">
   <div class="wrap">
-    <span class="eyebrow" data-reveal data-i="c_eye">Contact</span>
-    <h1 data-reveal style="--d:.05s" data-i="c_h">Let's talk about your project</h1>
-    <p class="lead" data-reveal style="--d:.1s" data-i="c_lead">Whether you're planning a project, looking for the right expertise, or exploring a partnership — tell us what you need and our team will get back to you.</p>
-  </div>
-</header>
+    <div class="contact-grid">
 
-<!-- UNIVERSAL CONTACT FORM -->
-<section class="cform">
-  <div class="wrap">
-    <div class="cform-card" data-reveal>
+      <!-- LEFT: intro + contact detail cards (forest green) -->
+      <div class="contact-left" data-reveal>
+        <span class="eyebrow" data-i="c_eye">Contact</span>
+        <h1 data-i="c_h">Let's talk about your project</h1>
+        <p class="lead" data-i="c_lead">Whether you're planning a project, looking for the right expertise, or exploring a partnership — tell us what you need and our team will get back to you.</p>
+        <div class="cinfo-stack">
+          <a class="icard" href="mailto:mail@oasysgroupe.com">
+            <span class="ic">✉</span>
+            <span class="itxt"><span class="il" data-i="ci_email">Email</span><span class="iv">mail@oasysgroupe.com</span></span>
+          </a>
+          <a class="icard" href="tel:+221338019085">
+            <span class="ic">☎</span>
+            <span class="itxt"><span class="il" data-i="ci_phone">Phone</span><span class="iv">+221 33 801 90 85</span></span>
+          </a>
+          <div class="icard">
+            <span class="ic">◎</span>
+            <span class="itxt"><span class="il" data-i="ci_office">Office</span><span class="iv sm" data-i="ci_addr">VDN, Cité Horizon, Villa N C03 · Dakar-Fann, Sénégal</span></span>
+          </div>
+          <a class="icard" href="#">
+            <span class="ic">↗</span>
+            <span class="itxt"><span class="il" data-i="ci_social">Follow</span><span class="iv">LinkedIn</span></span>
+          </a>
+        </div>
+      </div>
+
+      <!-- RIGHT: universal contact form -->
+      <div class="cform-card" data-reveal style="--d:.08s">
       <form id="contactForm" novalidate>
         <div class="frow">
           <div class="field"><label for="c-name" data-i="f_name">Name</label><input id="c-name" name="name" type="text" placeholder="Full name" data-i-ph="f_name_ph"></div>
@@ -184,40 +196,9 @@
         <button class="btn btn-solid" type="submit" data-i="f_submit">Send message <span class="arw">↗</span></button>
         <p class="cform-note" id="cformNote" data-i="f_note">We usually reply within a few working days.</p>
       </form>
-    </div>
-  </div>
-</section>
+      </div><!-- /cform-card -->
 
-<!-- CONTACT INFORMATION -->
-<section class="cinfo" id="details">
-  <div class="wrap">
-    <div class="cinfo-head" data-reveal>
-      <span class="eyebrow" data-i="ci_eye">Reach us directly</span>
-      <h2 data-i="ci_h">All the ways to get in touch</h2>
-      <p data-i="ci_p">Prefer to reach out directly? Here's where to find us.</p>
-    </div>
-    <div class="cinfo-grid">
-      <a class="icard" href="mailto:mail@oasysgroupe.com" data-reveal>
-        <span class="ic">✉</span>
-        <span class="il" data-i="ci_email">Email</span>
-        <span class="iv">mail@oasysgroupe.com</span>
-      </a>
-      <a class="icard" href="tel:+221338019085" data-reveal style="--d:.06s">
-        <span class="ic">☎</span>
-        <span class="il" data-i="ci_phone">Phone</span>
-        <span class="iv">+221 33 801 90 85</span>
-      </a>
-      <div class="icard" data-reveal style="--d:.12s">
-        <span class="ic">◎</span>
-        <span class="il" data-i="ci_office">Office</span>
-        <span class="iv sm" data-i="ci_addr">VDN, Cité Horizon, Villa N C03 · Dakar-Fann, Sénégal</span>
-      </div>
-      <a class="icard" href="#" data-reveal style="--d:.18s">
-        <span class="ic">↗</span>
-        <span class="il" data-i="ci_social">Follow</span>
-        <span class="iv">LinkedIn</span>
-      </a>
-    </div>
+    </div><!-- /contact-grid -->
   </div>
 </section>
 
