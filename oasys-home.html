@@ -921,11 +921,12 @@
     if(!pin||!viewport||!track) return;
     var mqPin=matchMedia('(min-width:820px) and (hover:hover) and (pointer:fine)'),
         mqReduce=matchMedia('(prefers-reduced-motion:reduce)');
-    var maxX=0,targetX=0,curX=0,raf=null,on=false,SPEED=2,leadIn=0;
+    var maxX=0,targetX=0,curX=0,raf=null,on=false,SPEED=2,leadIn=0,collapsed=false,lastY=0;
+    function extraDist(){ return leadIn*2 + maxX*SPEED; }
+    function setPinHeight(){ pin.style.height=(window.innerHeight+(collapsed?0:extraDist()))+'px'; }
+    function pinDocTop(){ return pin.getBoundingClientRect().top+(window.scrollY||window.pageYOffset); }
     function measure(){
       var t=track.style.transform; track.style.transform='none';
-      // Anchor the viewport's left to the screen edge (cards slide off-screen left),
-      // but stop its right edge at the content column so the right gutter stays.
       var headInner=section.querySelector('.sx-inner');
       var ir=headInner.getBoundingClientRect(), cs=getComputedStyle(headInner);
       var gutter=parseFloat(cs.paddingLeft)||0;
@@ -937,12 +938,30 @@
       maxX=Math.max(0, track.scrollWidth - viewport.clientWidth);
       track.style.transform=t;
       leadIn=Math.round(window.innerHeight*2);
-      pin.style.height=(window.innerHeight+leadIn+maxX*SPEED+leadIn)+'px';
+      setPinHeight();
     }
     function readScroll(){
-      var top=pin.getBoundingClientRect().top;
-      var scrolled=Math.max(-top,0)-leadIn;
-      var eff=Math.min(Math.max(scrolled,0),maxX*SPEED);
+      var y=window.scrollY||window.pageYOffset;
+      var dir=y>lastY?1:(y<lastY?-1:0);
+      var pTop=pinDocTop(), rel=y-pTop, extra=extraDist();
+      if(!collapsed && dir<0 && rel>0 && rel<extra){
+        /* scrolling UP inside the pinned region -> release seamlessly, freeze cards */
+        collapsed=true; setPinHeight();
+        var sb=document.documentElement.style.scrollBehavior;
+        document.documentElement.style.scrollBehavior='auto';
+        window.scrollTo(0,pTop);
+        document.documentElement.style.scrollBehavior=sb;
+        lastY=pTop; return;
+      }
+      if(collapsed && dir>0 && rel<0){
+        /* scrolling DOWN from above -> re-arm; interaction replays from the start */
+        collapsed=false; curX=0; targetX=0; track.style.transform='translate3d(0,0,0)';
+        setPinHeight();
+        y=window.scrollY||window.pageYOffset; pTop=pinDocTop(); rel=y-pTop;
+      }
+      lastY=y;
+      if(collapsed) return;
+      var eff=Math.min(Math.max(rel-leadIn,0),maxX*SPEED);
       targetX = maxX>0 ? -(eff/SPEED) : 0;
       tick();
     }
@@ -957,11 +976,12 @@
     }
     function enablePinned(){
       on=true; section.classList.add('sx-on'); section.classList.remove('sx-native');
-      curX=0; targetX=0; track.style.transform='translate3d(0,0,0)';
+      collapsed=false; curX=0; targetX=0; track.style.transform='translate3d(0,0,0)';
+      lastY=window.scrollY||window.pageYOffset;
       measure(); readScroll();
     }
     function enableNative(){
-      on=false; section.classList.remove('sx-on'); section.classList.add('sx-native');
+      on=false; collapsed=false; section.classList.remove('sx-on'); section.classList.add('sx-native');
       if(raf){cancelAnimationFrame(raf);raf=null;}
       pin.style.height=''; track.style.transform='';
       viewport.style.width=''; track.style.paddingLeft=''; track.style.paddingRight='';
