@@ -135,6 +135,12 @@
   .post:hover .post-title{color:var(--forest)}
   .post-cat{margin-top:auto;padding-top:.7rem;display:inline-flex;align-items:center;gap:.5rem;font-family:var(--sans);font-size:.76rem;font-weight:600;letter-spacing:.02em;color:var(--forest);text-transform:none}
   .post-cat .dot{width:6px;height:6px;border-radius:50%;background:var(--signal);flex:none}
+  .post-ex{color:var(--body);font-size:.92rem;line-height:1.55;margin:0;
+    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .post-full{display:none}
+  .post.nodetail{cursor:default}
+  .post.nodetail:hover{transform:none;box-shadow:none;border-color:var(--hair)}
+  .post.nodetail:hover .post-title{color:var(--ink)}
 
   .noresults{color:var(--muted);font-size:1rem;padding:2rem 0}
 
@@ -155,13 +161,15 @@
   .pmodal{position:fixed;inset:0;z-index:200;display:none}
   .pmodal.open{display:grid;place-items:center}
   .pmodal-back{position:absolute;inset:0;background:rgba(14,27,20,.55);backdrop-filter:blur(3px)}
-  .pmodal-card{position:relative;z-index:1;width:min(560px,92vw);max-height:86vh;overflow:auto;background:var(--panel,#fff);border:1px solid var(--border,#e8e6e1);border-radius:var(--r,14px);padding:clamp(1.6rem,3.5vw,2.4rem);box-shadow:0 30px 70px -40px rgba(20,32,25,.5);transform:translateY(10px);opacity:0;transition:transform .35s var(--ease,ease),opacity .35s var(--ease,ease)}
+  .pmodal-card{position:relative;z-index:1;width:min(720px,92vw);max-height:86vh;overflow:auto;background:var(--panel,#fff);border:1px solid var(--border,#e8e6e1);border-radius:var(--r,14px);padding:clamp(1.6rem,3.5vw,2.4rem);box-shadow:0 30px 70px -40px rgba(20,32,25,.5);transform:translateY(10px);opacity:0;transition:transform .35s var(--ease,ease),opacity .35s var(--ease,ease)}
   .pmodal.open .pmodal-card{transform:none;opacity:1}
   .pmodal-x{position:absolute;top:.9rem;right:.9rem;width:34px;height:34px;border:1px solid var(--border,#e8e6e1);background:transparent;border-radius:50%;cursor:pointer;color:var(--ink,#1a1a18);font-size:1rem;line-height:1}
   .pmodal-x:hover{background:var(--surface,#f1f0ec)}
   .pmodal-date{font-family:var(--sans,sans-serif);font-size:.8rem;color:var(--muted,#676662);letter-spacing:.04em}
   .pmodal-title{font-family:var(--serif,serif);font-size:clamp(1.35rem,3vw,1.9rem);color:var(--ink,#1a1a18);margin:.5rem 0 .9rem;line-height:1.15}
   .pmodal-body{color:var(--body,#40403c);font-size:1rem;line-height:1.65;margin-top:1.1rem}
+  .pmodal-body p{margin:0 0 1.05rem}
+  .pmodal-body p:last-child{margin-bottom:0}
 </style>
 </head>
 <body>
@@ -198,10 +206,7 @@
     <p class="lead" data-reveal style="--d:.12s" data-i="blog_lead">Updates, milestones and perspectives from OASYS missions across Africa, Asia, Europe and the Caribbean.</p>
     <div class="filters" id="filters" data-reveal style="--d:.18s" role="group" aria-label="Filter articles">
       <button data-filter="all" aria-pressed="true" data-i="f_all">All</button>
-      <button data-filter="agribusiness" aria-pressed="false" data-i="f_agri">Agribusiness</button>
-      <button data-filter="climate" aria-pressed="false" data-i="f_climate">Climate &amp; Environment</button>
       <button data-filter="health" aria-pressed="false" data-i="f_health">Health &amp; Social</button>
-      <button data-filter="training" aria-pressed="false" data-i="f_training">Training &amp; Evaluation</button>
       <button data-filter="governance" aria-pressed="false" data-i="f_gov">Governance</button>
       <button data-filter="digital" aria-pressed="false" data-i="f_digital">Digital</button>
     </div>
@@ -213,84 +218,52 @@
   <div class="wrap">
     <div class="pgrid" id="pgrid">
 
-      <a class="post" href="#" data-cat="agribusiness" data-reveal>
-        <div class="post-media imgph" data-ph="Agribusiness forum · Monrovia"><span class="cam">◎</span><span class="scrim"></span></div>
+      <a class="post" href="#post-1" id="post-1" data-cat="digital" data-reveal>
         <div class="post-body">
-          <div class="post-date">27.02.2026</div>
-          <h3 class="post-title" data-i="p1">Liberia is open for agribusiness investment</h3>
-          <span class="post-cat"><span class="dot"></span><span data-i="f_agri">Agribusiness</span></span>
+          <div class="post-date">10.02.2026</div>
+          <h3 class="post-title" data-i="p1">OASYS presents its innovative digital solution (OBIS) at the MSHP DU</h3>
+          <p class="post-ex"></p>
+          <span class="post-cat"><span class="dot"></span><span data-i="f_digital">Digital</span></span>
         </div>
+        <div class="post-full" data-i="p1_body"><p>As part of its mission to provide technical and fiduciary assistance to the Delivery Unit of the Ministry of Health and Public Hygiene (DU-MSHP), OASYS has deployed its OBIS (OASYS Business Information System) platform, a digital solution designed to optimize, secure and streamline management and collaboration processes between OASYS and the DU-MSHP.</p><p>Developed using OASYS's in-house expertise, OBIS enables the digitization of key procedures, the operational and financial monitoring of activities, and improved traceability of exchanges and decisions. The goal is to enhance organizational efficiency, reduce processing times, and improve the quality of interactions between the two entities.</p><p>During a dedicated session, OASYS provided an in-depth demonstration of the platform to the DU-MSHP team, highlighting its features, ease of use, and tangible benefits in terms of performance, transparency, and management. This presentation generated significant interest from DU-MSHP, which praised the innovative initiative as aligned with the high standards of quality and excellence expected in technical assistance.</p><p>Through OBIS, OASYS illustrates its ability to design tailor-made digital solutions, adapted to the specific needs of technical and financial partners (TFPs) and public institutions and integrated into a logic of continuous improvement of services and creation of sustainable added value in its offering of consulting and technical assistance services.</p></div>
       </a>
 
-      <a class="post" href="#" data-cat="governance" data-reveal style="--d:.05s">
-        <div class="post-media imgph" data-ph="Institutional partnership"><span class="cam">◎</span><span class="scrim"></span></div>
+      <a class="post" href="#post-2" id="post-2" data-cat="governance" data-reveal style="--d:.05s">
         <div class="post-body">
-          <div class="post-date">17.02.2026</div>
-          <h3 class="post-title" data-i="p2">Strengthening the EU–Senegal institutional partnership</h3>
+          <div class="post-date">10.02.2026</div>
+          <h3 class="post-title" data-i="p2">Strategic meeting between OASYS and the Gates Foundation regarding technical assistance to the Delivery Unit (DU) of the Ministry of Health and Public Hygiene in Senegal</h3>
+          <p class="post-ex"></p>
           <span class="post-cat"><span class="dot"></span><span data-i="f_gov">Governance</span></span>
         </div>
+        <div class="post-full" data-i="p2_body"><p>OASYS hosted a delegation from the Gates Foundation as part of a partnership focused on providing technical and fiduciary assistance to the Delivery Unit (DU) of the Ministry of Health and Public Hygiene. This meeting was part of the funding provided by the Gates Foundation to strengthen the organizational and operational capacities of the DU-MSHP in the context of reduced foreign funding and a transition towards endogenous financing of the health system.</p><p>During the discussions, OASYS presented an overview of the technical assistance mission, the results achieved to date, and the methodological approach adopted to support the Delivery Unit in achieving its strategic objectives. As a technical and fiduciary agency, OASYS contributes to the scaling up of the DU's functionality and capacity (mobilization and deployment of experts/consultants) and ensures the rigorous management of the financial resources made available, in compliance with transparency and accountability requirements.</p><p>The Gates Foundation delegation expressed its satisfaction with the mission's execution, praising the quality of the leadership, the relevance of the tools implemented, and the added value OASYS brought to the Delivery Unit's daily operations. This recognition reinforces OASYS's credibility as a trusted partner for international donors and public institutions.</p><p>This meeting also helped to consolidate the common vision around the continuation of support, with an emphasis on the sustainability of achievements, the strengthening of internal capacities and the continuous improvement of the institutional performance of the DU.</p></div>
       </a>
 
-      <a class="post" href="#" data-cat="health" data-reveal style="--d:.1s">
-        <div class="post-media imgph" data-ph="National agriculture fair"><span class="cam">◎</span><span class="scrim"></span></div>
+      <a class="post" href="#post-3" id="post-3" data-cat="digital" data-reveal style="--d:.1s">
         <div class="post-body">
-          <div class="post-date">12.01.2026</div>
-          <h3 class="post-title" data-i="p3">Supporting food and nutrition security in Liberia</h3>
+          <div class="post-date">10.02.2026</div>
+          <h3 class="post-title" data-i="p3">Supervision of the deployment of the M-Vaccine application in 49 health districts in Ivory Coast</h3>
+          <p class="post-ex"></p>
+          <span class="post-cat"><span class="dot"></span><span data-i="f_digital">Digital</span></span>
+        </div>
+        <div class="post-full" data-i="p3_body"><p>As part of the Gavi-funded mVaccine application expansion project, in collaboration with Orange C&ocirc;te d'Ivoire as the technology partner, the OASYS-CHAI C&ocirc;te d'Ivoire consortium is providing technical assistance to the Expanded Program on Immunization (EPI), the beneficiary. The OASYS-CHAI C&ocirc;te d'Ivoire consortium played a strategic role in overseeing and supporting the deployment of the mVaccine solution in 49 health districts across C&ocirc;te d'Ivoire.</p><p>This key phase of the project strengthened healthcare workers' adoption of the digital tool through training sessions, close support, and formative supervision in the field. The OASYS &ndash; CHAI CI consortium teams worked in close coordination with regional and departmental institutional stakeholders (DRS, DDS) to ensure the quality of deployments, the availability of equipment, and methodological consistency in the application's use.</p><p>Beyond the technical deployment, OASYS contributed to the continuous improvement of the system by formulating operational recommendations based on field missions, particularly regarding digital logistics, connectivity, and the organization of post-deployment monitoring. This integrated approach helped consolidate the effective use of M-Vaccin as a decision-making tool and for monitoring the performance of the vaccination system.</p><p>Through this mission, OASYS confirms its position as a major player in the digitalization of health systems in Africa, capable of supporting large-scale projects with high strategic and institutional value.</p></div>
+      </a>
+
+      <a class="post" href="#post-4" id="post-4" data-cat="health" data-reveal>
+        <div class="post-body">
+          <div class="post-date">10.02.2026</div>
+          <h3 class="post-title" data-i="p4">OASYS is supporting the Guinean Ministry of Health by training data collection agents for the national study on medical procedure pricing.</h3>
+          <p class="post-ex"></p>
           <span class="post-cat"><span class="dot"></span><span data-i="f_health">Health &amp; Social</span></span>
         </div>
+        <div class="post-full" data-i="p4_body"><p>As part of the mission conducted on behalf of the Bureau of Strategy and Development (BSD) of the Ministry of Health and Public Hygiene of Guinea, with financial support from the World Bank, OASYS provided training to 45 collection agents and supervisors as part of phase 1 of the national study on the costs and pricing of medical, biological and medical imaging procedures in Guinea.</p><p>This strategic mission strengthened the investigators' capacity in cost calculation methodology, the use of data collection tools, and the data quality requirements expected to guide health financing reforms. OASYS also provided field supervision, data consolidation, and ongoing technical support to the teams during the data collection phase.</p><p>Through its recognized expertise in health economics, health systems organization and technical assistance, OASYS actively contributes to the production of reliable data, essential for informed and evidence-based decision-making, in service of equitable access to quality care in Guinea.</p></div>
       </a>
 
-      <a class="post" href="#" data-cat="training" data-reveal>
-        <div class="post-media imgph" data-ph="Field extension team"><span class="cam">◎</span><span class="scrim"></span></div>
+      <a class="post nodetail" href="#post-5" id="post-5" data-cat="health" data-reveal style="--d:.05s">
         <div class="post-body">
-          <div class="post-date">08.01.2026</div>
-          <h3 class="post-title" data-i="p4">Capacity building for agricultural extension services</h3>
-          <span class="post-cat"><span class="dot"></span><span data-i="f_training">Training &amp; Evaluation</span></span>
-        </div>
-      </a>
-
-      <a class="post" href="#" data-cat="climate" data-reveal style="--d:.05s">
-        <div class="post-media imgph" data-ph="Training of trainers · GAPs"><span class="cam">◎</span><span class="scrim"></span></div>
-        <div class="post-body">
-          <div class="post-date">19.12.2025</div>
-          <h3 class="post-title" data-i="p5">Training of trainers on climate-smart agriculture</h3>
-          <span class="post-cat"><span class="dot"></span><span data-i="f_climate">Climate &amp; Environment</span></span>
-        </div>
-      </a>
-
-      <a class="post" href="#" data-cat="governance" data-reveal style="--d:.1s">
-        <div class="post-media imgph" data-ph="Signing · West Africa"><span class="cam">◎</span><span class="scrim"></span></div>
-        <div class="post-body">
-          <div class="post-date">03.12.2025</div>
-          <h3 class="post-title" data-i="p6">New framework contract signed in West Africa</h3>
-          <span class="post-cat"><span class="dot"></span><span data-i="f_gov">Governance</span></span>
-        </div>
-      </a>
-
-      <a class="post" href="#" data-cat="governance" data-reveal>
-        <div class="post-media imgph" data-ph="Decentralisation programme"><span class="cam">◎</span><span class="scrim"></span></div>
-        <div class="post-body">
-          <div class="post-date">21.11.2025</div>
-          <h3 class="post-title" data-i="p7">OASYS joins a regional decentralisation programme</h3>
-          <span class="post-cat"><span class="dot"></span><span data-i="f_gov">Governance</span></span>
-        </div>
-      </a>
-
-      <a class="post" href="#" data-cat="training" data-reveal style="--d:.05s">
-        <div class="post-media imgph" data-ph="Evaluation mission · Sahel"><span class="cam">◎</span><span class="scrim"></span></div>
-        <div class="post-body">
-          <div class="post-date">06.11.2025</div>
-          <h3 class="post-title" data-i="p8">Field evaluation mission completed in the Sahel</h3>
-          <span class="post-cat"><span class="dot"></span><span data-i="f_training">Training &amp; Evaluation</span></span>
-        </div>
-      </a>
-
-      <a class="post" href="#" data-cat="digital" data-reveal style="--d:.1s">
-        <div class="post-media imgph" data-ph="e-Government platform"><span class="cam">◎</span><span class="scrim"></span></div>
-        <div class="post-body">
-          <div class="post-date">22.10.2025</div>
-          <h3 class="post-title" data-i="p9">Digital solutions for public service delivery</h3>
-          <span class="post-cat"><span class="dot"></span><span data-i="f_digital">Digital</span></span>
+          <div class="post-date">18.08.2025</div>
+          <h3 class="post-title" data-i="p5">Technical assistance mission to the M&eacute;rieux Foundation for conducting a PPS survey on antimicrobial use in Senegalese public hospitals</h3>
+          <p class="post-ex"></p>
+          <span class="post-cat"><span class="dot"></span><span data-i="f_health">Health &amp; Social</span></span>
         </div>
       </a>
 
@@ -357,18 +330,17 @@
     blog_eye:"Actualités & Perspectives",
     blog_h:"Notes de terrain des projets que nous accompagnons",
     blog_lead:"Actualités, jalons et regards issus des missions d'OASYS en Afrique, en Asie, en Europe et dans les Caraïbes.",
-    f_all:"Tout",f_agri:"Agroalimentaire",f_climate:"Climat & Environnement",f_health:"Santé & Social",f_training:"Formation & Évaluation",f_gov:"Gouvernance",f_digital:"Numérique",
-    p1:"Le Liberia s'ouvre à l'investissement agroalimentaire",
-    p2:"Renforcer le partenariat institutionnel UE–Sénégal",
-    p3:"Soutenir la sécurité alimentaire et nutritionnelle au Liberia",
-    p4:"Renforcement des capacités des services de vulgarisation agricole",
-    p5:"Formation de formateurs à l'agriculture intelligente face au climat",
-    p6:"Nouveau contrat-cadre signé en Afrique de l'Ouest",
-    p7:"OASYS rejoint un programme régional de décentralisation",
-    p8:"Mission d'évaluation de terrain achevée au Sahel",
-    p9:"Solutions numériques pour les services publics",
-    none:"Aucun article dans cette catégorie pour le moment.",
-    pm_body:"Article complet à venir. Ce texte est un contenu provisoire pour le prototype &mdash; l'article publié présentera le contexte du projet, ce qui a été réalisé et le résultat sur le terrain.",
+    f_all:"Tout",f_health:"Sant&eacute; & Social",f_gov:"Gouvernance",f_digital:"Num&eacute;rique",
+    p1:"OASYS pr&eacute;sente sa solution num&eacute;rique innovante (OBIS) &agrave; l'UD du MSHP",
+    p1_body:"<p>Dans le cadre de sa mission d'assistance technique et fiduciaire aupr&egrave;s de l'Unit&eacute; de D&eacute;livrance du Minist&egrave;re de la Sant&eacute; et de l'Hygi&egrave;ne Publique (UD-MSHP), OASYS a d&eacute;ploy&eacute; sa plateforme OBIS (OASYS Business Information System), une solution num&eacute;rique con&ccedil;ue pour optimiser, s&eacute;curiser et fluidifier les processus de gestion et de collaboration entre OASYS et l'UD-MSHP.</p><p>D&eacute;velopp&eacute; gr&acirc;ce &agrave; l'expertise interne d'OASYS, OBIS permet la digitalisation des proc&eacute;dures cl&eacute;s, le suivi op&eacute;rationnel et financier des activit&eacute;s ainsi qu'une meilleure tra&ccedil;abilit&eacute; des &eacute;changes et des d&eacute;cisions. L'objectif est de renforcer l'efficacit&eacute; organisationnelle, de r&eacute;duire les d&eacute;lais de traitement et d'am&eacute;liorer la qualit&eacute; des interactions entre les deux entit&eacute;s.</p><p>Lors d'une session d&eacute;di&eacute;e, OASYS a pr&eacute;sent&eacute; une d&eacute;monstration approfondie de la plateforme &agrave; l'&eacute;quipe de l'UD-MSHP, en mettant en avant ses fonctionnalit&eacute;s, sa simplicit&eacute; d'utilisation et ses b&eacute;n&eacute;fices concrets en mati&egrave;re de performance, de transparence et de gestion. Cette pr&eacute;sentation a suscit&eacute; un vif int&eacute;r&ecirc;t de l'UD-MSHP, qui a salu&eacute; une initiative innovante, conforme aux exigences de qualit&eacute; et d'excellence attendues en assistance technique.</p><p>&Agrave; travers OBIS, OASYS illustre sa capacit&eacute; &agrave; concevoir des solutions num&eacute;riques sur mesure, adapt&eacute;es aux besoins sp&eacute;cifiques des partenaires techniques et financiers (PTF) et des institutions publiques, et inscrites dans une logique d'am&eacute;lioration continue des services et de cr&eacute;ation de valeur ajout&eacute;e durable dans son offre de conseil et d'assistance technique.</p>",
+    p2:"Rencontre strat&eacute;gique entre OASYS et la Fondation Gates sur l'assistance technique &agrave; l'Unit&eacute; de D&eacute;livrance (UD) du Minist&egrave;re de la Sant&eacute; et de l'Hygi&egrave;ne Publique du S&eacute;n&eacute;gal",
+    p2_body:"<p>OASYS a re&ccedil;u une d&eacute;l&eacute;gation de la Fondation Gates dans le cadre d'un partenariat portant sur l'assistance technique et fiduciaire &agrave; l'Unit&eacute; de D&eacute;livrance (UD) du Minist&egrave;re de la Sant&eacute; et de l'Hygi&egrave;ne Publique. Cette rencontre s'inscrit dans le financement accord&eacute; par la Fondation Gates pour renforcer les capacit&eacute;s organisationnelles et op&eacute;rationnelles de l'UD-MSHP, dans un contexte de r&eacute;duction des financements ext&eacute;rieurs et de transition vers un financement endog&egrave;ne du syst&egrave;me de sant&eacute;.</p><p>Au cours des &eacute;changes, OASYS a pr&eacute;sent&eacute; un aper&ccedil;u de la mission d'assistance technique, les r&eacute;sultats obtenus &agrave; ce jour et l'approche m&eacute;thodologique retenue pour accompagner l'Unit&eacute; de D&eacute;livrance dans l'atteinte de ses objectifs strat&eacute;giques. En tant qu'agence technique et fiduciaire, OASYS contribue &agrave; la mont&eacute;e en puissance de la fonctionnalit&eacute; et des capacit&eacute;s de l'UD (mobilisation et d&eacute;ploiement d'experts/consultants) et assure la gestion rigoureuse des ressources financi&egrave;res mises &agrave; disposition, dans le respect des exigences de transparence et de redevabilit&eacute;.</p><p>La d&eacute;l&eacute;gation de la Fondation Gates a exprim&eacute; sa satisfaction quant &agrave; l'ex&eacute;cution de la mission, saluant la qualit&eacute; du pilotage, la pertinence des outils mis en place et la valeur ajout&eacute;e apport&eacute;e par OASYS au fonctionnement quotidien de l'Unit&eacute; de D&eacute;livrance. Cette reconnaissance renforce la cr&eacute;dibilit&eacute; d'OASYS comme partenaire de confiance des bailleurs internationaux et des institutions publiques.</p><p>Cette rencontre a &eacute;galement permis de consolider la vision commune autour de la poursuite de l'accompagnement, avec un accent sur la p&eacute;rennisation des acquis, le renforcement des capacit&eacute;s internes et l'am&eacute;lioration continue de la performance institutionnelle de l'UD.</p>",
+    p3:"Supervision du d&eacute;ploiement de l'application M-Vaccin dans 49 districts sanitaires en C&ocirc;te d'Ivoire",
+    p3_body:"<p>Dans le cadre du projet d'extension de l'application mVaccin financ&eacute; par Gavi, en collaboration avec Orange C&ocirc;te d'Ivoire comme partenaire technologique, le consortium OASYS-CHAI C&ocirc;te d'Ivoire assure l'assistance technique au Programme &Eacute;largi de Vaccination (PEV), b&eacute;n&eacute;ficiaire du projet. Le consortium OASYS-CHAI C&ocirc;te d'Ivoire a jou&eacute; un r&ocirc;le strat&eacute;gique dans la supervision et l'accompagnement du d&eacute;ploiement de la solution mVaccin dans 49 districts sanitaires &agrave; travers la C&ocirc;te d'Ivoire.</p><p>Cette phase cl&eacute; du projet a renforc&eacute; l'appropriation de l'outil num&eacute;rique par les agents de sant&eacute; gr&acirc;ce &agrave; des sessions de formation, un accompagnement de proximit&eacute; et une supervision formative sur le terrain. Les &eacute;quipes du consortium OASYS &ndash; CHAI CI ont travaill&eacute; en &eacute;troite coordination avec les acteurs institutionnels r&eacute;gionaux et d&eacute;partementaux (DRS, DDS) afin de garantir la qualit&eacute; des d&eacute;ploiements, la disponibilit&eacute; des &eacute;quipements et la coh&eacute;rence m&eacute;thodologique dans l'utilisation de l'application.</p><p>Au-del&agrave; du d&eacute;ploiement technique, OASYS a contribu&eacute; &agrave; l'am&eacute;lioration continue du dispositif en formulant des recommandations op&eacute;rationnelles issues des missions de terrain, notamment sur la logistique num&eacute;rique, la connectivit&eacute; et l'organisation du suivi post-d&eacute;ploiement. Cette approche int&eacute;gr&eacute;e a permis de consolider l'usage effectif de M-Vaccin comme outil d'aide &agrave; la d&eacute;cision et de suivi de la performance du syst&egrave;me de vaccination.</p><p>&Agrave; travers cette mission, OASYS confirme sa position d'acteur majeur de la digitalisation des syst&egrave;mes de sant&eacute; en Afrique, capable d'accompagner des projets de grande envergure &agrave; forte valeur strat&eacute;gique et institutionnelle.</p>",
+    p4:"OASYS accompagne le Minist&egrave;re de la Sant&eacute; guin&eacute;en en formant les agents de collecte pour l'&eacute;tude nationale sur la tarification des actes m&eacute;dicaux.",
+    p4_body:"<p>Dans le cadre de la mission men&eacute;e pour le compte du Bureau de Strat&eacute;gie et de D&eacute;veloppement (BSD) du Minist&egrave;re de la Sant&eacute; et de l'Hygi&egrave;ne Publique de Guin&eacute;e, avec l'appui financier de la Banque mondiale, OASYS a form&eacute; 45 agents de collecte et superviseurs dans le cadre de la phase 1 de l'&eacute;tude nationale sur les co&ucirc;ts et la tarification des actes m&eacute;dicaux, biologiques et d'imagerie m&eacute;dicale en Guin&eacute;e.</p><p>Cette mission strat&eacute;gique a renforc&eacute; les capacit&eacute;s des enqu&ecirc;teurs en m&eacute;thodologie de calcul des co&ucirc;ts, en utilisation des outils de collecte et en exigences de qualit&eacute; des donn&eacute;es attendues pour orienter les r&eacute;formes du financement de la sant&eacute;. OASYS a &eacute;galement assur&eacute; la supervision de terrain, la consolidation des donn&eacute;es et un appui technique continu aux &eacute;quipes pendant la phase de collecte.</p><p>Gr&acirc;ce &agrave; son expertise reconnue en &eacute;conomie de la sant&eacute;, en organisation des syst&egrave;mes de sant&eacute; et en assistance technique, OASYS contribue activement &agrave; la production de donn&eacute;es fiables, essentielles &agrave; une prise de d&eacute;cision &eacute;clair&eacute;e et fond&eacute;e sur les faits, au service d'un acc&egrave;s &eacute;quitable &agrave; des soins de qualit&eacute; en Guin&eacute;e.</p>",
+    p5:"Mission d'assistance technique aupr&egrave;s de la Fondation M&eacute;rieux pour la r&eacute;alisation d'une enqu&ecirc;te PPS sur l'usage des antimicrobiens dans les h&ocirc;pitaux publics s&eacute;n&eacute;galais",
+    none:"Aucun article dans cette cat&eacute;gorie pour le moment.",
     ft_about:"Conseil et assistance technique pour les projets et programmes de développement dans le monde. Basé à Dakar, au Sénégal, depuis 2009.",
     ft_nav:"Naviguer",ft_more:"Plus",ft_reach:"Nous joindre",ft_blog:"Actualités",ft_sectors:"Secteurs",ft_careers:"Carrières",
     nav_about2:"À propos",nav_services2:"Services",nav_sectors2:"Secteurs",nav_team2:"Équipe",nav_contact2:"Contact",ft_addr:"Dakar-Fann, Sénégal",
@@ -391,27 +363,69 @@
     <div class="pmodal-date" id="pm-date"></div>
     <span class="post-cat" id="pm-cat"></span>
     <h3 class="pmodal-title" id="pm-title"></h3>
-    <p class="pmodal-body" id="pm-body" data-i="pm_body">Full article coming soon. This is placeholder copy for the prototype &mdash; the published piece will carry the project background, what was delivered, and the outcome on the ground.</p>
+    <div class="pmodal-body" id="pm-body"></div>
   </div>
 </div>
 <script>
   (function(){
     var modal=document.getElementById('pmodal');
     if(!modal) return;
-    var pd=document.getElementById('pm-date'), pt=document.getElementById('pm-title'), pc=document.getElementById('pm-cat');
-    function open(card){
+    var pd=document.getElementById('pm-date'), pt=document.getElementById('pm-title'),
+        pc=document.getElementById('pm-cat'), pb=document.getElementById('pm-body');
+    var current=null;
+
+    /* Card excerpts are taken from the article's own first paragraph, so they
+       follow the language switch without a second copy of the text. */
+    function syncExcerpts(){
+      document.querySelectorAll('#pgrid .post').forEach(function(card){
+        var ex=card.querySelector('.post-ex'), first=card.querySelector('.post-full p');
+        if(ex) ex.textContent=first?first.textContent:'';
+      });
+    }
+    function fill(card){
       pd.textContent=(card.querySelector('.post-date')||{}).textContent||'';
       pt.textContent=(card.querySelector('.post-title')||{}).textContent||'';
       var cat=card.querySelector('.post-cat'); pc.innerHTML=cat?cat.innerHTML:'';
+      var full=card.querySelector('.post-full'); pb.innerHTML=full?full.innerHTML:'';
+    }
+    function open(card,push){
+      if(card.classList.contains('nodetail')) return;
+      current=card; fill(card);
       modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
       document.body.style.overflow='hidden';
+      modal.querySelector('.pmodal-card').scrollTop=0;
+      if(push && card.id) history.replaceState(null,'','#'+card.id);
     }
-    function close(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
-    document.querySelectorAll('.post').forEach(function(card){
-      card.addEventListener('click',function(e){ e.preventDefault(); open(card); });
+    function close(){
+      current=null;
+      modal.classList.remove('open'); modal.setAttribute('aria-hidden','true');
+      document.body.style.overflow='';
+      history.replaceState(null,'',location.pathname+location.search);
+    }
+    document.querySelectorAll('#pgrid .post').forEach(function(card){
+      card.addEventListener('click',function(e){ e.preventDefault(); open(card,true); });
     });
     modal.querySelectorAll('[data-close]').forEach(function(b){ b.addEventListener('click',close); });
     document.addEventListener('keydown',function(e){ if(e.key==='Escape') close(); });
+
+    /* Deep link: oasys-blog.html#post-3 opens that article straight away. */
+    function fromHash(){
+      var m=/^#(post-\d+)$/.exec(location.hash);
+      if(!m) return;
+      var card=document.getElementById(m[1]);
+      if(card){ card.scrollIntoView({block:'center'}); open(card,false); }
+    }
+    syncExcerpts();
+    fromHash();
+    window.addEventListener('hashchange',fromHash);
+
+    /* Keep the open article and the excerpts in step with the language toggle. */
+    ['lang-en','lang-fr'].forEach(function(id){
+      var b=document.getElementById(id);
+      if(b) b.addEventListener('click',function(){
+        setTimeout(function(){ syncExcerpts(); if(current) fill(current); },0);
+      });
+    });
   })();
 </script>
 </body>
