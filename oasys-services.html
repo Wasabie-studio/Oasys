@@ -152,6 +152,7 @@
     padding:clamp(1.7rem,3.4vw,2.8rem);overflow:hidden;display:flex;flex-direction:column;min-height:clamp(440px,44vw,480px)}
   .svc-detail .pv-ghost{position:absolute;top:-.7rem;right:.8rem;font-family:var(--serif);font-size:clamp(6rem,12vw,9rem);font-weight:600;
     line-height:1;color:color-mix(in srgb,#fff 6%,transparent);pointer-events:none;user-select:none}
+  .svc-detail .pv-img{width:100%;aspect-ratio:16/7;object-fit:cover;object-position:center 35%;border-radius:10px;border:1px solid var(--on-dark-hair);margin-bottom:1.3rem;display:block}
   .svc-detail .pv-eye{font-family:var(--sans);font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--signal);display:inline-flex;align-items:center;gap:.5rem}
   .svc-detail .pv-eye .dot{width:6px;height:6px;border-radius:50%;background:var(--signal)}
   .svc-detail h3{color:var(--on-dark);font-size:clamp(1.5rem,3vw,2rem);margin-top:1rem;line-height:1.12;position:relative;min-height:2.24em}
@@ -338,7 +339,7 @@
      carries both languages (en/fr) so the switcher re-renders.
      ========================================================= */
   var SERVICES=[
-    {n:"01",
+    {n:"01",img:"assets/funding-card.webp",
       en:{title:"Funding & Grants Management",desc:"Project financing and grants, from planning and disbursement through to reporting.",
         body:"We help projects secure, manage and account for their financing — designing grant budgets, steering disbursements, and producing the financial and narrative reporting that keeps donors confident and audits smooth.",
         focus:["Grant design & budgeting","Fund disbursement & tracking","Financial & narrative reporting","Donor compliance & audit readiness"]},
@@ -413,8 +414,10 @@
     var s=SERVICES[activeSvc],d=s[LANG];
     var focus=d.focus.map(function(f){return '<div class="focus"><span class="fx">◆</span><span>'+esc(f)+'</span></div>';}).join("");
     var el=document.getElementById("svcDetail");
+    var media=s.img?'<img class="pv-img" src="'+s.img+'" alt="'+esc(d.title)+'" loading="lazy">':'';
     el.innerHTML=
-      '<span class="pv-ghost" aria-hidden="true">'+esc(s.n)+'</span>'+
+      (s.img?'':'<span class="pv-ghost" aria-hidden="true">'+esc(s.n)+'</span>')+
+      media+
       '<span class="pv-eye"><span class="dot"></span>'+SVC_LBL[LANG]+' '+esc(s.n)+'</span>'+
       '<h3>'+esc(d.title)+'</h3>'+
       '<p class="pv-lead">'+esc(d.desc)+'</p>'+
