@@ -33,13 +33,11 @@ completes the "Login with GitHub" handshake for the CMS.
 1. Sign up at **netlify.com** (free tier, no credit card needed) and create any
    one site there — even an empty placeholder site is fine; it's never linked
    to OASYS content.
-2. Go to that site's **Site configuration → General → Identity and Git Gateway**
-   — actually simpler: go to **Site configuration → Environment variables** is
-   NOT it either. The correct screen is:
-   **Site configuration → Access & security → OAuth** (Netlify's docs call
-   this "Authentication providers"). Add provider **GitHub**, and paste the
-   Client ID and Client Secret from step 2.
-3. That's it — no further Netlify configuration needed.
+2. Open that site's dashboard, then go to
+   **Project configuration → Security → OAuth**.
+3. Under **Authentication Providers**, click **Install Provider**, select
+   **GitHub**, and paste in the Client ID and Client Secret from step 2. Save.
+4. That's it — no further Netlify configuration needed.
 
 ## 4. Log in and start editing
 
