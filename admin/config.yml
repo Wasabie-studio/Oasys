@@ -3,11 +3,9 @@ backend:
   repo: Wasabie-studio/Oasys
   branch: main
   # Login relay only — the site itself stays on GitHub Pages.
-  # api.netlify.com is correct here (individual *.netlify.app site domains
-  # do NOT serve /auth themselves). For this to resolve to the right
-  # placeholder site's GitHub OAuth provider, that site needs
-  # wasabie-studio.github.io added as a Domain alias — see admin/SETUP.md.
-  base_url: https://api.netlify.com
+  # This must be your deployed Cloudflare Worker's own URL
+  # (cloudflare-worker/oauth-worker.js) — see admin/SETUP.md.
+  base_url: https://REPLACE-WITH-YOUR-WORKER-URL.workers.dev
   auth_endpoint: auth
 
 media_folder: "assets/uploads"
