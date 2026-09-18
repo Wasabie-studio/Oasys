@@ -843,6 +843,7 @@
     document.querySelectorAll('[data-reveal]').forEach(function(el){io.observe(el);});
     /* also observe standalone count targets not wrapped in reveal */
     document.querySelectorAll('[data-count]').forEach(function(el){io.observe(el);});
+    window.__observeReveals=function(root){(root||document).querySelectorAll('[data-reveal]:not(.in)').forEach(function(el){io.observe(el);});};
     function runCount(el){if(el.dataset.done)return;var t=parseInt(el.getAttribute('data-count'),10);if(isNaN(t))return;el.dataset.done=1;
       var dur=2200,s=null;function step(ts){if(!s)s=ts;var p=Math.min((ts-s)/dur,1);el.textContent=Math.round(t*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step);else el.textContent=t;}requestAnimationFrame(step);}
   })();
