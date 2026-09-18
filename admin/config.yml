@@ -73,17 +73,19 @@ collections:
               - {label: "Photo", name: img, widget: image, required: false}
               - {label: "Title (English)", name: title_en, widget: string}
               - {label: "Short description (English)", name: desc_en, widget: string}
-              - {label: "Full description (English)", name: body_en, widget: text}
+              - {label: "Full description (English)", name: body_en, widget: text, required: false}
               - label: "Focus areas (English)"
                 name: focus_en
                 widget: list
+                required: false
                 field: {label: "Item", name: item, widget: string}
               - {label: "Title (French)", name: title_fr, widget: string}
               - {label: "Short description (French)", name: desc_fr, widget: string}
-              - {label: "Full description (French)", name: body_fr, widget: text}
+              - {label: "Full description (French)", name: body_fr, widget: text, required: false}
               - label: "Focus areas (French)"
                 name: focus_fr
                 widget: list
+                required: false
                 field: {label: "Item", name: item, widget: string}
 
   - name: "team"
