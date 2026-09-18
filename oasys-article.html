@@ -140,7 +140,7 @@
       font-family:var(--sans);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:color-mix(in srgb,var(--ink) 45%,transparent);
       background:color-mix(in srgb,var(--bg) 55%,transparent);padding:.26rem .58rem;border-radius:800px;white-space:nowrap}
   .imgph .cam{position:absolute;inset:0;display:grid;place-items:center;opacity:.4;color:var(--forest);font-size:1.6rem}
-  .art-figure{margin:clamp(2rem,4vw,2.8rem) 0 0}
+  .art-figure{margin:0 0 clamp(2rem,4vw,2.8rem)}
   .art-figure .imgph{aspect-ratio:16/10}
   .art-cap{font-family:var(--sans);font-size:.8rem;color:var(--faint);margin:.75rem 0 0;line-height:1.5}
   .art-pub{margin-top:clamp(2.2rem,4vw,3rem);padding-top:1.3rem;border-top:1px solid var(--hair);
@@ -197,11 +197,11 @@
 <!-- ARTICLE BODY -->
 <article class="artbody">
   <div class="artwrap">
-    <div id="a-body"></div>
     <figure class="art-figure">
       <div class="imgph" id="a-img" data-ph="Article photo"><span class="cam">◎</span></div>
       <figcaption class="art-cap" id="a-cap"></figcaption>
     </figure>
+    <div id="a-body"></div>
     <p class="art-pub" id="a-pub"></p>
     <div class="artnav">
       <a id="a-prev" href="#" style="visibility:hidden"></a>
