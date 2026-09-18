@@ -144,18 +144,24 @@ collections:
 
   - name: "partners"
     label: "Partner & Client Logos"
+    description: "One shared list, edited in one place — click either row below, they open the same list. Publishing from either updates BOTH the homepage logo marquee and the About page logo grid at once."
     files:
       - file: "data/partners.json"
-        label: "Partners"
-        name: "partners"
-        fields:
+        label: "Partners — Homepage"
+        name: "partners_home"
+        fields: &partners_fields
           - label: "Partners"
             name: items
             widget: list
             summary: "{{fields.name}}"
+            hint: "Drag the handle on the left of each card to reorder — this same order is used on both the homepage and the About page."
             fields:
               - {label: "Name", name: name, widget: string}
               - {label: "Logo", name: logo, widget: image, required: false}
+      - file: "data/partners.json"
+        label: "Partners — About Page"
+        name: "partners_about"
+        fields: *partners_fields
 
   - name: "posts"
     label: "News"
@@ -182,4 +188,8 @@ collections:
       - file: "data/posts.json"
         label: "Articles — News Page"
         name: "posts_news"
+        fields: *posts_fields
+      - file: "data/posts.json"
+        label: "Articles — Article Pages"
+        name: "posts_article"
         fields: *posts_fields
