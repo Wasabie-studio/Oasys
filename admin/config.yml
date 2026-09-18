@@ -170,8 +170,19 @@ collections:
       - file: "data/posts.json"
         label: "Articles — Homepage"
         name: "posts_home"
-        fields: &posts_fields
-          - label: "Articles"
+        fields:
+          - label: "Featured on Homepage Hero banner"
+            name: featured_hero_post
+            widget: relation
+            collection: "posts"
+            file: "posts_home"
+            search_fields: ["items.*.title_en"]
+            value_field: "items.*.title_en"
+            display_fields: ["items.*.title_en"]
+            required: false
+            hint: "Pick ONE article to show as a small clickable photo on the homepage's top Hero banner. Leave blank to hide it. This is separate from the 3 articles listed below in 'Recent work'."
+          - &posts_items_field
+            label: "Articles"
             name: items
             widget: list
             summary: "{{fields.title_en}}"
@@ -188,8 +199,10 @@ collections:
       - file: "data/posts.json"
         label: "Articles — News Page"
         name: "posts_news"
-        fields: *posts_fields
+        fields:
+          - *posts_items_field
       - file: "data/posts.json"
         label: "Articles — Article Pages"
         name: "posts_article"
-        fields: *posts_fields
+        fields:
+          - *posts_items_field

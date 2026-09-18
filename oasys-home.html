@@ -114,7 +114,8 @@
     background:rgba(255,255,255,.13);backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);
     border:1px solid rgba(255,255,255,.28);box-shadow:0 24px 60px -28px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.3)}
   .glasscard .gthumb{width:72px;height:72px;border-radius:12px;background:linear-gradient(150deg,rgba(255,255,255,.28),rgba(255,255,255,.06));border:1px solid rgba(255,255,255,.28);display:grid;place-items:center;flex:none}
-  .glasscard .gthumb .play{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.92);color:var(--forest);display:grid;place-items:center;font-size:.8rem;padding-left:2px}
+  .glasscard .gthumb a{display:block;width:100%;height:100%}
+  .glasscard .gthumb img{width:100%;height:100%;object-fit:cover;border-radius:11px;display:block}
   .glasscard .gdiv{width:1px;height:46px;background:rgba(255,255,255,.28)}
   .glasscard .gn{font-family:var(--serif);font-weight:600;font-size:1.85rem;color:#fff;line-height:1;font-variant-numeric:tabular-nums}
   .glasscard .gn .u{color:#9fe6b4}
@@ -473,7 +474,7 @@
     </div>
   </div>
   <aside class="glasscard" data-reveal style="--d:.3s">
-    <div class="gthumb"><span class="play">▶</span></div>
+    <div class="gthumb" id="heroThumb"><!-- injected by JS: featured article photo from data/hero.json --></div>
     <div class="gdiv"></div>
     <div class="gstat"><div class="gn"><span data-count="15">15</span><span class="u">+</span></div><div class="gl" data-i="hero_stat">Years of experience</div></div>
   </aside>
@@ -902,6 +903,17 @@
       document.getElementById('heroCta1').textContent=lang==='fr'?h.cta1_fr:h.cta1_en;
       document.getElementById('heroCta2').textContent=lang==='fr'?h.cta2_fr:h.cta2_en;
       if(h.photo)document.getElementById('heroPhoto').style.backgroundImage="url('"+h.photo+"')";
+      var thumb=document.getElementById('heroThumb');
+      if(thumb){
+        var featTitle=(DATA.featuredHeroPost||'').trim();
+        var match=null,matchIdx=-1;
+        if(featTitle&&DATA.posts){
+          DATA.posts.forEach(function(p,i){if(!match&&p.title_en&&p.title_en.trim()===featTitle){match=p;matchIdx=i;}});
+        }
+        thumb.innerHTML=(match&&match.photo)
+          ? '<a href="oasys-article.html#a='+(matchIdx+1)+'" aria-label="'+esc(lang==='fr'?match.title_fr:match.title_en)+'"><img src="'+esc(match.photo)+'" alt="" loading="lazy"></a>'
+          : '';
+      }
     }
     function renderTeamPhoto(){
       if(!DATA.teamPhoto||!DATA.teamPhoto.photo)return;
@@ -1015,6 +1027,7 @@
       DATA.teamPhoto=res[4];
       DATA.services=res[5].items;
       DATA.posts=res[6].items;
+      DATA.featuredHeroPost=res[6].featured_hero_post||'';
       renderHero(curLang);
       renderTeamPhoto();
       renderSectorsHome(curLang);
