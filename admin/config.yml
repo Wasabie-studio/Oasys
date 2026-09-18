@@ -14,6 +14,34 @@ public_folder: "assets/uploads"
 publish_mode: simple
 
 collections:
+  - name: "hero"
+    label: "Homepage Hero"
+    files:
+      - file: "data/hero.json"
+        label: "Hero"
+        name: "hero"
+        fields:
+          - {label: "Background photo", name: photo, widget: image}
+          - {label: "Eyebrow tag (English)", name: kick_en, widget: string}
+          - {label: "Eyebrow tag (French)", name: kick_fr, widget: string}
+          - {label: "Headline (English)", name: h_en, widget: string}
+          - {label: "Headline (French)", name: h_fr, widget: string}
+          - {label: "Subtext (English)", name: sub_en, widget: text}
+          - {label: "Subtext (French)", name: sub_fr, widget: text}
+          - {label: "Primary button label (English)", name: cta1_en, widget: string}
+          - {label: "Primary button label (French)", name: cta1_fr, widget: string}
+          - {label: "Secondary button label (English)", name: cta2_en, widget: string}
+          - {label: "Secondary button label (French)", name: cta2_fr, widget: string}
+
+  - name: "team_photo"
+    label: "Team Group Photo"
+    files:
+      - file: "data/team_photo.json"
+        label: "Team Photo"
+        name: "team_photo"
+        fields:
+          - {label: "Photo (shown on the Homepage and About page)", name: photo, widget: image}
+
   - name: "sectors"
     label: "Sectors of Intervention"
     files:

@@ -198,7 +198,7 @@
           <a class="btn btn-line" href="oasys-services.html" data-i="ab_cta2">Our services</a>
         </div>
       </div>
-      <div class="a-img" data-reveal style="--d:.1s"><img src="assets/team-photo.webp" alt="The OASYS team, Dakar" loading="lazy"></div>
+      <div class="a-img" data-reveal style="--d:.1s"><img id="teamGroupPhoto" src="assets/team-photo.webp" alt="The OASYS team, Dakar" loading="lazy"></div>
     </div>
   </div>
 </header>
@@ -308,13 +308,15 @@
   }
   Promise.all([
     fetch('data/team.json').then(function(r){return r.json();}),
-    fetch('data/partners.json').then(function(r){return r.json();})
+    fetch('data/partners.json').then(function(r){return r.json();}),
+    fetch('data/team_photo.json').then(function(r){return r.json();})
   ]).then(function(res){
     TEAM=res[0].items.map(function(d){
       return {name:d.name,photo:d.photo,group:{en:d.group_en,fr:d.group_fr},role:{en:d.role_en,fr:d.role_fr}};
     });
     PARTNERS=res[1].items;
     renderTeam();renderPartners();
+    if(res[2].photo){var img=document.getElementById('teamGroupPhoto');if(img)img.src=res[2].photo;}
   });
 
   /* nav scroll state */
