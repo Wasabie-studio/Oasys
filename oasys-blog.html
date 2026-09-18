@@ -224,11 +224,6 @@
      news through the CMS at /admin */
   (function(){
     function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
-    var CAT_LABELS={
-      digital:{en:"Digital",fr:"Numérique"},
-      governance:{en:"Governance",fr:"Gouvernance"},
-      health:{en:"Health & Social",fr:"Santé & Social"}
-    };
     function excerptOf(body){
       if(!body)return "";
       var first=body.split("\n\n")[0];
@@ -243,7 +238,7 @@
         var hasDetail=!!p.body_en;
         var title=lang==='fr'?p.title_fr:p.title_en;
         var excerpt=excerptOf(lang==='fr'?p.body_fr:p.body_en);
-        var catLbl=CAT_LABELS[p.cat]?CAT_LABELS[p.cat][lang]:p.cat;
+        var catLbl=lang==='fr'?p.cat_fr:p.cat_en;
         var excHtml=excerpt?'<p class="post-ex">'+esc(excerpt)+'</p>':'';
         var media=p.photo
           ? '<div class="post-media"><img src="'+esc(p.photo)+'" alt="" loading="lazy"><span class="scrim"></span><span class="post-arw"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span></div>'

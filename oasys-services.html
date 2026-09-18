@@ -347,17 +347,20 @@
      edit them through the CMS at /admin — see data/services.json, data/sectors.json */
   var SERVICES=[];
   var SECTORS=[];
+  function pad2(n){return n<10?"0"+n:""+n;}
   function loadContentData(){
     return Promise.all([
       fetch('data/services.json').then(function(r){return r.json();}),
       fetch('data/sectors.json').then(function(r){return r.json();})
     ]).then(function(res){
-      SERVICES=res[0].items.map(function(d){
-        return {n:d.n,img:d.img,
+      // Display numbers (01, 02, ...) are just the item's position in the
+      // list — not a field editors have to type/maintain themselves.
+      SERVICES=res[0].items.map(function(d,i){
+        return {n:pad2(i+1),img:d.img,
           en:{title:d.title_en,desc:d.desc_en,body:d.body_en,focus:d.focus_en},
           fr:{title:d.title_fr,desc:d.desc_fr,body:d.body_fr,focus:d.focus_fr}};
       });
-      SECTORS=res[1].items;
+      SECTORS=res[1].items.map(function(d,i){return {n:pad2(i+1),en:d.en,fr:d.fr,img:d.img};});
     });
   }
 
