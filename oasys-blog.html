@@ -101,12 +101,6 @@
   .bloghero h1{color:var(--on-dark);font-size:clamp(2.2rem,5vw,3.6rem);max-width:24ch;font-weight:500;line-height:1.05}
   .bloghero .lead{color:var(--on-dark-mut);max-width:52ch;margin-top:1.1rem;font-size:1.08rem}
 
-  /* ---- filters ---- */
-  .filters{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:clamp(1.8rem,3.5vw,2.6rem)}
-  .filters button{font-family:var(--sans);font-weight:500;font-size:.86rem;color:var(--on-dark-mut);background:transparent;border:1px solid var(--on-dark-hair);border-radius:800px;padding:.5rem 1.05rem;cursor:pointer;transition:background .2s var(--ease),color .2s,border-color .2s,transform .2s var(--ease)}
-  .filters button:hover{border-color:var(--on-dark);color:var(--on-dark)}
-  .filters button[aria-pressed="true"]{background:var(--signal);border-color:var(--signal);color:var(--forest-deeper)}
-
   /* ---- blog list ---- */
   .bloglist{background:var(--bg)}
   .bloglist .wrap{padding-block:clamp(2.4rem,5vw,3.6rem) var(--section)}
@@ -136,7 +130,6 @@
   .post.nodetail:hover{transform:none;box-shadow:none;border-color:var(--hair)}
   .post.nodetail:hover .post-title{color:var(--ink)}
 
-  .noresults{color:var(--muted);font-size:1rem;padding:2rem 0}
 
   /* ---- footer ---- */
   footer.site{background:var(--forest-deeper);color:var(--on-dark)}
@@ -181,12 +174,6 @@
     <span class="eyebrow" data-reveal data-i="blog_eye">News &amp; Insights</span>
     <h1 data-reveal style="--d:.06s" data-i="blog_h">Field notes from the projects we support</h1>
     <p class="lead" data-reveal style="--d:.12s" data-i="blog_lead">Updates, milestones and perspectives from OASYS missions across Africa, Asia, Europe and the Caribbean.</p>
-    <div class="filters" id="filters" data-reveal style="--d:.18s" role="group" aria-label="Filter articles">
-      <button data-filter="all" aria-pressed="true" data-i="f_all">All</button>
-      <button data-filter="health" aria-pressed="false" data-i="f_health">Health &amp; Social</button>
-      <button data-filter="governance" aria-pressed="false" data-i="f_gov">Governance</button>
-      <button data-filter="digital" aria-pressed="false" data-i="f_digital">Digital</button>
-    </div>
   </div>
 </header>
 
@@ -195,7 +182,7 @@
   <div class="wrap">
     <div class="pgrid" id="pgrid">
 
-      <a class="post" href="oasys-article.html#a=1" id="post-1" data-cat="digital" data-reveal>
+      <a class="post" href="oasys-article.html#a=1" id="post-1" data-reveal>
         <div class="post-body">
           <div class="post-date">10.02.2026</div>
           <h3 class="post-title" data-i="p1">OASYS presents its innovative digital solution (OBIS) at the MSHP DU</h3>
@@ -204,7 +191,7 @@
         </div>
       </a>
 
-      <a class="post" href="oasys-article.html#a=2" id="post-2" data-cat="governance" data-reveal style="--d:.05s">
+      <a class="post" href="oasys-article.html#a=2" id="post-2" data-reveal style="--d:.05s">
         <div class="post-body">
           <div class="post-date">10.02.2026</div>
           <h3 class="post-title" data-i="p2">Strategic meeting between OASYS and the Gates Foundation regarding technical assistance to the Delivery Unit (DU) of the Ministry of Health and Public Hygiene in Senegal</h3>
@@ -213,7 +200,7 @@
         </div>
       </a>
 
-      <a class="post" href="oasys-article.html#a=3" id="post-3" data-cat="digital" data-reveal style="--d:.1s">
+      <a class="post" href="oasys-article.html#a=3" id="post-3" data-reveal style="--d:.1s">
         <div class="post-body">
           <div class="post-date">10.02.2026</div>
           <h3 class="post-title" data-i="p3">Supervision of the deployment of the M-Vaccine application in 49 health districts in Ivory Coast</h3>
@@ -222,7 +209,7 @@
         </div>
       </a>
 
-      <a class="post" href="oasys-article.html#a=4" id="post-4" data-cat="health" data-reveal>
+      <a class="post" href="oasys-article.html#a=4" id="post-4" data-reveal>
         <div class="post-body">
           <div class="post-date">10.02.2026</div>
           <h3 class="post-title" data-i="p4">OASYS is supporting the Guinean Ministry of Health by training data collection agents for the national study on medical procedure pricing.</h3>
@@ -231,7 +218,7 @@
         </div>
       </a>
 
-      <a class="post nodetail" href="#" id="post-5" onclick="return false;" data-cat="health" data-reveal style="--d:.05s">
+      <a class="post nodetail" href="#" id="post-5" onclick="return false;" data-reveal style="--d:.05s">
         <div class="post-body">
           <div class="post-date">18.08.2025</div>
           <h3 class="post-title" data-i="p5">Technical assistance mission to the M&eacute;rieux Foundation for conducting a PPS survey on antimicrobial use in Senegalese public hospitals</h3>
@@ -241,7 +228,6 @@
       </a>
 
     </div>
-    <p class="noresults" id="noresults" hidden data-i="none">No articles in this category yet.</p>
   </div>
 </section>
 
@@ -269,23 +255,6 @@
     burger.addEventListener('click',function(){var open=links.style.display==='flex';
       links.style.cssText=open?'':'display:flex;position:absolute;top:70px;left:0;right:0;flex-direction:column;gap:1.1rem;background:var(--bg);padding:1.5rem var(--gutter);border-bottom:1px solid var(--hair)';});})();
 
-  /* category filter */
-  (function(){
-    var bar=document.getElementById('filters'); if(!bar)return;
-    var btns=bar.querySelectorAll('button');
-    var posts=document.querySelectorAll('#pgrid .post');
-    var none=document.getElementById('noresults');
-    bar.addEventListener('click',function(e){
-      var b=e.target.closest('button'); if(!b)return;
-      btns.forEach(function(x){x.setAttribute('aria-pressed', x===b?'true':'false');});
-      var f=b.getAttribute('data-filter'),shown=0;
-      posts.forEach(function(p){
-        var ok=(f==='all'||p.getAttribute('data-cat')===f);
-        p.hidden=!ok; if(ok)shown++;
-      });
-      if(none)none.hidden=shown>0;
-    });
-  })();
 
   /* reveal on scroll */
   (function(){
@@ -302,7 +271,7 @@
     blog_eye:"Actualités & Perspectives",
     blog_h:"Notes de terrain des projets que nous accompagnons",
     blog_lead:"Actualités, jalons et regards issus des missions d'OASYS en Afrique, en Asie, en Europe et dans les Caraïbes.",
-    f_all:"Tout",f_health:"Sant&eacute; & Social",f_gov:"Gouvernance",f_digital:"Num&eacute;rique",
+    f_health:"Sant&eacute; & Social",f_gov:"Gouvernance",f_digital:"Num&eacute;rique",
     p1:"OASYS pr&eacute;sente sa solution num&eacute;rique innovante (OBIS) &agrave; l'UD du MSHP",
     p1_ex:"Dans le cadre de sa mission d'assistance technique et fiduciaire auprès de l'Unité de Délivrance du Ministère de la Santé et de l'Hygiène Publique (UD-MSHP), OASYS a déployé sa plateforme OBIS.",
     p2:"Rencontre strat&eacute;gique entre OASYS et la Fondation Gates sur l'assistance technique &agrave; l'Unit&eacute; de D&eacute;livrance (UD) du Minist&egrave;re de la Sant&eacute; et de l'Hygi&egrave;ne Publique du S&eacute;n&eacute;gal",
@@ -312,7 +281,6 @@
     p4:"OASYS accompagne le Minist&egrave;re de la Sant&eacute; guin&eacute;en en formant les agents de collecte pour l'&eacute;tude nationale sur la tarification des actes m&eacute;dicaux.",
     p4_ex:"Dans le cadre de la mission menée pour le compte du Bureau de Stratégie et de Développement (BSD) du Ministère de la Santé de Guinée, avec l'appui de la Banque mondiale, OASYS a formé 45 agents de collecte et superviseurs.",
     p5:"Mission d'assistance technique aupr&egrave;s de la Fondation M&eacute;rieux pour la r&eacute;alisation d'une enqu&ecirc;te PPS sur l'usage des antimicrobiens dans les h&ocirc;pitaux publics s&eacute;n&eacute;galais",
-    none:"Aucun article dans cette cat&eacute;gorie pour le moment.",
     ft_about:"Conseil et assistance technique pour les projets et programmes de développement dans le monde. Basé à Dakar, au Sénégal, depuis 2009.",
     ft_nav:"Naviguer",ft_more:"Plus",ft_reach:"Nous joindre",ft_blog:"Actualités",ft_sectors:"Secteurs",ft_careers:"Carrières",
     nav_about2:"À propos",nav_services2:"Services",nav_sectors2:"Secteurs",nav_team2:"Équipe",nav_contact2:"Contact",ft_addr:"Dakar-Fann, Sénégal",
