@@ -35,22 +35,26 @@ collections:
 
   - name: "team_photo"
     label: "Team Group Photo"
-    description: "One shared photo — used on both the Homepage About teaser AND the About page hero."
+    description: "One shared photo, edited in one place — click either row below, they open the same photo. Publishing from either updates BOTH the homepage and the About page at once."
     files:
       - file: "data/team_photo.json"
-        label: "Team Photo (shown on Homepage + About page)"
-        name: "team_photo"
-        fields:
+        label: "Team Photo — Homepage"
+        name: "team_photo_home"
+        fields: &team_photo_fields
           - {label: "Photo", name: photo, widget: image, required: false}
+      - file: "data/team_photo.json"
+        label: "Team Photo — About Page"
+        name: "team_photo_about"
+        fields: *team_photo_fields
 
   - name: "sectors"
     label: "Sectors of Intervention"
-    description: "One shared list — editing a sector here updates it everywhere it appears: the homepage carousel AND the Services page's Sectors tab."
+    description: "One shared list, edited in one place — click either row below, they open the same list. Publishing from either updates BOTH the homepage carousel and the Services page's Sectors tab at once."
     files:
       - file: "data/sectors.json"
-        label: "Sectors (shown on Homepage + Services page)"
-        name: "sectors"
-        fields:
+        label: "Sectors — Homepage"
+        name: "sectors_home"
+        fields: &sectors_fields
           - label: "Sectors"
             name: items
             widget: list
@@ -60,15 +64,19 @@ collections:
               - {label: "Title (English)", name: en, widget: string}
               - {label: "Title (French)", name: fr, widget: string}
               - {label: "Photo", name: img, widget: image, required: false}
+      - file: "data/sectors.json"
+        label: "Sectors — Services Page"
+        name: "sectors_services"
+        fields: *sectors_fields
 
   - name: "services"
     label: "Services"
-    description: "One shared list — editing a service here updates it everywhere it appears: the homepage showcase AND the full Services page."
+    description: "One shared list, edited in one place — click either row below, they open the same list. Publishing from either updates BOTH the homepage showcase and the full Services page at once."
     files:
       - file: "data/services.json"
-        label: "Services (shown on Homepage + Services page)"
-        name: "services"
-        fields:
+        label: "Services — Homepage"
+        name: "services_home"
+        fields: &services_fields
           - label: "Services"
             name: items
             widget: list
@@ -92,6 +100,10 @@ collections:
                 widget: list
                 required: false
                 field: {label: "Item", name: item, widget: string}
+      - file: "data/services.json"
+        label: "Services — Services Page"
+        name: "services_page"
+        fields: *services_fields
 
   - name: "team"
     label: "Team"
@@ -147,12 +159,12 @@ collections:
 
   - name: "posts"
     label: "News"
-    description: "One shared list — editing an article here updates it everywhere it appears: the homepage 'Recent work' teaser, the News page, AND its own article page."
+    description: "One shared list, edited in one place — click either row below, they open the same list. Publishing from either updates the homepage 'Recent work' teaser, the News page, AND every article page at once."
     files:
       - file: "data/posts.json"
-        label: "Articles (shown on Homepage + News page + Article pages)"
-        name: "posts"
-        fields:
+        label: "Articles — Homepage"
+        name: "posts_home"
+        fields: &posts_fields
           - label: "Articles"
             name: items
             widget: list
@@ -167,3 +179,7 @@ collections:
               - {label: "Title (French)", name: title_fr, widget: string}
               - {label: "Body (English) — leave blank for a headline-only item with no article page", name: body_en, widget: text, required: false}
               - {label: "Body (French)", name: body_fr, widget: text, required: false}
+      - file: "data/posts.json"
+        label: "Articles — News Page"
+        name: "posts_news"
+        fields: *posts_fields
