@@ -1,0 +1,8 @@
+{
+  "items": [
+    {"name":"Ousmane Amadou Sy","photo":"","role_en":"CEO","role_fr":"PDG"},
+    {"name":"Jean Michel Diouf","photo":"","role_en":"Technical Director","role_fr":"Directeur Technique"},
+    {"name":"Marie Madeleine Ndione","photo":"","role_en":"Head of Operations","role_fr":"Responsable des Opérations"},
+    {"name":"Aminata Ba","photo":"","role_en":"Project Manager","role_fr":"Chargée de Projets"}
+  ]
+}

@@ -343,69 +343,23 @@
      or a sector object, and the page rebuilds itself. Each item
      carries both languages (en/fr) so the switcher re-renders.
      ========================================================= */
-  var SERVICES=[
-    {n:"01",img:"assets/funding-card.webp",
-      en:{title:"Funding & Grants Management",desc:"Project financing and grants, from planning and disbursement through to reporting.",
-        body:"We help projects secure, manage and account for their financing — designing grant budgets, steering disbursements, and producing the financial and narrative reporting that keeps donors confident and audits smooth.",
-        focus:["Grant design & budgeting","Fund disbursement & tracking","Financial & narrative reporting","Donor compliance & audit readiness"]},
-      fr:{title:"Financement & gestion des subventions",desc:"Financement de projets et subventions, de la planification et du décaissement jusqu'au reporting.",
-        body:"Nous aidons les projets à sécuriser, gérer et justifier leur financement — conception des budgets de subvention, pilotage des décaissements et production des rapports financiers et narratifs qui rassurent les bailleurs et facilitent les audits.",
-        focus:["Conception & budgétisation des subventions","Décaissement & suivi des fonds","Rapports financiers & narratifs","Conformité bailleurs & préparation aux audits"]}},
-    {n:"02",img:"assets/planning-service.webp",
-      en:{title:"Planning, Monitoring, Evaluation & Learning",desc:"Tracking progress, measuring results, and turning lessons into knowledge.",
-        body:"From the theory of change to the final evaluation, we build the systems that show whether a project is working — clear indicators, honest measurement, and a learning loop that turns findings into better decisions.",
-        focus:["Theory of change & logframes","Results frameworks & indicators","Baseline, mid-term & final evaluations","Knowledge management & learning"]},
-      fr:{title:"Planification, suivi, évaluation & apprentissage",desc:"Suivre l'avancement, mesurer les résultats et transformer les leçons en savoirs.",
-        body:"De la théorie du changement à l'évaluation finale, nous construisons les systèmes qui montrent si un projet fonctionne — indicateurs clairs, mesure honnête et boucle d'apprentissage qui transforme les constats en meilleures décisions.",
-        focus:["Théorie du changement & cadres logiques","Cadres de résultats & indicateurs","Évaluations initiales, à mi-parcours & finales","Gestion des connaissances & apprentissage"]}},
-    {n:"03",img:"assets/procurement-service.webp",
-      en:{title:"Procurement & Supply Chain Management",desc:"The right supplies and equipment, at the right place, at the right time.",
-        body:"We plan and run procurement end to end — tendering, sourcing and contracting the right suppliers, then managing logistics, distribution and quality control so equipment and supplies arrive where they're needed, when they're needed.",
-        focus:["Procurement planning & tendering","Supplier sourcing & contracting","Logistics & distribution","Inventory & quality control"]},
-      fr:{title:"Approvisionnement & gestion de la chaîne logistique",desc:"Les bons fournitures et équipements, au bon endroit, au bon moment.",
-        body:"Nous planifions et menons les achats de bout en bout — appels d'offres, sourcing et contractualisation des bons fournisseurs, puis logistique, distribution et contrôle qualité pour que fournitures et équipements arrivent au bon endroit, au bon moment.",
-        focus:["Planification des achats & appels d'offres","Sourcing fournisseurs & contractualisation","Logistique & distribution","Gestion des stocks & contrôle qualité"]}},
-    {n:"04",img:"assets/governance-service.webp",
-      en:{title:"Governance, Reform & Strategic Monitoring",desc:"Strengthening how institutions are run and following reforms through.",
-        body:"We help institutions diagnose what holds them back, design realistic reform roadmaps, and stay the course — with the strategic and performance monitoring that keeps reforms and public policies on track.",
-        focus:["Institutional diagnostics","Reform roadmaps & change management","Strategic & performance monitoring","Public policy support"]},
-      fr:{title:"Gouvernance, réforme & suivi stratégique",desc:"Renforcer le fonctionnement des institutions et mener les réformes à leur terme.",
-        body:"Nous aidons les institutions à diagnostiquer leurs freins, à concevoir des feuilles de route de réforme réalistes et à tenir le cap — avec le suivi stratégique et de la performance qui maintient réformes et politiques publiques sur la bonne voie.",
-        focus:["Diagnostics institutionnels","Feuilles de route de réforme & conduite du changement","Suivi stratégique & de la performance","Appui aux politiques publiques"]}},
-    {n:"05",img:"assets/digital-service.webp",
-      en:{title:"Digital & Innovative Solutions",desc:"Digital tools that make projects easier to manage, track, and report on.",
-        body:"We put practical technology to work — project management platforms, mobile data collection, live dashboards and e-government tools — integrated into how teams already operate so managing and reporting gets simpler, not harder.",
-        focus:["Project management platforms","Data collection & dashboards","e-Government & service delivery","Systems integration"]},
-      fr:{title:"Solutions numériques & innovantes",desc:"Des outils numériques qui simplifient la gestion, le suivi et le reporting des projets.",
-        body:"Nous mettons la technologie au service du concret — plateformes de gestion de projet, collecte de données mobile, tableaux de bord en temps réel et outils d'e-gouvernement — intégrés aux pratiques des équipes pour simplifier la gestion et le reporting.",
-        focus:["Plateformes de gestion de projet","Collecte de données & tableaux de bord","e-Gouvernement & services publics","Intégration de systèmes"]}},
-    {n:"06",img:"assets/facilitation-service.webp",
-      en:{title:"Process & Activity Facilitation",desc:"Facilitating the workshops and activities that keep projects moving.",
-        body:"We design and facilitate the moments where a project comes together — stakeholder consultations, strategic planning sessions and multi-actor coordination — so decisions get made and everyone leaves aligned.",
-        focus:["Workshop design & facilitation","Stakeholder consultations","Strategic planning sessions","Multi-actor coordination"]},
-      fr:{title:"Facilitation de processus & d'activités",desc:"Animer les ateliers et les activités qui font avancer les projets.",
-        body:"Nous concevons et animons les moments clés d'un projet — consultations des parties prenantes, sessions de planification stratégique et coordination multi-acteurs — pour que les décisions soient prises et chacun reparte aligné.",
-        focus:["Conception & animation d'ateliers","Consultations des parties prenantes","Sessions de planification stratégique","Coordination multi-acteurs"]}},
-    {n:"07",img:"assets/training-service.webp",
-      en:{title:"Custom Training",desc:"From transformational leadership to PBF, AI, and data protection.",
-        body:"We build training around what your teams actually need — from transformational leadership and performance-based financing to artificial intelligence, data and data protection — practical, contextual, and designed to stick.",
-        focus:["Transformational leadership","Performance-Based Financing (PBF)","Artificial intelligence & data","Data protection & privacy"]},
-      fr:{title:"Formations sur mesure",desc:"Du leadership transformationnel au FBP, à l'IA et à la protection des données.",
-        body:"Nous construisons des formations à partir des besoins réels de vos équipes — du leadership transformationnel et du financement basé sur la performance à l'intelligence artificielle, aux données et à leur protection — pratiques, contextuelles et durables.",
-        focus:["Leadership transformationnel","Financement basé sur la performance (FBP)","Intelligence artificielle & données","Protection & confidentialité des données"]}}
-  ];
-
-  var SECTORS=[
-    {n:"01",en:"Health & Social Protection",fr:"Santé & protection sociale",img:"assets/health-sector.webp"},
-    {n:"02",en:"Technical & Vocational Training",fr:"Formation technique & professionnelle",img:"assets/training-sector.webp"},
-    {n:"03",en:"Agribusiness & Agricultural Value Chains",fr:"Agrobusiness & chaînes de valeur agricoles",img:"assets/agribusiness-sector.webp"},
-    {n:"04",en:"Environment, Sustainability & Climate Change",fr:"Environnement, durabilité & changement climatique",img:"assets/environment-sector.webp"},
-    {n:"05",en:"Local Governance, Decentralisation & Urban Planning",fr:"Gouvernance locale, décentralisation & urbanisme",img:"assets/governance-sector.webp"},
-    {n:"06",en:"Population, Gender & Human Rights",fr:"Population, genre & droits humains",img:"assets/gender-sector.webp"},
-    {n:"07",en:"Social & Community Entrepreneurship",fr:"Entrepreneuriat social & communautaire",img:"assets/entrepreneurship-sector.webp"},
-    {n:"08",en:"SME Support",fr:"Appui aux PME",img:"assets/sme-sector.webp"},
-    {n:"09",en:"IT & Digital Solutions",fr:"Informatique & solutions numériques",img:"assets/digital-sector.webp"}
-  ];
+  /* Services & sectors now live in /data/*.json so non-technical staff can
+     edit them through the CMS at /admin — see data/services.json, data/sectors.json */
+  var SERVICES=[];
+  var SECTORS=[];
+  function loadContentData(){
+    return Promise.all([
+      fetch('data/services.json').then(function(r){return r.json();}),
+      fetch('data/sectors.json').then(function(r){return r.json();})
+    ]).then(function(res){
+      SERVICES=res[0].items.map(function(d){
+        return {n:d.n,img:d.img,
+          en:{title:d.title_en,desc:d.desc_en,body:d.body_en,focus:d.focus_en},
+          fr:{title:d.title_fr,desc:d.desc_fr,body:d.body_fr,focus:d.focus_fr}};
+      });
+      SECTORS=res[1].items;
+    });
+  }
 
   var LANG="en";
   var FOCUS_LBL={en:"Focus areas",fr:"Domaines d'intervention"};
@@ -416,6 +370,7 @@
 
   /* ---- render services: left rail (tabs) + right detail panel ---- */
   function renderDetail(){
+    if(!SERVICES.length)return;
     var s=SERVICES[activeSvc],d=s[LANG];
     var focus=d.focus.map(function(f){return '<div class="focus"><span class="fx">◆</span><span>'+esc(f)+'</span></div>';}).join("");
     var el=document.getElementById("svcDetail");
@@ -438,6 +393,7 @@
   }
 
   function renderServices(){
+    if(!SERVICES.length)return;
     var rail=document.getElementById("svcRail");
     rail.innerHTML=SERVICES.map(function(s,i){
       var d=s[LANG];
@@ -467,6 +423,7 @@
 
   /* ---- render sectors ---- */
   function renderSectors(){
+    if(!SECTORS.length)return;
     var host=document.getElementById("secGrid");
     host.innerHTML=SECTORS.map(function(s){
       var bg=s.img?'<img class="scard-bg" src="'+s.img+'" alt="" aria-hidden="true" loading="lazy"><span class="scard-scrim" aria-hidden="true"></span>':'';
@@ -488,9 +445,11 @@
   }
   function scrollToServices(){ var sec=document.getElementById('services'); if(sec) sec.scrollIntoView({block:'start'}); }
 
-  svcFromHash();
-  renderServices();
-  renderSectors();
+  loadContentData().then(function(){
+    svcFromHash();
+    renderServices();
+    renderSectors();
+  });
   if(/^#svc-\d+$/.test(location.hash)) setTimeout(scrollToServices,60);
   window.addEventListener('hashchange',function(){ if(svcFromHash()){ renderServices(); scrollToServices(); } });
 

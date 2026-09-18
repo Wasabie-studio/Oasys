@@ -180,54 +180,7 @@
 <!-- BLOG LIST -->
 <section class="bloglist">
   <div class="wrap">
-    <div class="pgrid" id="pgrid">
-
-      <a class="post" href="oasys-article.html#a=1" id="post-1" data-reveal>
-        <div class="post-body">
-          <div class="post-date">10.02.2026</div>
-          <h3 class="post-title" data-i="p1">OASYS presents its innovative digital solution (OBIS) at the MSHP DU</h3>
-          <p class="post-ex" data-i="p1_ex">As part of its mission to provide technical and fiduciary assistance to the Delivery Unit of the Ministry of Health and Public Hygiene (DU-MSHP), OASYS has deployed its OBIS (OASYS Business Information System) platform.</p>
-          <span class="post-cat"><span class="dot"></span><span data-i="f_digital">Digital</span></span>
-        </div>
-      </a>
-
-      <a class="post" href="oasys-article.html#a=2" id="post-2" data-reveal style="--d:.05s">
-        <div class="post-body">
-          <div class="post-date">10.02.2026</div>
-          <h3 class="post-title" data-i="p2">Strategic meeting between OASYS and the Gates Foundation regarding technical assistance to the Delivery Unit (DU) of the Ministry of Health and Public Hygiene in Senegal</h3>
-          <p class="post-ex" data-i="p2_ex">OASYS hosted a delegation from the Gates Foundation as part of a partnership focused on providing technical and fiduciary assistance to the Delivery Unit (DU) of the Ministry of Health and Public Hygiene.</p>
-          <span class="post-cat"><span class="dot"></span><span data-i="f_gov">Governance</span></span>
-        </div>
-      </a>
-
-      <a class="post" href="oasys-article.html#a=3" id="post-3" data-reveal style="--d:.1s">
-        <div class="post-body">
-          <div class="post-date">10.02.2026</div>
-          <h3 class="post-title" data-i="p3">Supervision of the deployment of the M-Vaccine application in 49 health districts in Ivory Coast</h3>
-          <p class="post-ex" data-i="p3_ex">As part of the Gavi-funded mVaccine application expansion project, the OASYS-CHAI C&ocirc;te d'Ivoire consortium oversaw the deployment of the mVaccine solution in 49 health districts across C&ocirc;te d'Ivoire.</p>
-          <span class="post-cat"><span class="dot"></span><span data-i="f_digital">Digital</span></span>
-        </div>
-      </a>
-
-      <a class="post" href="oasys-article.html#a=4" id="post-4" data-reveal>
-        <div class="post-body">
-          <div class="post-date">10.02.2026</div>
-          <h3 class="post-title" data-i="p4">OASYS is supporting the Guinean Ministry of Health by training data collection agents for the national study on medical procedure pricing.</h3>
-          <p class="post-ex" data-i="p4_ex">As part of the mission conducted on behalf of the Bureau of Strategy and Development (BSD) of the Ministry of Health of Guinea, with support from the World Bank, OASYS trained 45 collection agents and supervisors.</p>
-          <span class="post-cat"><span class="dot"></span><span data-i="f_health">Health &amp; Social</span></span>
-        </div>
-      </a>
-
-      <a class="post nodetail" href="#" id="post-5" onclick="return false;" data-reveal style="--d:.05s">
-        <div class="post-body">
-          <div class="post-date">18.08.2025</div>
-          <h3 class="post-title" data-i="p5">Technical assistance mission to the M&eacute;rieux Foundation for conducting a PPS survey on antimicrobial use in Senegalese public hospitals</h3>
-          
-          <span class="post-cat"><span class="dot"></span><span data-i="f_health">Health &amp; Social</span></span>
-        </div>
-      </a>
-
-    </div>
+    <div class="pgrid" id="pgrid"><!-- injected by JS from data/posts.json --></div>
   </div>
 </section>
 
@@ -262,7 +215,41 @@
     if(reduce||!('IntersectionObserver' in window))return;
     document.documentElement.classList.add('js-motion');
     var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});},{threshold:.14,rootMargin:'0px 0px -6% 0px'});
-    document.querySelectorAll('[data-reveal]').forEach(function(el){io.observe(el);});
+    window.__observeReveals=function(root){(root||document).querySelectorAll('[data-reveal]:not(.in)').forEach(function(el){io.observe(el);});};
+    window.__observeReveals(document);
+  })();
+
+  /* posts — now live in /data/posts.json so non-technical staff can add
+     news through the CMS at /admin */
+  (function(){
+    function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+    var curLang=(function(){try{return localStorage.getItem('oasysLang')==='fr'?'fr':'en';}catch(e){return 'en';}})();
+    var POSTS=[];
+    function renderPosts(lang){
+      var host=document.getElementById('pgrid');
+      host.innerHTML=POSTS.map(function(p,i){
+        var hasDetail=!!p.body_en;
+        var title=lang==='fr'?p.title_fr:p.title_en;
+        var excerpt=lang==='fr'?p.excerpt_fr:p.excerpt_en;
+        var cat=lang==='fr'?p.cat_fr:p.cat_en;
+        var excHtml=excerpt?'<p class="post-ex">'+esc(excerpt)+'</p>':'';
+        return hasDetail
+          ? '<a class="post" href="oasys-article.html#a='+p.n+'" id="post-'+p.n+'" data-reveal'+(i?' style="--d:'+((i%4)*0.05).toFixed(2)+'s"':'')+'>'+
+              '<div class="post-body"><div class="post-date">'+esc(p.date)+'</div>'+
+              '<h3 class="post-title">'+esc(title)+'</h3>'+excHtml+
+              '<span class="post-cat"><span class="dot"></span><span>'+esc(cat)+'</span></span></div></a>'
+          : '<a class="post nodetail" href="#" id="post-'+p.n+'" onclick="return false;" data-reveal'+(i?' style="--d:'+((i%4)*0.05).toFixed(2)+'s"':'')+'>'+
+              '<div class="post-body"><div class="post-date">'+esc(p.date)+'</div>'+
+              '<h3 class="post-title">'+esc(title)+'</h3>'+
+              '<span class="post-cat"><span class="dot"></span><span>'+esc(cat)+'</span></span></div></a>';
+      }).join('');
+      window.__observeReveals(host);
+    }
+    window.__renderPosts=function(lang){curLang=lang;if(POSTS.length)renderPosts(lang);};
+    fetch('data/posts.json').then(function(r){return r.json();}).then(function(d){
+      POSTS=d.items;
+      renderPosts(curLang);
+    });
   })();
 
   /* bilingual */
@@ -271,7 +258,6 @@
     blog_eye:"Actualités & Perspectives",
     blog_h:"Notes de terrain des projets que nous accompagnons",
     blog_lead:"Actualités, jalons et regards issus des missions d'OASYS en Afrique, en Asie, en Europe et dans les Caraïbes.",
-    f_health:"Sant&eacute; & Social",f_gov:"Gouvernance",f_digital:"Num&eacute;rique",
     p1:"OASYS pr&eacute;sente sa solution num&eacute;rique innovante (OBIS) &agrave; l'UD du MSHP",
     p1_ex:"Dans le cadre de sa mission d'assistance technique et fiduciaire auprès de l'Unité de Délivrance du Ministère de la Santé et de l'Hygiène Publique (UD-MSHP), OASYS a déployé sa plateforme OBIS.",
     p2:"Rencontre strat&eacute;gique entre OASYS et la Fondation Gates sur l'assistance technique &agrave; l'Unit&eacute; de D&eacute;livrance (UD) du Minist&egrave;re de la Sant&eacute; et de l'Hygi&egrave;ne Publique du S&eacute;n&eacute;gal",
@@ -291,8 +277,8 @@
     document.querySelectorAll('[data-i]').forEach(function(el){EN[el.getAttribute('data-i')]=el.innerHTML;});
     var en=document.getElementById('lang-en'),fr=document.getElementById('lang-fr');
     function apply(m,l){document.querySelectorAll('[data-i]').forEach(function(el){var k=el.getAttribute('data-i');if(m[k]!=null)el.innerHTML=m[k];});document.documentElement.setAttribute('lang',l);}
-    en.addEventListener('click',function(){try{localStorage.setItem('oasysLang','en');}catch(e){}apply(EN,'en');en.setAttribute('aria-pressed','true');fr.setAttribute('aria-pressed','false');});
-    fr.addEventListener('click',function(){try{localStorage.setItem('oasysLang','fr');}catch(e){}apply(FR,'fr');fr.setAttribute('aria-pressed','true');en.setAttribute('aria-pressed','false');});
+    en.addEventListener('click',function(){try{localStorage.setItem('oasysLang','en');}catch(e){}apply(EN,'en');en.setAttribute('aria-pressed','true');fr.setAttribute('aria-pressed','false');if(window.__renderPosts)window.__renderPosts('en');});
+    fr.addEventListener('click',function(){try{localStorage.setItem('oasysLang','fr');}catch(e){}apply(FR,'fr');fr.setAttribute('aria-pressed','true');en.setAttribute('aria-pressed','false');if(window.__renderPosts)window.__renderPosts('fr');});
     try{ if(localStorage.getItem('oasysLang')==='fr') fr.click(); }catch(e){}
   })();
 </script>
