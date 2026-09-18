@@ -70,12 +70,7 @@
   .txtlink .arw{transition:transform .3s var(--ease)}
   .txtlink:hover .arw{transform:translate(3px,-3px)}
 
-  /* ---- topline + nav ---- */
-  .topline{border-bottom:1px solid var(--hair);font-size:.78rem;color:var(--faint)}
-  .topline .wrap{display:flex;justify-content:space-between;align-items:center;min-height:36px;gap:1rem}
-  .topline a{color:inherit;text-decoration:none}.topline a:hover{color:var(--body)}
-  .topline .tr{display:flex;gap:1.3rem;align-items:center}
-  @media (max-width:640px){.topline .tl{display:none}}
+  /* ---- nav ---- */
   nav.main{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .3s}
   nav.main.scrolled{border-bottom-color:var(--hair)}
   nav.main .wrap{display:flex;align-items:center;justify-content:space-between;min-height:70px;gap:1rem}
@@ -160,10 +155,6 @@
 </head>
 <body>
 
-<div class="topline"><div class="wrap">
-  <span class="tl" data-i="tl_addr">VDN, Cité Horizon, Villa N C03 · Dakar-Fann, Sénégal</span>
-  <span class="tr"><a href="tel:+221338019085">+221 33 801 90 85</a><a href="mailto:mail@oasysgroupe.com">mail@oasysgroupe.com</a><a href="#" aria-label="LinkedIn">LinkedIn</a></span>
-</div></div>
 
 <nav class="main" id="nav"><div class="wrap">
   <a class="logo" href="oasys-home.html#top" aria-label="OASYS — home"><img class="logo-img" src="assets/oasys-logo.svg" alt="OASYS"></a>
@@ -307,7 +298,6 @@
 
   /* bilingual */
   var FR={
-    tl_addr:"VDN, Cité Horizon, Villa N C03 · Dakar-Fann, Sénégal",
     nav_home:"Accueil",nav_about:"À propos",nav_services:"Services",nav_sectors:"Secteurs",nav_team:"Équipe",nav_blog:"Actualités",nav_contact:"Contact",
     blog_eye:"Actualités & Perspectives",
     blog_h:"Notes de terrain des projets que nous accompagnons",
