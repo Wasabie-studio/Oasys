@@ -21,7 +21,7 @@ collections:
         label: "Hero"
         name: "hero"
         fields:
-          - {label: "Background photo", name: photo, widget: image}
+          - {label: "Background photo", name: photo, widget: image, required: false}
           - {label: "Eyebrow tag (English)", name: kick_en, widget: string}
           - {label: "Eyebrow tag (French)", name: kick_fr, widget: string}
           - {label: "Headline (English)", name: h_en, widget: string}
@@ -40,7 +40,7 @@ collections:
         label: "Team Photo"
         name: "team_photo"
         fields:
-          - {label: "Photo (shown on the Homepage and About page)", name: photo, widget: image}
+          - {label: "Photo (shown on the Homepage and About page)", name: photo, widget: image, required: false}
 
   - name: "sectors"
     label: "Sectors of Intervention"
@@ -56,7 +56,7 @@ collections:
             fields:
               - {label: "Title (English)", name: en, widget: string}
               - {label: "Title (French)", name: fr, widget: string}
-              - {label: "Photo", name: img, widget: image}
+              - {label: "Photo", name: img, widget: image, required: false}
 
   - name: "services"
     label: "Services"
@@ -70,7 +70,7 @@ collections:
             widget: list
             summary: "{{fields.title_en}}"
             fields:
-              - {label: "Photo", name: img, widget: image}
+              - {label: "Photo", name: img, widget: image, required: false}
               - {label: "Title (English)", name: title_en, widget: string}
               - {label: "Short description (English)", name: desc_en, widget: string}
               - {label: "Full description (English)", name: body_en, widget: text}
@@ -88,6 +88,7 @@ collections:
 
   - name: "team"
     label: "Team — Full Roster (About page)"
+    description: "Shown ONLY on the About page's full team grid — not the homepage. To feature someone on the homepage too, add them separately under 'Team — Homepage Preview' below."
     files:
       - file: "data/team.json"
         label: "Team Members"
@@ -97,6 +98,7 @@ collections:
             name: items
             widget: list
             summary: "{{fields.role_en}}{{fields.name}}"
+            hint: "Drag the handle on the left of each card to reorder — the order here is the order they appear on the About page."
             fields:
               - {label: "Name (leave blank to show role only)", name: name, widget: string, required: false}
               - {label: "Photo", name: photo, widget: image, required: false}
@@ -107,6 +109,7 @@ collections:
 
   - name: "team_home"
     label: "Team — Homepage Preview"
+    description: "Shown ONLY on the homepage's 'Meet the team' strip — not the About page. This is a separate, shorter list from 'Team — Full Roster' above; add someone here too if they should also appear on the homepage."
     files:
       - file: "data/team_home.json"
         label: "Team Preview"
@@ -116,6 +119,7 @@ collections:
             name: items
             widget: list
             summary: "{{fields.name}}"
+            hint: "Drag the handle on the left of each card to reorder — the order here is the order they appear on the homepage."
             fields:
               - {label: "Name", name: name, widget: string}
               - {label: "Photo", name: photo, widget: image, required: false}
