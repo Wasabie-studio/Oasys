@@ -524,15 +524,7 @@
       <p>We strengthen the teams implementing development projects, and improve the governance that supports them, delivered by qualified experts worldwide.</p>
     </div>
     <div class="svcx-grid">
-      <ol class="svcx-list" id="svcxList">
-        <li class="svcx-item active" data-n="01" data-title="Funding &amp; Grants Management" data-desc="Project financing and grants, from planning and disbursement through to reporting." data-bg="linear-gradient(150deg,#1c6b4a,#0e2b20)" data-img="assets/funding-card.webp"><span class="sx-n">01</span><span class="sx-t">Funding &amp; Grants Management</span></li>
-        <li class="svcx-item" data-n="02" data-title="Planning, Monitoring, Evaluation &amp; Learning" data-desc="Tracking progress, measuring results, and turning lessons into knowledge." data-bg="var(--card2)" data-img="assets/planning-service.webp"><span class="sx-n">02</span><span class="sx-t">Planning, Monitoring, Evaluation &amp; Learning</span></li>
-        <li class="svcx-item" data-n="03" data-title="Procurement &amp; Supply Chain Management" data-desc="The right supplies and equipment, at the right place, at the right time." data-bg="linear-gradient(150deg,#17594a,#0a2018)" data-img="assets/procurement-service.webp"><span class="sx-n">03</span><span class="sx-t">Procurement &amp; Supply Chain Management</span></li>
-        <li class="svcx-item" data-n="04" data-title="Governance, Reform &amp; Strategic Monitoring" data-desc="Strengthening how institutions are run and following reforms through." data-bg="linear-gradient(150deg,#23704e,#0e2b20)" data-img="assets/governance-service.webp"><span class="sx-n">04</span><span class="sx-t">Governance, Reform &amp; Strategic Monitoring</span></li>
-        <li class="svcx-item" data-n="05" data-title="Digital &amp; Innovative Solutions" data-desc="Digital tools that make projects easier to manage, track, and report on." data-bg="linear-gradient(150deg,#1c6b4a,#123028)" data-img="assets/digital-service.webp"><span class="sx-n">05</span><span class="sx-t">Digital &amp; Innovative Solutions</span></li>
-        <li class="svcx-item" data-n="06" data-title="Process &amp; Activity Facilitation" data-desc="Facilitating the workshops and activities that keep projects moving." data-bg="linear-gradient(150deg,#205f45,#0a2018)" data-img="assets/facilitation-service.webp"><span class="sx-n">06</span><span class="sx-t">Process &amp; Activity Facilitation</span></li>
-        <li class="svcx-item" data-n="07" data-title="Custom Training" data-desc="From transformational leadership to PBF, AI, and data protection." data-bg="linear-gradient(150deg,#2a7d59,#0e2b20)" data-img="assets/training-service.webp"><span class="sx-n">07</span><span class="sx-t">Custom Training</span></li>
-      </ol>
+      <ol class="svcx-list" id="svcxList"><!-- injected by JS from data/services.json --></ol>
       <div class="svcx-preview">
         <div class="pv-img show" id="pvImg"></div>
         <div class="pv-scrim"></div>
@@ -635,28 +627,7 @@
       <span class="eyebrow" data-i="res_eye">Results</span>
       <a class="headlink" href="oasys-blog.html"><h2 data-i="res_h">Recent work in the field</h2></a>
     </div>
-    <div class="rgrid">
-      <article class="rbig" data-reveal onclick="location.href='oasys-article.html#a=3'">
-        <div class="rimg"></div>
-        <span class="ph-note" style="position:absolute;top:1rem;right:1rem;color:rgba(255,255,255,.5);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase">Result photo</span>
-        <div class="rc-in">
-          <span class="rtag" data-i="res1_tag">Digital Health · Côte d'Ivoire</span>
-          <h3 data-i="res1_h">M-Vaccin deployed across 49 health districts</h3>
-          <div class="rmeta">
-            <a class="btn btn-dark" href="oasys-article.html#a=3"><span data-i="res1_cta">View result</span> </a>
-            <span class="partner" data-i="res1_by">Funded by Gavi</span>
-          </div>
-        </div>
-      </article>
-      <article class="rsmall" data-reveal style="--d:.08s" onclick="location.href='oasys-article.html#a=1'">
-        <div class="imgph rs-img" data-ph="Result photo"></div>
-        <div class="rs-b"><span class="rtag" data-i="res2_tag">Public Sector · Senegal</span><h4 data-i="res2_h">OASYS presents its digital solution OBIS at the MSHP DU</h4><span class="partner" data-i="res2_by">Ministry of Health, Senegal</span></div>
-      </article>
-      <article class="rsmall" data-reveal style="--d:.16s" onclick="location.href='oasys-article.html#a=2'">
-        <div class="imgph rs-img" data-ph="Result photo"></div>
-        <div class="rs-b"><span class="rtag" data-i="res3_tag">Technical Assistance</span><h4 data-i="res3_h">Strategic meeting with the Gates Foundation on assistance to the DU</h4><span class="partner" data-i="res3_by">Gates Foundation</span></div>
-      </article>
-    </div>
+    <div class="rgrid" id="rgrid"><!-- injected by JS from data/posts.json --></div>
   </div>
 </section>
 
@@ -808,8 +779,9 @@
     setInterval(function(){ if(hover)return; i=(i+1)%cards.length; set(i); },3600);
   })();
 
-  /* services alt: index + preview with wipe-up */
-  (function(){
+  /* services alt: index + preview with wipe-up — bound by renderServicesHome() below,
+     since #svcxList is now populated dynamically from data/services.json */
+  window.__bindServicesPreview=function(){
     var list=document.getElementById('svcxList'); if(!list)return;
     var items=list.querySelectorAll('.svcx-item');
     var img=document.getElementById('pvImg'),num=document.getElementById('pvNum'),title=document.getElementById('pvTitle'),desc=document.getElementById('pvDesc');
@@ -825,7 +797,7 @@
       it.addEventListener('click',function(){ location.href='oasys-services.html#svc-'+parseInt(it.dataset.n,10); });
     });
     if(items[0])img.style.backgroundImage=items[0].dataset.img?('url("'+items[0].dataset.img+'")'):items[0].dataset.bg;
-  })();
+  };
 
 
   /* reveal + count-up + underline draw */
@@ -888,9 +860,6 @@
     tmo_q3:"« Ils ont compris nos objectifs et les ont traduits en résultats mesurables sur le terrain. »",
     tmo_n3:"Nom Prénom",tmo_r3:"Responsable pays · Fondation",
     res_eye:"Résultats",res_h:"Travaux récents sur le terrain",
-    res1_tag:"Santé digitale · Côte d'Ivoire",res1_h:"M-Vaccin déployé dans 49 districts sanitaires",res1_cta:"Voir le résultat",res1_by:"Financé par Gavi",
-    res2_tag:"Secteur public · Sénégal",res2_h:"OASYS pr&eacute;sente sa solution num&eacute;rique OBIS &agrave; l'UD du MSHP",res2_by:"Ministère de la Santé, Sénégal",
-    res3_tag:"Assistance technique",res3_h:"Rencontre strat&eacute;gique avec la Fondation Gates sur l'assistance &agrave; l'UD",res3_by:"Fondation Gates",
     tm_eye:"Notre équipe",tm_h:"L'équipe derrière chaque mission",tm_sub:"Basée à Dakar, notre équipe identifie, mobilise et accompagne les experts déployés sur le terrain.",
     tm1r:"PDG · Directeur Général",tm2r:"Directeur Technique",tm3r:"Responsable des Opérations",tm4r:"Chargée de Projets",tm_link:"Découvrir toute l'équipe",
     ct_eye:"Contact",ct_h:"Parlons-en",ct_p:"Que vous prépariez un projet ou cherchiez la bonne expertise technique, notre équipe est prête à vous aider.",
@@ -921,7 +890,7 @@
      non-technical staff can edit them through the CMS at /admin. */
   (function(){
     function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
-    var DATA={sectors:null,team:null,partners:null,hero:null,teamPhoto:null};
+    var DATA={sectors:null,team:null,partners:null,hero:null,teamPhoto:null,services:null,posts:null};
     var curLang=(function(){try{return localStorage.getItem('oasysLang')==='fr'?'fr':'en';}catch(e){return 'en';}})();
 
     function renderHero(lang){
@@ -963,6 +932,49 @@
         '</article>';
       }).join('');
     }
+    function renderServicesHome(lang){
+      var host=document.getElementById('svcxList');
+      if(!host||!DATA.services)return;
+      host.innerHTML=DATA.services.map(function(s,i){
+        var n=pad2(i+1);
+        var title=esc(lang==='fr'?s.title_fr:s.title_en);
+        var desc=esc(lang==='fr'?s.desc_fr:s.desc_en);
+        var bg=s.img?'':'linear-gradient(150deg,#1c6b4a,#0e2b20)';
+        return '<li class="svcx-item'+(i===0?' active':'')+'" data-n="'+n+'" data-title="'+title+'" data-desc="'+desc+'" data-bg="'+bg+'" data-img="'+(s.img?esc(s.img):'')+'">'+
+          '<span class="sx-n">'+n+'</span><span class="sx-t">'+title+'</span></li>';
+      }).join('');
+      if(window.__bindServicesPreview)window.__bindServicesPreview();
+    }
+    function renderResultsHome(lang){
+      var host=document.getElementById('rgrid');
+      if(!host||!DATA.posts)return;
+      var withBody=[];
+      DATA.posts.forEach(function(p,i){if(p.body_en)withBody.push({p:p,n:i+1});});
+      var top=withBody.slice(0,3);
+      if(!top.length){host.innerHTML='';return;}
+      var big=top[0],smalls=top.slice(1);
+      function catOf(p){return esc(lang==='fr'?p.cat_fr:p.cat_en);}
+      function titleOf(p){return esc(lang==='fr'?p.title_fr:p.title_en);}
+      var bigImg=big.p.photo?' style="background-image:linear-gradient(180deg,rgba(10,32,24,.25),rgba(10,32,24,.9)),url(\''+esc(big.p.photo)+'\');background-size:cover;background-position:center"':'';
+      var html='<article class="rbig" data-reveal onclick="location.href=\'oasys-article.html#a='+big.n+'\'">'+
+        '<div class="rimg"'+bigImg+'></div>'+
+        '<div class="rc-in">'+
+          '<span class="rtag">'+catOf(big.p)+'</span>'+
+          '<h3>'+titleOf(big.p)+'</h3>'+
+          '<div class="rmeta"><a class="btn btn-dark" href="oasys-article.html#a='+big.n+'">'+(lang==='fr'?'Voir le résultat':'View result')+'</a><span class="partner">'+esc(big.p.date||'')+'</span></div>'+
+        '</div></article>';
+      html+=smalls.map(function(item,idx){
+        var p=item.p;
+        var img=p.photo
+          ? '<div class="rs-img" style="background-image:url(\''+esc(p.photo)+'\');background-size:cover;background-position:center"></div>'
+          : '<div class="imgph rs-img" data-ph="Result photo"></div>';
+        return '<article class="rsmall" data-reveal style="--d:'+((idx+1)*0.08).toFixed(2)+'s" onclick="location.href=\'oasys-article.html#a='+item.n+'\'">'+
+          img+
+          '<div class="rs-b"><span class="rtag">'+catOf(p)+'</span><h4>'+titleOf(p)+'</h4><span class="partner">'+esc(p.date||'')+'</span></div>'+
+        '</article>';
+      }).join('');
+      host.innerHTML=html;
+    }
     function renderPartnersHome(){
       var host=document.getElementById('pmarqueeTrack');
       if(!host||!DATA.partners)return;
@@ -980,30 +992,42 @@
       renderHero(lang);
       renderSectorsHome(lang);
       renderTeamHome(lang);
-      if(window.__observeReveals)window.__observeReveals(document.getElementById('t-track'));
+      renderServicesHome(lang);
+      renderResultsHome(lang);
+      if(window.__observeReveals){
+        window.__observeReveals(document.getElementById('t-track'));
+        window.__observeReveals(document.getElementById('rgrid'));
+      }
     };
     Promise.all([
       fetch('data/sectors.json').then(function(r){return r.json();}),
       fetch('data/team_home.json').then(function(r){return r.json();}),
       fetch('data/partners.json').then(function(r){return r.json();}),
       fetch('data/hero.json').then(function(r){return r.json();}),
-      fetch('data/team_photo.json').then(function(r){return r.json();})
+      fetch('data/team_photo.json').then(function(r){return r.json();}),
+      fetch('data/services.json').then(function(r){return r.json();}),
+      fetch('data/posts.json').then(function(r){return r.json();})
     ]).then(function(res){
       DATA.sectors=res[0].items;
       DATA.team=res[1].items;
       DATA.partners=res[2].items;
       DATA.hero=res[3];
       DATA.teamPhoto=res[4];
+      DATA.services=res[5].items;
+      DATA.posts=res[6].items;
       renderHero(curLang);
       renderTeamPhoto();
       renderSectorsHome(curLang);
       renderTeamHome(curLang);
+      renderServicesHome(curLang);
+      renderResultsHome(curLang);
       renderPartnersHome();
       if(window.__observeReveals){
         window.__observeReveals(document.getElementById('t-track'));
         window.__observeReveals(document.getElementById('sxTrack'));
+        window.__observeReveals(document.getElementById('rgrid'));
       }
-      // sector cards just changed the track's width — let the pinned-scroll
+      // sector/service cards just changed the track's width — let the pinned-scroll
       // measurer (bound in the next script block) recompute against it
       window.dispatchEvent(new Event('resize'));
     });
