@@ -3,8 +3,12 @@ backend:
   repo: Wasabie-studio/Oasys
   branch: main
   # Login relay only — the site itself stays on GitHub Pages.
+  # Must point at the placeholder Netlify site that has the GitHub OAuth
+  # provider installed (Project configuration > Security > OAuth) —
+  # api.netlify.com alone can't resolve which site's provider to use
+  # since this CMS isn't served from a netlify.app domain.
   # See /admin/SETUP.md for the one-time account steps this needs.
-  base_url: https://api.netlify.com
+  base_url: https://cute-kringle-40e45d.netlify.app
   auth_endpoint: auth
 
 media_folder: "assets/uploads"

@@ -37,7 +37,12 @@ completes the "Login with GitHub" handshake for the CMS.
    **Project configuration → Security → OAuth**.
 3. Under **Authentication Providers**, click **Install Provider**, select
    **GitHub**, and paste in the Client ID and Client Secret from step 2. Save.
-4. That's it — no further Netlify configuration needed.
+4. Copy that placeholder site's own URL (e.g. `https://random-name-123abc.netlify.app`,
+   shown on its overview page) and set it as `base_url` in `admin/config.yml`
+   (replacing `https://api.netlify.com`). This step is required — the generic
+   `api.netlify.com` address can't figure out which Netlify site's OAuth
+   provider to use when the CMS itself is served from GitHub Pages, not from
+   a netlify.app domain.
 
 ## 4. Log in and start editing
 
@@ -55,9 +60,6 @@ completes the "Login with GitHub" handshake for the CMS.
 - Only people with **write access to the GitHub repo** (or added as
   collaborators) can log in and publish — GitHub is the source of truth for
   who's allowed to edit.
-- Adding a brand-new News **category** (beyond Digital / Governance / Health)
-  still needs a developer, since the filter buttons on the News page are part
-  of the page code, not the data.
 - If you'd rather not depend on Netlify at all for login, the GitHub-backend
   OAuth handshake can instead be run through a small self-hosted proxy
   (e.g. a Cloudflare Worker) — ask a developer to swap `base_url` in
