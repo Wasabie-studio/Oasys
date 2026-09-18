@@ -35,24 +35,27 @@ collections:
 
   - name: "team_photo"
     label: "Team Group Photo"
+    description: "One shared photo — used on both the Homepage About teaser AND the About page hero."
     files:
       - file: "data/team_photo.json"
-        label: "Team Photo"
+        label: "Team Photo (shown on Homepage + About page)"
         name: "team_photo"
         fields:
-          - {label: "Photo (shown on the Homepage and About page)", name: photo, widget: image, required: false}
+          - {label: "Photo", name: photo, widget: image, required: false}
 
   - name: "sectors"
     label: "Sectors of Intervention"
+    description: "One shared list — editing a sector here updates it everywhere it appears: the homepage carousel AND the Services page's Sectors tab."
     files:
       - file: "data/sectors.json"
-        label: "Sectors"
+        label: "Sectors (shown on Homepage + Services page)"
         name: "sectors"
         fields:
           - label: "Sectors"
             name: items
             widget: list
             summary: "{{fields.en}}"
+            hint: "Drag the handle on the left of each card to reorder — this same order is used on both the homepage and the Services page."
             fields:
               - {label: "Title (English)", name: en, widget: string}
               - {label: "Title (French)", name: fr, widget: string}
@@ -60,15 +63,17 @@ collections:
 
   - name: "services"
     label: "Services"
+    description: "One shared list — editing a service here updates it everywhere it appears: the homepage showcase AND the full Services page."
     files:
       - file: "data/services.json"
-        label: "Services"
+        label: "Services (shown on Homepage + Services page)"
         name: "services"
         fields:
           - label: "Services"
             name: items
             widget: list
             summary: "{{fields.title_en}}"
+            hint: "Drag the handle on the left of each card to reorder — this same order is used on both the homepage and the Services page."
             fields:
               - {label: "Photo", name: img, widget: image, required: false}
               - {label: "Title (English)", name: title_en, widget: string}
@@ -89,12 +94,28 @@ collections:
                 field: {label: "Item", name: item, widget: string}
 
   - name: "team"
-    label: "Team — Full Roster (About page)"
-    description: "Shown ONLY on the About page's full team grid — not the homepage. To feature someone on the homepage too, add them separately under 'Team — Homepage Preview' below."
+    label: "Team"
+    description: "Two separate, independently-editable lists — updating one does NOT update the other. Click a row below to open it."
     files:
+      - file: "data/team_home.json"
+        label: "Team — Homepage Preview"
+        name: "team_home"
+        description: "Shown ONLY on the homepage's 'Meet the team' strip — not the About page."
+        fields:
+          - label: "Featured Team Members"
+            name: items
+            widget: list
+            summary: "{{fields.name}}"
+            hint: "Drag the handle on the left of each card to reorder — the order here is the order they appear on the homepage."
+            fields:
+              - {label: "Name", name: name, widget: string}
+              - {label: "Photo", name: photo, widget: image, required: false}
+              - {label: "Role (English)", name: role_en, widget: string}
+              - {label: "Role (French)", name: role_fr, widget: string}
       - file: "data/team.json"
-        label: "Team Members"
-        name: "team"
+        label: "Team — Full Roster (About page)"
+        name: "team_roster"
+        description: "Shown ONLY on the About page's full team grid — not the homepage."
         fields:
           - label: "Team Members"
             name: items
@@ -106,25 +127,6 @@ collections:
               - {label: "Photo", name: photo, widget: image, required: false}
               - {label: "Group (English)", name: group_en, widget: string}
               - {label: "Group (French)", name: group_fr, widget: string}
-              - {label: "Role (English)", name: role_en, widget: string}
-              - {label: "Role (French)", name: role_fr, widget: string}
-
-  - name: "team_home"
-    label: "Team — Homepage Preview"
-    description: "Shown ONLY on the homepage's 'Meet the team' strip — not the About page. This is a separate, shorter list from 'Team — Full Roster' above; add someone here too if they should also appear on the homepage."
-    files:
-      - file: "data/team_home.json"
-        label: "Team Preview"
-        name: "team_home"
-        fields:
-          - label: "Featured Team Members"
-            name: items
-            widget: list
-            summary: "{{fields.name}}"
-            hint: "Drag the handle on the left of each card to reorder — the order here is the order they appear on the homepage."
-            fields:
-              - {label: "Name", name: name, widget: string}
-              - {label: "Photo", name: photo, widget: image, required: false}
               - {label: "Role (English)", name: role_en, widget: string}
               - {label: "Role (French)", name: role_fr, widget: string}
 
@@ -145,15 +147,17 @@ collections:
 
   - name: "posts"
     label: "News"
+    description: "One shared list — editing an article here updates it everywhere it appears: the homepage 'Recent work' teaser, the News page, AND its own article page."
     files:
       - file: "data/posts.json"
-        label: "Articles"
+        label: "Articles (shown on Homepage + News page + Article pages)"
         name: "posts"
         fields:
           - label: "Articles"
             name: items
             widget: list
             summary: "{{fields.title_en}}"
+            hint: "Drag the handle on the left of each card to reorder — this same order is used on the homepage and the News page."
             fields:
               - {label: "Photo", name: photo, widget: image, required: false}
               - {label: "Category (English)", name: cat_en, widget: string, hint: "e.g. Digital, Governance, Health & Social — type anything"}
