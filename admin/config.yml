@@ -1,0 +1,141 @@
+backend:
+  name: github
+  repo: Wasabie-studio/Oasys
+  branch: main
+  # Login relay only — the site itself stays on GitHub Pages.
+  # See /admin/SETUP.md for the one-time account steps this needs.
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
+
+media_folder: "assets/uploads"
+public_folder: "assets/uploads"
+
+publish_mode: simple
+
+collections:
+  - name: "sectors"
+    label: "Sectors of Intervention"
+    files:
+      - file: "data/sectors.json"
+        label: "Sectors"
+        name: "sectors"
+        fields:
+          - label: "Sectors"
+            name: items
+            widget: list
+            summary: "{{fields.n}} — {{fields.en}}"
+            fields:
+              - {label: "Number (01, 02, ...)", name: n, widget: string}
+              - {label: "Title (English)", name: en, widget: string}
+              - {label: "Title (French)", name: fr, widget: string}
+              - {label: "Photo", name: img, widget: image}
+
+  - name: "services"
+    label: "Services"
+    files:
+      - file: "data/services.json"
+        label: "Services"
+        name: "services"
+        fields:
+          - label: "Services"
+            name: items
+            widget: list
+            summary: "{{fields.n}} — {{fields.title_en}}"
+            fields:
+              - {label: "Number (01, 02, ...)", name: n, widget: string}
+              - {label: "Photo", name: img, widget: image}
+              - {label: "Title (English)", name: title_en, widget: string}
+              - {label: "Short description (English)", name: desc_en, widget: string}
+              - {label: "Full description (English)", name: body_en, widget: text}
+              - label: "Focus areas (English)"
+                name: focus_en
+                widget: list
+                field: {label: "Item", name: item, widget: string}
+              - {label: "Title (French)", name: title_fr, widget: string}
+              - {label: "Short description (French)", name: desc_fr, widget: string}
+              - {label: "Full description (French)", name: body_fr, widget: text}
+              - label: "Focus areas (French)"
+                name: focus_fr
+                widget: list
+                field: {label: "Item", name: item, widget: string}
+
+  - name: "team"
+    label: "Team — Full Roster (About page)"
+    files:
+      - file: "data/team.json"
+        label: "Team Members"
+        name: "team"
+        fields:
+          - label: "Team Members"
+            name: items
+            widget: list
+            summary: "{{fields.role_en}}{{fields.name}}"
+            fields:
+              - {label: "Name (leave blank to show role only)", name: name, widget: string, required: false}
+              - {label: "Photo", name: photo, widget: image, required: false}
+              - {label: "Group (English)", name: group_en, widget: string}
+              - {label: "Group (French)", name: group_fr, widget: string}
+              - {label: "Role (English)", name: role_en, widget: string}
+              - {label: "Role (French)", name: role_fr, widget: string}
+
+  - name: "team_home"
+    label: "Team — Homepage Preview"
+    files:
+      - file: "data/team_home.json"
+        label: "Team Preview"
+        name: "team_home"
+        fields:
+          - label: "Featured Team Members"
+            name: items
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - {label: "Name", name: name, widget: string}
+              - {label: "Photo", name: photo, widget: image, required: false}
+              - {label: "Role (English)", name: role_en, widget: string}
+              - {label: "Role (French)", name: role_fr, widget: string}
+
+  - name: "partners"
+    label: "Partner & Client Logos"
+    files:
+      - file: "data/partners.json"
+        label: "Partners"
+        name: "partners"
+        fields:
+          - label: "Partners"
+            name: items
+            widget: list
+            summary: "{{fields.name}}"
+            fields:
+              - {label: "Name", name: name, widget: string}
+              - {label: "Logo", name: logo, widget: image, required: false}
+
+  - name: "posts"
+    label: "News"
+    files:
+      - file: "data/posts.json"
+        label: "Articles"
+        name: "posts"
+        fields:
+          - label: "Articles"
+            name: items
+            widget: list
+            summary: "{{fields.title_en}}"
+            fields:
+              - {label: "ID (unique number, never reuse)", name: n, widget: number, value_type: int}
+              - label: "Category"
+                name: cat
+                widget: select
+                options: ["digital", "governance", "health"]
+                hint: "Adding a new category also needs a developer to add its filter button on the News page."
+              - {label: "Category label (English)", name: cat_en, widget: string}
+              - {label: "Category label (French)", name: cat_fr, widget: string}
+              - {label: "Date", name: date, widget: string, hint: "Format: DD.MM.YYYY"}
+              - {label: "Published line (English)", name: pub_en, widget: string, required: false}
+              - {label: "Published line (French)", name: pub_fr, widget: string, required: false}
+              - {label: "Title (English)", name: title_en, widget: string}
+              - {label: "Title (French)", name: title_fr, widget: string}
+              - {label: "Excerpt shown on the News list (English)", name: excerpt_en, widget: text, required: false}
+              - {label: "Excerpt shown on the News list (French)", name: excerpt_fr, widget: text, required: false}
+              - {label: "Full article body (English) — leave blank for a headline-only item with no article page", name: body_en, widget: text, required: false}
+              - {label: "Full article body (French)", name: body_fr, widget: text, required: false}

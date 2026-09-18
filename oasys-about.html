@@ -111,7 +111,9 @@
   .tcard{background:var(--panel);border:1px solid var(--hair);border-radius:var(--r);overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s}
   .tcard:hover{transform:translateY(-5px);box-shadow:0 26px 54px -32px rgba(20,32,25,.22);border-color:var(--border)}
   .tcard .portrait{aspect-ratio:4/4.2;border-radius:0}
+  .tcard .portrait img{width:100%;height:100%;object-fit:cover;display:block}
   .tcard .tbody{padding:1.05rem 1.15rem 1.25rem}
+  .tcard .tname2{font-family:var(--sans);font-size:.82rem;font-weight:600;color:var(--muted);letter-spacing:.02em;margin-bottom:.2rem}
   .tcard .trole{font-family:var(--serif);font-size:1.16rem;color:var(--ink);font-weight:500;line-height:1.2;letter-spacing:-0.01em}
   .tcard .tgroup{margin-top:.5rem;display:inline-flex;align-items:center;gap:.5rem;font-family:var(--sans);font-size:.76rem;font-weight:600;letter-spacing:.02em;color:var(--forest)}
   .tcard .tgroup .dot{width:6px;height:6px;border-radius:50%;background:var(--signal);flex:none}
@@ -272,19 +274,10 @@
 </div></footer>
 
 <script>
-  /* ---------- DATA: team + partners (easy to extend / fill later) ---------- */
-  var TEAM=[
-    {group:{en:"Leadership",fr:"Direction"}, role:{en:"Managing Partner",fr:"Associé gérant"}},
-    {group:{en:"Leadership",fr:"Direction"}, role:{en:"Deputy Managing Partner",fr:"Associé gérant adjoint"}},
-    {group:{en:"Leadership",fr:"Direction"}, role:{en:"Director of Operations",fr:"Directeur des opérations"}},
-    {group:{en:"Delivery",fr:"Mise en œuvre"}, role:{en:"Funding & Grants Lead",fr:"Responsable financement & subventions"}},
-    {group:{en:"Delivery",fr:"Mise en œuvre"}, role:{en:"Monitoring & Evaluation Lead",fr:"Responsable suivi & évaluation"}},
-    {group:{en:"Delivery",fr:"Mise en œuvre"}, role:{en:"Procurement & Supply Chain Lead",fr:"Responsable achats & logistique"}},
-    {group:{en:"Delivery",fr:"Mise en œuvre"}, role:{en:"Governance & Reform Lead",fr:"Responsable gouvernance & réforme"}},
-    {group:{en:"Delivery",fr:"Mise en œuvre"}, role:{en:"Digital Solutions Lead",fr:"Responsable solutions numériques"}},
-    {group:{en:"Delivery",fr:"Mise en œuvre"}, role:{en:"Training & Facilitation Lead",fr:"Responsable formation & facilitation"}}
-  ];
-  var PARTNERS=["Partner 01","Partner 02","Partner 03","Partner 04","Partner 05","Partner 06","Partner 07","Partner 08","Partner 09","Partner 10"];
+  /* ---------- DATA: team + partners now live in /data/*.json, editable
+     by non-technical staff through the CMS at /admin ---------- */
+  var TEAM=[];
+  var PARTNERS=[];
 
   var LANG="en";
   function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
@@ -292,9 +285,12 @@
   function renderTeam(){
     var host=document.getElementById("teamGrid");
     host.innerHTML=TEAM.map(function(m,i){
+      var photo=m.photo?'<img src="'+esc(m.photo)+'" alt="" loading="lazy">':'<span class="cam">◎</span>';
+      var name=m.name?'<h4 class="tname2">'+esc(m.name)+'</h4>':'';
       return '<article class="tcard" data-reveal style="--d:'+((i%3)*0.06).toFixed(2)+'s">'+
-        '<div class="portrait imgph" data-ph="Portrait"><span class="cam">◎</span></div>'+
+        '<div class="portrait'+(m.photo?'':' imgph')+'" data-ph="Portrait">'+photo+'</div>'+
         '<div class="tbody">'+
+          name+
           '<h3 class="trole">'+esc(m.role[LANG])+'</h3>'+
           '<span class="tgroup"><span class="dot"></span>'+esc(m.group[LANG])+'</span>'+
         '</div>'+
@@ -304,9 +300,22 @@
   }
   function renderPartners(){
     var host=document.getElementById("plogos");
-    host.innerHTML=PARTNERS.map(function(p){return '<div class="plogo" title="'+esc(p)+'">Logo</div>';}).join("");
+    host.innerHTML=PARTNERS.map(function(p){
+      return p.logo
+        ? '<div class="plogo" title="'+esc(p.name)+'"><img src="'+esc(p.logo)+'" alt="'+esc(p.name)+'" loading="lazy" style="max-width:100%;max-height:60%;object-fit:contain"></div>'
+        : '<div class="plogo" title="'+esc(p.name)+'">Logo</div>';
+    }).join("");
   }
-  renderTeam();renderPartners();
+  Promise.all([
+    fetch('data/team.json').then(function(r){return r.json();}),
+    fetch('data/partners.json').then(function(r){return r.json();})
+  ]).then(function(res){
+    TEAM=res[0].items.map(function(d){
+      return {name:d.name,photo:d.photo,group:{en:d.group_en,fr:d.group_fr},role:{en:d.role_en,fr:d.role_fr}};
+    });
+    PARTNERS=res[1].items;
+    renderTeam();renderPartners();
+  });
 
   /* nav scroll state */
   (function(){var n=document.getElementById('nav');addEventListener('scroll',function(){n.classList.toggle('scrolled',scrollY>8);},{passive:true});})();

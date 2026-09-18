@@ -1,0 +1,13 @@
+{
+  "items": [
+    {"n": "01", "en": "Health & Social Protection", "fr": "Santé & protection sociale", "img": "assets/health-sector.webp"},
+    {"n": "02", "en": "Technical & Vocational Training", "fr": "Formation technique & professionnelle", "img": "assets/training-sector.webp"},
+    {"n": "03", "en": "Agribusiness & Agricultural Value Chains", "fr": "Agrobusiness & chaînes de valeur agricoles", "img": "assets/agribusiness-sector.webp"},
+    {"n": "04", "en": "Environment, Sustainability & Climate Change", "fr": "Environnement, durabilité & changement climatique", "img": "assets/environment-sector.webp"},
+    {"n": "05", "en": "Local Governance, Decentralisation & Urban Planning", "fr": "Gouvernance locale, décentralisation & urbanisme", "img": "assets/governance-sector.webp"},
+    {"n": "06", "en": "Population, Gender & Human Rights", "fr": "Population, genre & droits humains", "img": "assets/gender-sector.webp"},
+    {"n": "07", "en": "Social & Community Entrepreneurship", "fr": "Entrepreneuriat social & communautaire", "img": "assets/entrepreneurship-sector.webp"},
+    {"n": "08", "en": "SME Support", "fr": "Appui aux PME", "img": "assets/sme-sector.webp"},
+    {"n": "09", "en": "IT & Digital Solutions", "fr": "Informatique & solutions numériques", "img": "assets/digital-sector.webp"}
+  ]
+}

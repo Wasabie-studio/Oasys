@@ -1,0 +1,13 @@
+{
+  "items": [
+    {"name":"","photo":"","group_en":"Leadership","group_fr":"Direction","role_en":"Managing Partner","role_fr":"Associé gérant"},
+    {"name":"","photo":"","group_en":"Leadership","group_fr":"Direction","role_en":"Deputy Managing Partner","role_fr":"Associé gérant adjoint"},
+    {"name":"","photo":"","group_en":"Leadership","group_fr":"Direction","role_en":"Director of Operations","role_fr":"Directeur des opérations"},
+    {"name":"","photo":"","group_en":"Delivery","group_fr":"Mise en œuvre","role_en":"Funding & Grants Lead","role_fr":"Responsable financement & subventions"},
+    {"name":"","photo":"","group_en":"Delivery","group_fr":"Mise en œuvre","role_en":"Monitoring & Evaluation Lead","role_fr":"Responsable suivi & évaluation"},
+    {"name":"","photo":"","group_en":"Delivery","group_fr":"Mise en œuvre","role_en":"Procurement & Supply Chain Lead","role_fr":"Responsable achats & logistique"},
+    {"name":"","photo":"","group_en":"Delivery","group_fr":"Mise en œuvre","role_en":"Governance & Reform Lead","role_fr":"Responsable gouvernance & réforme"},
+    {"name":"","photo":"","group_en":"Delivery","group_fr":"Mise en œuvre","role_en":"Digital Solutions Lead","role_fr":"Responsable solutions numériques"},
+    {"name":"","photo":"","group_en":"Delivery","group_fr":"Mise en œuvre","role_en":"Training & Facilitation Lead","role_fr":"Responsable formation & facilitation"}
+  ]
+}
