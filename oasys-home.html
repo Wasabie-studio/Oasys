@@ -158,7 +158,7 @@
   .nstat .l{font-size:.9rem;color:var(--muted);max-width:14ch;line-height:1.3;align-self:center}
   .uline{height:1px;background:var(--hair);margin-top:clamp(1.4rem,2.4vw,2rem);transition:background .45s,height .45s}
   .ncta{display:none;align-items:center;gap:.45rem;margin-top:1.3rem;font-family:var(--sans);font-weight:600;font-size:.95rem;color:var(--ink);text-decoration:none}
-  .ncta .ic{color:var(--forest);font-size:.95rem;font-weight:400;line-height:1;display:inline-grid;place-items:center;transition:transform .3s var(--ease)}
+  .ncta .ic{color:var(--forest);font-size:1.15rem;font-weight:400;line-height:1;display:inline-grid;place-items:center;transition:transform .3s var(--ease)}
   .ncta:hover .ic{transform:translate(2px,-2px)}
   .nstat.active .n{color:var(--ink)}
   .nstat.active .uline{background:var(--ink);height:2px}
@@ -392,7 +392,8 @@
   .cintro{max-width:36ch}
   .cdetails{margin-top:2rem;gap:1.15rem}
   .cd{grid-template-columns:auto 1fr;gap:.9rem;align-items:center}
-  .cd .cdi{width:2.35rem;height:2.35rem;display:grid;place-items:center;border-radius:50%;background:color-mix(in srgb,var(--forest) 10%,transparent);color:var(--forest);font-size:1rem;padding:0}
+  .cd .cdi{width:2.35rem;height:2.35rem;display:grid;place-items:center;border-radius:50%;background:color-mix(in srgb,var(--forest) 10%,transparent);color:var(--forest);padding:0;flex:none}
+  .cd .cdi svg{width:18px;height:18px;display:block}
   form.cform{background:none;border:0;border-radius:0;padding:0;gap:clamp(1.15rem,2vw,1.45rem)}
   .segq{margin-bottom:.9rem;font-size:1rem}
   .segs{gap:.8rem}
@@ -725,9 +726,9 @@
           <h2 data-i="ct_h">Let's talk</h2>
           <p class="cintro" data-i="ct_p">Whether you're planning a project or looking for the right technical expertise, our team is ready to help.</p>
           <div class="cdetails">
-            <div class="cd"><span class="cdi">◍</span><span><span class="cdk" data-i="ct_office">Office</span><br><span class="cdv">VDN, Cité Horizon, Villa N C03 · Dakar-Fann, Sénégal</span></span></div>
-            <div class="cd"><span class="cdi">✆</span><span><span class="cdk" data-i="ct_phone">Phone</span><br><a class="cdv" href="tel:+221338019085">+221 33 801 90 85</a></span></div>
-            <div class="cd"><span class="cdi">✉</span><span><span class="cdk" data-i="ct_email">Email</span><br><a class="cdv" href="mailto:mail@oasysgroupe.com">mail@oasysgroupe.com</a></span></div>
+            <div class="cd"><span class="cdi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span><span><span class="cdk" data-i="ct_office">Office</span><br><span class="cdv">VDN, Cité Horizon, Villa N C03 · Dakar-Fann, Sénégal</span></span></div>
+            <div class="cd"><span class="cdi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span><span><span class="cdk" data-i="ct_phone">Phone</span><br><a class="cdv" href="tel:+221338019085">+221 33 801 90 85</a></span></div>
+            <div class="cd"><span class="cdi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span><span><span class="cdk" data-i="ct_email">Email</span><br><a class="cdv" href="mailto:mail@oasysgroupe.com">mail@oasysgroupe.com</a></span></div>
           </div>
         </div>
       </div>
