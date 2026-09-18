@@ -24,9 +24,8 @@ collections:
           - label: "Sectors"
             name: items
             widget: list
-            summary: "{{fields.n}} — {{fields.en}}"
+            summary: "{{fields.en}}"
             fields:
-              - {label: "Number (01, 02, ...)", name: n, widget: string}
               - {label: "Title (English)", name: en, widget: string}
               - {label: "Title (French)", name: fr, widget: string}
               - {label: "Photo", name: img, widget: image}
@@ -41,9 +40,8 @@ collections:
           - label: "Services"
             name: items
             widget: list
-            summary: "{{fields.n}} — {{fields.title_en}}"
+            summary: "{{fields.title_en}}"
             fields:
-              - {label: "Number (01, 02, ...)", name: n, widget: string}
               - {label: "Photo", name: img, widget: image}
               - {label: "Title (English)", name: title_en, widget: string}
               - {label: "Short description (English)", name: desc_en, widget: string}
@@ -124,13 +122,8 @@ collections:
             summary: "{{fields.title_en}}"
             fields:
               - {label: "Photo", name: photo, widget: image, required: false}
-              - label: "Category"
-                name: cat
-                widget: select
-                options:
-                  - {label: "Digital", value: digital}
-                  - {label: "Governance", value: governance}
-                  - {label: "Health & Social", value: health}
+              - {label: "Category (English)", name: cat_en, widget: string, hint: "e.g. Digital, Governance, Health & Social — type anything"}
+              - {label: "Category (French)", name: cat_fr, widget: string}
               - {label: "Date", name: date, widget: string, hint: "Format: DD.MM.YYYY"}
               - {label: "Title (English)", name: title_en, widget: string}
               - {label: "Title (French)", name: title_fr, widget: string}

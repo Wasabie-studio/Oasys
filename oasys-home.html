@@ -923,13 +923,14 @@
     var DATA={sectors:null,team:null,partners:null};
     var curLang=(function(){try{return localStorage.getItem('oasysLang')==='fr'?'fr':'en';}catch(e){return 'en';}})();
 
+    function pad2(n){return n<10?"0"+n:""+n;}
     function renderSectorsHome(lang){
       var host=document.getElementById('sxTrack');
       if(!host||!DATA.sectors)return;
-      host.innerHTML=DATA.sectors.map(function(s){
+      host.innerHTML=DATA.sectors.map(function(s,i){
         return '<a class="scell has-img" href="oasys-services.html#sectors">'+
           '<div class="scell-bg" style="background-image:linear-gradient(180deg,rgba(8,26,19,.1),rgba(8,26,19,.8) 75%),url(\''+esc(s.img)+'\');background-size:cover;background-position:center 30%"></div>'+
-          '<span class="snum">'+esc(s.n)+'</span><h4>'+esc(lang==='fr'?s.fr:s.en)+'</h4></a>';
+          '<span class="snum">'+pad2(i+1)+'</span><h4>'+esc(lang==='fr'?s.fr:s.en)+'</h4></a>';
       }).join('');
     }
     function renderTeamHome(lang){
