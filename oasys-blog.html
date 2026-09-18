@@ -204,7 +204,7 @@
   <div class="wrap">
     <div class="pgrid" id="pgrid">
 
-      <a class="post" href="oasys-article.html?a=1" id="post-1" data-cat="digital" data-reveal>
+      <a class="post" href="oasys-article.html#a=1" id="post-1" data-cat="digital" data-reveal>
         <div class="post-body">
           <div class="post-date">10.02.2026</div>
           <h3 class="post-title" data-i="p1">OASYS presents its innovative digital solution (OBIS) at the MSHP DU</h3>
@@ -213,7 +213,7 @@
         </div>
       </a>
 
-      <a class="post" href="oasys-article.html?a=2" id="post-2" data-cat="governance" data-reveal style="--d:.05s">
+      <a class="post" href="oasys-article.html#a=2" id="post-2" data-cat="governance" data-reveal style="--d:.05s">
         <div class="post-body">
           <div class="post-date">10.02.2026</div>
           <h3 class="post-title" data-i="p2">Strategic meeting between OASYS and the Gates Foundation regarding technical assistance to the Delivery Unit (DU) of the Ministry of Health and Public Hygiene in Senegal</h3>
@@ -222,7 +222,7 @@
         </div>
       </a>
 
-      <a class="post" href="oasys-article.html?a=3" id="post-3" data-cat="digital" data-reveal style="--d:.1s">
+      <a class="post" href="oasys-article.html#a=3" id="post-3" data-cat="digital" data-reveal style="--d:.1s">
         <div class="post-body">
           <div class="post-date">10.02.2026</div>
           <h3 class="post-title" data-i="p3">Supervision of the deployment of the M-Vaccine application in 49 health districts in Ivory Coast</h3>
@@ -231,7 +231,7 @@
         </div>
       </a>
 
-      <a class="post" href="oasys-article.html?a=4" id="post-4" data-cat="health" data-reveal>
+      <a class="post" href="oasys-article.html#a=4" id="post-4" data-cat="health" data-reveal>
         <div class="post-body">
           <div class="post-date">10.02.2026</div>
           <h3 class="post-title" data-i="p4">OASYS is supporting the Guinean Ministry of Health by training data collection agents for the national study on medical procedure pricing.</h3>
@@ -333,8 +333,9 @@
     document.querySelectorAll('[data-i]').forEach(function(el){EN[el.getAttribute('data-i')]=el.innerHTML;});
     var en=document.getElementById('lang-en'),fr=document.getElementById('lang-fr');
     function apply(m,l){document.querySelectorAll('[data-i]').forEach(function(el){var k=el.getAttribute('data-i');if(m[k]!=null)el.innerHTML=m[k];});document.documentElement.setAttribute('lang',l);}
-    en.addEventListener('click',function(){apply(EN,'en');en.setAttribute('aria-pressed','true');fr.setAttribute('aria-pressed','false');});
-    fr.addEventListener('click',function(){apply(FR,'fr');fr.setAttribute('aria-pressed','true');en.setAttribute('aria-pressed','false');});
+    en.addEventListener('click',function(){try{localStorage.setItem('oasysLang','en');}catch(e){}apply(EN,'en');en.setAttribute('aria-pressed','true');fr.setAttribute('aria-pressed','false');});
+    fr.addEventListener('click',function(){try{localStorage.setItem('oasysLang','fr');}catch(e){}apply(FR,'fr');fr.setAttribute('aria-pressed','true');en.setAttribute('aria-pressed','false');});
+    try{ if(localStorage.getItem('oasysLang')==='fr') fr.click(); }catch(e){}
   })();
 </script>
 

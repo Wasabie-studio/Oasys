@@ -286,7 +286,7 @@
   var lang='en';
 
   function current(){
-    var m=/[?&]a=(\d+)/.exec(location.search);
+    var m=/[#?&]a=(\d+)/.exec(location.hash) || /[?&]a=(\d+)/.exec(location.search);
     var n=m?parseInt(m[1],10):1;
     for(var i=0;i<ARTICLES.length;i++){ if(ARTICLES[i].n===n) return i; }
     return 0;
@@ -307,19 +307,26 @@
     var prev=document.getElementById('a-prev'), next=document.getElementById('a-next');
     var p=ARTICLES[idx-1], n=ARTICLES[idx+1];
     prev.style.visibility=p?'visible':'hidden'; next.style.visibility=n?'visible':'hidden';
-    if(p){ prev.href='oasys-article.html?a='+p.n; prev.textContent=(fr?'\u2190 Article pr\u00e9c\u00e9dent':'\u2190 Previous article'); }
-    if(n){ next.href='oasys-article.html?a='+n.n; next.textContent=(fr?'Article suivant \u2192':'Next article \u2192'); }
+    if(p){ prev.href='#a='+p.n; prev.textContent=(fr?'\u2190 Article pr\u00e9c\u00e9dent':'\u2190 Previous article'); }
+    if(n){ next.href='#a='+n.n; next.textContent=(fr?'Article suivant \u2192':'Next article \u2192'); }
   }
 
   (function(){
     document.querySelectorAll('[data-i]').forEach(function(el){EN[el.getAttribute('data-i')]=el.innerHTML;});
     var en=document.getElementById('lang-en'), frb=document.getElementById('lang-fr');
     function applyUI(m,l){document.querySelectorAll('[data-i]').forEach(function(el){var k=el.getAttribute('data-i');if(m[k]!=null)el.innerHTML=m[k];});document.documentElement.setAttribute('lang',l);}
-    en.addEventListener('click',function(){lang='en';applyUI(EN,'en');render();en.setAttribute('aria-pressed','true');frb.setAttribute('aria-pressed','false');});
-    frb.addEventListener('click',function(){lang='fr';applyUI(FR,'fr');render();frb.setAttribute('aria-pressed','true');en.setAttribute('aria-pressed','false');});
+    en.addEventListener('click',function(){try{localStorage.setItem('oasysLang','en');}catch(e){}lang='en';applyUI(EN,'en');render();en.setAttribute('aria-pressed','true');frb.setAttribute('aria-pressed','false');});
+    frb.addEventListener('click',function(){try{localStorage.setItem('oasysLang','fr');}catch(e){}lang='fr';applyUI(FR,'fr');render();frb.setAttribute('aria-pressed','true');en.setAttribute('aria-pressed','false');});
+    try{ if(localStorage.getItem('oasysLang')==='fr') frb.click(); }catch(e){}
   })();
 
   render();
+
+  /* Prev/next stay on this document, so re-render when the hash changes. */
+  window.addEventListener('hashchange',function(){
+    var i=current();
+    if(i!==idx){ idx=i; render(); window.scrollTo(0,0); }
+  });
 </script>
 </body>
 </html>

@@ -554,8 +554,9 @@
     document.querySelectorAll('[data-i]').forEach(function(el){EN[el.getAttribute('data-i')]=el.innerHTML;});
     var en=document.getElementById('lang-en'),fr=document.getElementById('lang-fr');
     function apply(m,l){document.querySelectorAll('[data-i]').forEach(function(el){var k=el.getAttribute('data-i');if(m[k]!=null)el.innerHTML=m[k];});document.documentElement.setAttribute('lang',l);}
-    en.addEventListener('click',function(){LANG='en';apply(EN,'en');en.setAttribute('aria-pressed','true');fr.setAttribute('aria-pressed','false');renderServices();renderSectors();});
-    fr.addEventListener('click',function(){LANG='fr';apply(FR,'fr');fr.setAttribute('aria-pressed','true');en.setAttribute('aria-pressed','false');renderServices();renderSectors();});
+    en.addEventListener('click',function(){try{localStorage.setItem('oasysLang','en');}catch(e){}LANG='en';apply(EN,'en');en.setAttribute('aria-pressed','true');fr.setAttribute('aria-pressed','false');renderServices();renderSectors();});
+    fr.addEventListener('click',function(){try{localStorage.setItem('oasysLang','fr');}catch(e){}LANG='fr';apply(FR,'fr');fr.setAttribute('aria-pressed','true');en.setAttribute('aria-pressed','false');renderServices();renderSectors();});
+    try{ if(localStorage.getItem('oasysLang')==='fr') fr.click(); }catch(e){}
   })();
 </script>
 </body>
