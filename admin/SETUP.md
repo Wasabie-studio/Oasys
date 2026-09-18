@@ -37,12 +37,14 @@ completes the "Login with GitHub" handshake for the CMS.
    **Project configuration → Security → OAuth**.
 3. Under **Authentication Providers**, click **Install Provider**, select
    **GitHub**, and paste in the Client ID and Client Secret from step 2. Save.
-4. Copy that placeholder site's own URL (e.g. `https://random-name-123abc.netlify.app`,
-   shown on its overview page) and set it as `base_url` in `admin/config.yml`
-   (replacing `https://api.netlify.com`). This step is required — the generic
-   `api.netlify.com` address can't figure out which Netlify site's OAuth
-   provider to use when the CMS itself is served from GitHub Pages, not from
-   a netlify.app domain.
+4. Still on that placeholder site, go to
+   **Project configuration → Domain management**, and add
+   **`wasabie-studio.github.io`** as a **Domain alias** (not a primary/custom
+   domain — it never needs to actually resolve there). This step is required:
+   when the CMS calls `api.netlify.com/auth`, Netlify identifies which site's
+   OAuth provider to use by matching the CMS's own domain
+   (`wasabie-studio.github.io`) against domains registered to a Netlify site —
+   without this alias, that lookup fails with "Not Found".
 
 ## 4. Log in and start editing
 
