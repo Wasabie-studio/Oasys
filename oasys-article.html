@@ -128,7 +128,7 @@
   .art-cap{font-family:var(--sans);font-size:.8rem;color:var(--faint);margin:.75rem 0 0;line-height:1.5}
   .art-pub{margin-top:clamp(2.2rem,4vw,3rem);padding-top:1.3rem;border-top:1px solid var(--hair);
     font-family:var(--sans);font-size:.85rem;color:var(--faint)}
-  .artnav{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1rem;margin-top:2.2rem}
+  .artnav{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1rem;margin-top:clamp(2.2rem,4vw,3rem);padding-top:1.3rem;border-top:1px solid var(--hair)}
   .artnav a{font-family:var(--sans);font-weight:600;font-size:.88rem;color:var(--forest);text-decoration:none}
   .artnav a:hover{color:var(--signal)}
   .artnav #a-prev{justify-self:start}
@@ -181,7 +181,6 @@
       <figcaption class="art-cap" id="a-cap"></figcaption>
     </figure>
     <div id="a-body"></div>
-    <p class="art-pub" id="a-pub"></p>
     <div class="artnav">
       <a id="a-prev" href="#" style="visibility:hidden"></a>
       <a class="mid" href="oasys-blog.html" data-i="art_all">All news</a>
@@ -223,10 +222,16 @@
   function current(){
     var m=/[#?&]a=(\d+)/.exec(location.hash) || /[?&]a=(\d+)/.exec(location.search);
     var n=m?parseInt(m[1],10):1;
-    for(var i=0;i<ARTICLES.length;i++){ if(ARTICLES[i].n===n) return i; }
-    return 0;
+    var i=n-1;
+    return (i>=0 && i<ARTICLES.length) ? i : 0;
   }
   var idx=current();
+
+  var CAT_LABELS={
+    digital:{en:"Digital",fr:"Num\u00e9rique"},
+    governance:{en:"Governance",fr:"Gouvernance"},
+    health:{en:"Health & Social",fr:"Sant\u00e9 & Social"}
+  };
 
   function render(){
     if(!ARTICLES.length)return;
@@ -234,20 +239,28 @@
     var title=fr?a.titleFr:a.titleEn;
     document.getElementById('a-title').innerHTML=title;
     document.getElementById('a-date').textContent=a.date;
-    document.getElementById('a-cat').innerHTML=fr?a.catFr:a.catEn;
+    document.getElementById('a-cat').innerHTML=CAT_LABELS[a.cat]?CAT_LABELS[a.cat][lang]:a.cat;
     document.getElementById('a-body').innerHTML=(fr?a.bodyFr:a.bodyEn)
       .map(function(t){return '<p class="art-p">'+t+'</p>';}).join('');
-    document.getElementById('a-pub').textContent=fr?a.pubFr:a.pubEn;
-    var img=document.getElementById('a-img');
-    img.setAttribute('data-ph', fr?'Photo de l\u2019article':'Article photo');
-    document.getElementById('a-cap').textContent=(fr?'Visuel \u00e0 venir \u2014 ':'Image to come \u2014 ')+(fr?a.titleFr:a.titleEn).replace(/<[^>]*>/g,'');
+    var figure=document.getElementById('a-img');
+    var caption=document.getElementById('a-cap');
+    if(a.photo){
+      figure.className='';
+      figure.innerHTML='<img src="'+a.photo+'" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:var(--r)">';
+      caption.textContent='';
+    }else{
+      figure.className='imgph';
+      figure.setAttribute('data-ph', fr?'Photo de l\u2019article':'Article photo');
+      figure.innerHTML='<span class="cam">\u25ce</span>';
+      caption.textContent=(fr?'Visuel \u00e0 venir \u2014 ':'Image to come \u2014 ')+(fr?a.titleFr:a.titleEn).replace(/<[^>]*>/g,'');
+    }
     document.title='OASYS \u00b7 '+String(title).replace(/<[^>]*>/g,'').slice(0,60);
 
     var prev=document.getElementById('a-prev'), next=document.getElementById('a-next');
     var p=ARTICLES[idx-1], n=ARTICLES[idx+1];
     prev.style.visibility=p?'visible':'hidden'; next.style.visibility=n?'visible':'hidden';
-    if(p){ prev.href='#a='+p.n; prev.textContent=(fr?'\u2190 Article pr\u00e9c\u00e9dent':'\u2190 Previous article'); }
-    if(n){ next.href='#a='+n.n; next.textContent=(fr?'Article suivant \u2192':'Next article \u2192'); }
+    if(p){ prev.href='#a='+idx; prev.textContent=(fr?'\u2190 Article pr\u00e9c\u00e9dent':'\u2190 Previous article'); }
+    if(n){ next.href='#a='+(idx+2); next.textContent=(fr?'Article suivant \u2192':'Next article \u2192'); }
   }
 
   (function(){
@@ -260,9 +273,10 @@
   })();
 
   fetch('data/posts.json').then(function(r){return r.json();}).then(function(d){
+    // Keep array order/index as the article's #a=N id — headline-only items
+    // (no body) are filtered before numbering, same order the News list uses.
     ARTICLES=d.items.filter(function(p){return !!p.body_en;}).map(function(p){
-      return {n:p.n,cat:p.cat,catEn:p.cat_en,catFr:p.cat_fr,date:p.date,
-        pubEn:p.pub_en,pubFr:p.pub_fr,titleEn:p.title_en,titleFr:p.title_fr,
+      return {cat:p.cat,date:p.date,photo:p.photo,titleEn:p.title_en,titleFr:p.title_fr,
         bodyEn:p.body_en.split('\n\n'),bodyFr:p.body_fr.split('\n\n')};
     });
     idx=current();

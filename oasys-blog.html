@@ -111,7 +111,8 @@
   .post{display:flex;flex-direction:column;text-decoration:none;color:inherit;border:1px solid var(--hair);border-radius:var(--r);background:var(--panel);overflow:hidden;
     transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s}
   .post:hover{transform:translateY(-5px);box-shadow:0 26px 54px -32px rgba(20,32,25,.22);border-color:var(--border)}
-  .post-media{position:relative;aspect-ratio:16/11;border-radius:0}
+  .post-media{position:relative;aspect-ratio:16/11;border-radius:0;overflow:hidden}
+  .post-media img{width:100%;height:100%;object-fit:cover;display:block}
   .post-media::after{bottom:.7rem}
   .post-media .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,26,19,0) 55%,rgba(10,26,19,.14) 100%);opacity:0;transition:opacity .4s var(--ease)}
   .post:hover .post-media .scrim{opacity:1}
@@ -223,25 +224,41 @@
      news through the CMS at /admin */
   (function(){
     function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+    var CAT_LABELS={
+      digital:{en:"Digital",fr:"Numérique"},
+      governance:{en:"Governance",fr:"Gouvernance"},
+      health:{en:"Health & Social",fr:"Santé & Social"}
+    };
+    function excerptOf(body){
+      if(!body)return "";
+      var first=body.split("\n\n")[0];
+      return first.length>160 ? first.slice(0,160).replace(/\s+\S*$/,"")+"…" : first;
+    }
     var curLang=(function(){try{return localStorage.getItem('oasysLang')==='fr'?'fr':'en';}catch(e){return 'en';}})();
     var POSTS=[];
     function renderPosts(lang){
       var host=document.getElementById('pgrid');
       host.innerHTML=POSTS.map(function(p,i){
+        var n=i+1;
         var hasDetail=!!p.body_en;
         var title=lang==='fr'?p.title_fr:p.title_en;
-        var excerpt=lang==='fr'?p.excerpt_fr:p.excerpt_en;
-        var cat=lang==='fr'?p.cat_fr:p.cat_en;
+        var excerpt=excerptOf(lang==='fr'?p.body_fr:p.body_en);
+        var catLbl=CAT_LABELS[p.cat]?CAT_LABELS[p.cat][lang]:p.cat;
         var excHtml=excerpt?'<p class="post-ex">'+esc(excerpt)+'</p>':'';
+        var media=p.photo
+          ? '<div class="post-media"><img src="'+esc(p.photo)+'" alt="" loading="lazy"><span class="scrim"></span><span class="post-arw"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span></div>'
+          : '';
         return hasDetail
-          ? '<a class="post" href="oasys-article.html#a='+p.n+'" id="post-'+p.n+'" data-reveal'+(i?' style="--d:'+((i%4)*0.05).toFixed(2)+'s"':'')+'>'+
+          ? '<a class="post" href="oasys-article.html#a='+n+'" id="post-'+n+'" data-reveal'+(i?' style="--d:'+((i%4)*0.05).toFixed(2)+'s"':'')+'>'+
+              media+
               '<div class="post-body"><div class="post-date">'+esc(p.date)+'</div>'+
               '<h3 class="post-title">'+esc(title)+'</h3>'+excHtml+
-              '<span class="post-cat"><span class="dot"></span><span>'+esc(cat)+'</span></span></div></a>'
-          : '<a class="post nodetail" href="#" id="post-'+p.n+'" onclick="return false;" data-reveal'+(i?' style="--d:'+((i%4)*0.05).toFixed(2)+'s"':'')+'>'+
+              '<span class="post-cat"><span class="dot"></span><span>'+esc(catLbl)+'</span></span></div></a>'
+          : '<a class="post nodetail" href="#" id="post-'+n+'" onclick="return false;" data-reveal'+(i?' style="--d:'+((i%4)*0.05).toFixed(2)+'s"':'')+'>'+
+              media+
               '<div class="post-body"><div class="post-date">'+esc(p.date)+'</div>'+
               '<h3 class="post-title">'+esc(title)+'</h3>'+
-              '<span class="post-cat"><span class="dot"></span><span>'+esc(cat)+'</span></span></div></a>';
+              '<span class="post-cat"><span class="dot"></span><span>'+esc(catLbl)+'</span></span></div></a>';
       }).join('');
       window.__observeReveals(host);
     }

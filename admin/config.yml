@@ -3,8 +3,9 @@ backend:
   repo: Wasabie-studio/Oasys
   branch: main
   # Login relay only — the site itself stays on GitHub Pages.
-  # See /admin/SETUP.md for the one-time account steps this needs.
-  base_url: https://api.netlify.com
+  # This must be your deployed Cloudflare Worker's own URL
+  # (cloudflare-worker/oauth-worker.js) — see admin/SETUP.md.
+  base_url: https://oasys-cms-oauth.wasabie-studioo.workers.dev
   auth_endpoint: auth
 
 media_folder: "assets/uploads"
@@ -122,15 +123,16 @@ collections:
             widget: list
             summary: "{{fields.title_en}}"
             fields:
-              - {label: "ID (unique number, never reuse)", name: n, widget: number, value_type: int}
-              - {label: "Category label (English)", name: cat_en, widget: string}
-              - {label: "Category label (French)", name: cat_fr, widget: string}
+              - {label: "Photo", name: photo, widget: image, required: false}
+              - label: "Category"
+                name: cat
+                widget: select
+                options:
+                  - {label: "Digital", value: digital}
+                  - {label: "Governance", value: governance}
+                  - {label: "Health & Social", value: health}
               - {label: "Date", name: date, widget: string, hint: "Format: DD.MM.YYYY"}
-              - {label: "Published line (English)", name: pub_en, widget: string, required: false}
-              - {label: "Published line (French)", name: pub_fr, widget: string, required: false}
               - {label: "Title (English)", name: title_en, widget: string}
               - {label: "Title (French)", name: title_fr, widget: string}
-              - {label: "Excerpt shown on the News list (English)", name: excerpt_en, widget: text, required: false}
-              - {label: "Excerpt shown on the News list (French)", name: excerpt_fr, widget: text, required: false}
-              - {label: "Full article body (English) — leave blank for a headline-only item with no article page", name: body_en, widget: text, required: false}
-              - {label: "Full article body (French)", name: body_fr, widget: text, required: false}
+              - {label: "Body (English) — leave blank for a headline-only item with no article page", name: body_en, widget: text, required: false}
+              - {label: "Body (French)", name: body_fr, widget: text, required: false}
