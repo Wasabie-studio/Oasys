@@ -5,7 +5,7 @@ backend:
   # Login relay only — the site itself stays on GitHub Pages.
   # This must be your deployed Cloudflare Worker's own URL
   # (cloudflare-worker/oauth-worker.js) — see admin/SETUP.md.
-  base_url: https://REPLACE-WITH-YOUR-WORKER-URL.workers.dev
+  base_url: https://oasys-cms-oauth.wasabie-studioo.workers.dev
   auth_endpoint: auth
 
 media_folder: "assets/uploads"
