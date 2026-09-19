@@ -62,6 +62,43 @@ collections:
         fields:
           - {label: "Photo", name: photo, widget: image, required: false}
 
+  - name: "team"
+    label: "Team"
+    description: "Two separate, independently-editable lists — updating one does NOT update the other. Click a row below to open it."
+    files:
+      - file: "data/team_home.json"
+        label: "Team — Homepage Preview"
+        name: "team_home"
+        description: "Shown ONLY on the homepage's 'Meet the team' strip — not the About page."
+        fields:
+          - label: "Featured Team Members"
+            name: items
+            widget: list
+            summary: "{{fields.name}}"
+            hint: "Drag the handle on the left of each card to reorder — the order here is the order they appear on the homepage."
+            fields:
+              - {label: "Name", name: name, widget: string}
+              - {label: "Photo", name: photo, widget: image, required: false}
+              - {label: "Role (English)", name: role_en, widget: string}
+              - {label: "Role (French)", name: role_fr, widget: string}
+      - file: "data/team.json"
+        label: "Team — Full Roster (About page)"
+        name: "team_roster"
+        description: "Shown ONLY on the About page's full team grid — not the homepage."
+        fields:
+          - label: "Team Members"
+            name: items
+            widget: list
+            summary: "{{fields.role_en}}{{fields.name}}"
+            hint: "Drag the handle on the left of each card to reorder — the order here is the order they appear on the About page."
+            fields:
+              - {label: "Name (leave blank to show role only)", name: name, widget: string, required: false}
+              - {label: "Photo", name: photo, widget: image, required: false}
+              - {label: "Group (English)", name: group_en, widget: string}
+              - {label: "Group (French)", name: group_fr, widget: string}
+              - {label: "Role (English)", name: role_en, widget: string}
+              - {label: "Role (French)", name: role_fr, widget: string}
+
   - name: "sectors_home"
     label: "Sectors — Homepage"
     description: "Same list as 'Sectors — Services Page' — publishing here updates both."
@@ -159,43 +196,6 @@ collections:
                 widget: list
                 required: false
                 field: {label: "Item", name: item, widget: string}
-
-  - name: "team"
-    label: "Team"
-    description: "Two separate, independently-editable lists — updating one does NOT update the other. Click a row below to open it."
-    files:
-      - file: "data/team_home.json"
-        label: "Team — Homepage Preview"
-        name: "team_home"
-        description: "Shown ONLY on the homepage's 'Meet the team' strip — not the About page."
-        fields:
-          - label: "Featured Team Members"
-            name: items
-            widget: list
-            summary: "{{fields.name}}"
-            hint: "Drag the handle on the left of each card to reorder — the order here is the order they appear on the homepage."
-            fields:
-              - {label: "Name", name: name, widget: string}
-              - {label: "Photo", name: photo, widget: image, required: false}
-              - {label: "Role (English)", name: role_en, widget: string}
-              - {label: "Role (French)", name: role_fr, widget: string}
-      - file: "data/team.json"
-        label: "Team — Full Roster (About page)"
-        name: "team_roster"
-        description: "Shown ONLY on the About page's full team grid — not the homepage."
-        fields:
-          - label: "Team Members"
-            name: items
-            widget: list
-            summary: "{{fields.role_en}}{{fields.name}}"
-            hint: "Drag the handle on the left of each card to reorder — the order here is the order they appear on the About page."
-            fields:
-              - {label: "Name (leave blank to show role only)", name: name, widget: string, required: false}
-              - {label: "Photo", name: photo, widget: image, required: false}
-              - {label: "Group (English)", name: group_en, widget: string}
-              - {label: "Group (French)", name: group_fr, widget: string}
-              - {label: "Role (English)", name: role_en, widget: string}
-              - {label: "Role (French)", name: role_fr, widget: string}
 
   - name: "partners_home"
     label: "Partners — Homepage"
