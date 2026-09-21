@@ -2,7 +2,7 @@
   "items": [
     {
       "name": "Ousmane Amadou Sy",
-      "photo": "",
+      "photo": "assets/uploads/screenshot-2026-09-21-at-3.45.57 pm.png",
       "role_en": "CEO",
       "role_fr": "PDG"
     },
@@ -19,9 +19,9 @@
       "role_fr": "Responsable des Opérations"
     },
     {
-      "name": "Aminata Ba",
-      "photo": "",
-      "role_en": "Project Manager",
+      "name": "Ibrahim BALDE",
+      "photo": "assets/uploads/screenshot-2026-09-21-at-3.52.35 pm.png",
+      "role_en": "IT & Business Development   Marie Jose CORREAHE",
       "role_fr": "Chargée de Projets"
     }
   ]
