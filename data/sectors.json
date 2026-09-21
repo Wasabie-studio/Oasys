@@ -1,13 +1,54 @@
 {
   "items": [
-    {"en": "Health & Social Protection", "fr": "Santé & protection sociale", "img": "assets/health-sector.webp"},
-    {"en": "Technical & Vocational Training", "fr": "Formation technique & professionnelle", "img": "assets/training-sector.webp"},
-    {"en": "Agribusiness & Agricultural Value Chains", "fr": "Agrobusiness & chaînes de valeur agricoles", "img": "assets/agribusiness-sector.webp"},
-    {"en": "Environment, Sustainability & Climate Change", "fr": "Environnement, durabilité & changement climatique", "img": "assets/environment-sector.webp"},
-    {"en": "Local Governance, Decentralisation & Urban Planning", "fr": "Gouvernance locale, décentralisation & urbanisme", "img": "assets/governance-sector.webp"},
-    {"en": "Population, Gender & Human Rights", "fr": "Population, genre & droits humains", "img": "assets/gender-sector.webp"},
-    {"en": "Social & Community Entrepreneurship", "fr": "Entrepreneuriat social & communautaire", "img": "assets/entrepreneurship-sector.webp"},
-    {"en": "SME Support", "fr": "Appui aux PME", "img": "assets/sme-sector.webp"},
-    {"en": "IT & Digital Solutions", "fr": "Informatique & solutions numériques", "img": "assets/digital-sector.webp"}
+    {
+      "en": "Health & Social Protection",
+      "fr": "Santé & protection sociale",
+      "img": "assets/health-sector.webp"
+    },
+    {
+      "en": "Technical & Vocational Training",
+      "fr": "Formation technique & professionnelle",
+      "img": "assets/training-sector.webp"
+    },
+    {
+      "en": "Agribusiness & Agricultural Value Chains",
+      "fr": "Agrobusiness & chaînes de valeur agricoles",
+      "img": "assets/agribusiness-sector.webp"
+    },
+    {
+      "en": "Environment, Sustainability & Climate Change",
+      "fr": "Environnement, durabilité & changement climatique",
+      "img": "assets/environment-sector.webp"
+    },
+    {
+      "en": "Local Governance, Decentralisation & Urban Planning",
+      "fr": "Gouvernance locale, décentralisation & urbanisme",
+      "img": "assets/governance-sector.webp"
+    },
+    {
+      "en": "Population, Gender & Human Rights",
+      "fr": "Population, genre & droits humains",
+      "img": "assets/gender-sector.webp"
+    },
+    {
+      "en": "Social & Community Entrepreneurship",
+      "fr": "Entrepreneuriat social & communautaire",
+      "img": "assets/entrepreneurship-sector.webp"
+    },
+    {
+      "en": "SME Support",
+      "fr": "Appui aux PME",
+      "img": "assets/sme-sector.webp"
+    },
+    {
+      "en": "IT & Digital Solutions",
+      "fr": "Informatique & solutions numériques",
+      "img": "assets/digital-sector.webp"
+    },
+    {
+      "en": "Design and Technology",
+      "fr": "Design and technology",
+      "img": "assets/uploads/whatsapp-image-2026-08-30-at-12.08.58-am-1-.jpeg"
+    }
   ]
 }
