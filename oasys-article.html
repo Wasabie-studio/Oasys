@@ -40,6 +40,9 @@
   html{scroll-behavior:smooth}
   body{margin:0;background:var(--bg);color:var(--body);font-family:var(--sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   h1,h2,h3,h4,h5{font-family:var(--serif);color:var(--ink);margin:0;font-weight:500;letter-spacing:-0.015em;text-wrap:balance;line-height:1.1}
+  /* brand headings: h1/h2 in OASYS forest green. Dark-section rules are
+     more specific, so headings on dark panels keep their light colour. */
+  h1,h2{color:var(--forest)}
   p{margin:0;text-wrap:pretty}
   a{color:inherit}
   img,svg{max-width:100%}
@@ -107,7 +110,7 @@
   .crumb a:hover{color:var(--forest)}
   .crumb .sep{color:var(--hair)}
   .crumb .cur{color:var(--forest);font-weight:600}
-  .arthead h1{font-family:var(--serif);font-weight:500;color:var(--ink);
+  .arthead h1{font-family:var(--serif);font-weight:500;color:var(--forest);
     font-size:clamp(1.75rem,3.4vw,2.7rem);line-height:1.2;letter-spacing:-0.015em;margin:0}
   .artmeta{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;margin-top:1.3rem;
     font-family:var(--sans);font-size:.85rem;color:var(--muted)}

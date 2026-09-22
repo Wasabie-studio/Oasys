@@ -38,6 +38,9 @@
   html{scroll-behavior:smooth}
   body{margin:0;background:var(--bg);color:var(--body);font-family:var(--sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   h1,h2,h3,h4{font-family:var(--serif);color:var(--ink);margin:0;font-weight:500;letter-spacing:-0.015em;text-wrap:balance;line-height:1.1}
+  /* brand headings: h1/h2 in OASYS forest green. Dark-section rules are
+     more specific, so headings on dark panels keep their light colour. */
+  h1,h2{color:var(--forest)}
   p{margin:0;text-wrap:pretty}
   a{color:inherit}
   img,svg{max-width:100%}
@@ -721,7 +724,7 @@
 <section class="sec results">
   <div class="wrap">
     <div class="shead">
-      <span class="eyebrow" data-i="res_eye">Results</span>
+      <span class="eyebrow" data-i="res_eye">News</span>
       <a class="headlink" href="oasys-blog.html"><h2 data-i="res_h">Recent work in the field</h2></a>
     </div>
     <div class="rgrid" id="rgrid"><!-- injected by JS from data/posts.json --></div>
@@ -1008,7 +1011,7 @@
     tmo_n2:"Nom Prénom",tmo_r2:"Responsable des opérations · Ministère",
     tmo_q3:"« Ils ont compris nos objectifs et les ont traduits en résultats mesurables sur le terrain. »",
     tmo_n3:"Nom Prénom",tmo_r3:"Responsable pays · Fondation",
-    res_eye:"Résultats",res_h:"Travaux récents sur le terrain",
+    res_eye:"Actualités",res_h:"Travaux récents sur le terrain",
     tm_eye:"Notre équipe",tm_h:"L'équipe derrière chaque mission",tm_sub:"Basée à Dakar, notre équipe identifie, mobilise et accompagne les experts déployés sur le terrain.",
     tm1r:"PDG · Directeur Général",tm2r:"Directeur Technique",tm3r:"Responsable des Opérations",tm4r:"Chargée de Projets",tm_link:"Découvrir toute l'équipe",
     ct_eye:"Contact",ct_h:"Parlons-en",ct_p:"Que vous prépariez un projet ou cherchiez la bonne expertise technique, notre équipe est prête à vous aider.",
@@ -1136,13 +1139,13 @@
         '<div class="rc-in">'+
           '<span class="rtag">'+catOf(big.p)+'</span>'+
           '<h3>'+titleOf(big.p)+'</h3>'+
-          '<div class="rmeta"><a class="btn btn-dark" href="oasys-article.html#a='+big.n+'">'+(lang==='fr'?'Voir le résultat':'View result')+'</a><span class="partner">'+esc(big.p.date||'')+'</span></div>'+
+          '<div class="rmeta"><a class="btn btn-dark" href="oasys-article.html#a='+big.n+'">'+(lang==='fr'?"Lire l'article":'Read article')+'</a><span class="partner">'+esc(big.p.date||'')+'</span></div>'+
         '</div></article>';
       html+=smalls.map(function(item,idx){
         var p=item.p;
         var img=p.photo
           ? '<div class="rs-img" style="background-image:url(\''+esc(p.photo)+'\');background-size:cover;background-position:center"></div>'
-          : '<div class="imgph rs-img" data-ph="Result photo"></div>';
+          : '<div class="imgph rs-img" data-ph="Article photo"></div>';
         return '<article class="rsmall" data-reveal style="--d:'+((idx+1)*0.08).toFixed(2)+'s" onclick="location.href=\'oasys-article.html#a='+item.n+'\'">'+
           img+
           '<div class="rs-b"><span class="rtag">'+catOf(p)+'</span><h4>'+titleOf(p)+'</h4><span class="partner">'+esc(p.date||'')+'</span></div>'+
