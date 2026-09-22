@@ -445,6 +445,30 @@
   .pv-title{color:#fff;font-size:clamp(1.4rem,2.4vw,1.95rem);font-weight:500;margin:.5rem 0 .55rem;max-width:20ch;line-height:1.12}
   .pv-desc{color:#dedcd7;max-width:44ch}
   .pv-arw{position:absolute;top:1.2rem;right:1.2rem;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.92);color:var(--forest);display:grid;place-items:center;font-size:1rem}
+  /* ---- PHONES/TABLET: drop the preview image, expand the copy inline ----
+     The preview panel only ever showed the FIRST service on a touch screen --
+     it is driven by hover, which does not exist there -- so it was a tall
+     image carrying text for a service you had not picked. Below 820px it is
+     dropped and each service opens its own copy underneath. */
+  .svcx-acc{display:none}
+  .svcx-item .sx-chev{display:none}
+  @media (max-width:820px){
+    .svcx-preview{display:none}
+    .svcx-item{padding:1rem .6rem;border-bottom:0}
+    .svcx-item .sx-chev{display:grid;place-items:center;width:22px;height:22px;flex:none;
+      color:var(--signal);opacity:.75;transition:transform .35s var(--ease),opacity .3s}
+    .svcx-item.open .sx-chev{transform:rotate(180deg);opacity:1}
+    .svcx-item.open{background:rgba(255,255,255,.04);padding-left:1.1rem}
+    .svcx-item.open .sx-t{color:#fff}
+    .svcx-acc{display:grid;grid-template-rows:0fr;transition:grid-template-rows .38s var(--ease);
+      border-bottom:1px solid var(--on-dark-hair)}
+    .svcx-acc>.svcx-acc-in{overflow:hidden}
+    .svcx-acc.open{grid-template-rows:1fr}
+    .svcx-acc-body{padding:.1rem .6rem 1.3rem 1.1rem}
+    .svcx-acc-body p{color:var(--on-dark-mut);font-size:.97rem;line-height:1.6;margin:0}
+    .svcx-acc-body .svcx-more{display:inline-flex;align-items:center;gap:.45rem;margin-top:.9rem;
+      color:var(--signal);font-weight:600;font-size:.9rem;text-decoration:none;min-height:40px}
+  }
   [hidden]{display:none!important}
 
   /* ---- PHONES: sliding tracks become fixed two-column grids ---- */
@@ -842,6 +866,7 @@
 
   /* services alt: index + preview with wipe-up — bound by renderServicesHome() below,
      since #svcxList is now populated dynamically from data/services.json */
+  var mqSvcxAcc=matchMedia('(max-width:820px)');
   window.__bindServicesPreview=function(){
     var list=document.getElementById('svcxList'); if(!list)return;
     var items=list.querySelectorAll('.svcx-item');
@@ -853,11 +878,42 @@
       img.style.backgroundImage=it.dataset.img?('url("'+it.dataset.img+'")'):it.dataset.bg;
       img.classList.remove('show'); void img.offsetWidth; img.classList.add('show');
     }
+    /* below 820px the item toggles its own copy open instead of jumping
+       straight to the services page -- the link inside it still goes there */
+    function toggle(it){
+      var open=it.classList.contains('open');
+      items.forEach(function(x){
+        x.classList.remove('open'); x.setAttribute('aria-expanded','false');
+        var a=document.getElementById(x.getAttribute('aria-controls'));
+        if(a)a.classList.remove('open');
+      });
+      if(!open){
+        it.classList.add('open'); it.setAttribute('aria-expanded','true');
+        var a=document.getElementById(it.getAttribute('aria-controls'));
+        if(a)a.classList.add('open');
+      }
+    }
     items.forEach(function(it){
-      it.addEventListener('mouseenter',function(){activate(it);});
-      it.addEventListener('click',function(){ location.href='oasys-services.html#svc-'+parseInt(it.dataset.n,10); });
+      it.addEventListener('mouseenter',function(){ if(!mqSvcxAcc.matches) activate(it); });
+      it.addEventListener('click',function(e){
+        if(mqSvcxAcc.matches){ if(e.target.closest('.svcx-more'))return; toggle(it); }
+        else location.href='oasys-services.html#svc-'+parseInt(it.dataset.n,10);
+      });
     });
-    if(items[0])img.style.backgroundImage=items[0].dataset.img?('url("'+items[0].dataset.img+'")'):items[0].dataset.bg;
+    if(items[0]){
+      img.style.backgroundImage=items[0].dataset.img?('url("'+items[0].dataset.img+'")'):items[0].dataset.bg;
+      if(mqSvcxAcc.matches) toggle(items[0]);
+    }
+    /* crossing the breakpoint must not leave a half-applied state */
+    function sync(){
+      if(mqSvcxAcc.matches){ if(!list.querySelector('.svcx-item.open')) toggle(items[0]); }
+      else items.forEach(function(x){
+        x.classList.remove('open'); x.setAttribute('aria-expanded','false');
+        var a=document.getElementById(x.getAttribute('aria-controls'));
+        if(a)a.classList.remove('open');
+      });
+    }
+    if(mqSvcxAcc.addEventListener)mqSvcxAcc.addEventListener('change',sync);else mqSvcxAcc.addListener(sync);
   };
 
 
@@ -1012,8 +1068,16 @@
         var title=esc(lang==='fr'?s.title_fr:s.title_en);
         var desc=esc(lang==='fr'?s.desc_fr:s.desc_en);
         var bg=s.img?'':'linear-gradient(150deg,#1c6b4a,#0e2b20)';
-        return '<li class="svcx-item'+(i===0?' active':'')+'" data-n="'+n+'" data-title="'+title+'" data-desc="'+desc+'" data-bg="'+bg+'" data-img="'+(s.img?esc(s.img):'')+'">'+
-          '<span class="sx-n">'+n+'</span><span class="sx-t">'+title+'</span></li>';
+        var more=lang==='fr'?'Voir ce service':'View this service';
+        return '<li class="svcx-item'+(i===0?' active':'')+'" data-n="'+n+'" data-title="'+title+'" data-desc="'+desc+'" data-bg="'+bg+'" data-img="'+(s.img?esc(s.img):'')+'" aria-controls="svcx-acc-'+i+'" aria-expanded="false">'+
+          '<span class="sx-n">'+n+'</span><span class="sx-t">'+title+'</span>'+
+          '<span class="sx-chev" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>'+
+          '</li>'+
+          '<li class="svcx-acc" id="svcx-acc-'+i+'"><div class="svcx-acc-in"><div class="svcx-acc-body">'+
+          '<p>'+desc+'</p>'+
+          '<a class="svcx-more" href="oasys-services.html#svc-'+(i+1)+'">'+more+
+          '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>'+
+          '</a></div></div></li>';
       }).join('');
       if(window.__bindServicesPreview)window.__bindServicesPreview();
     }
