@@ -303,15 +303,12 @@
   .rsmall .partner{margin-top:auto;font-size:.8rem;color:var(--muted);font-weight:600}
 
   /* ---- TESTIMONIALS ---- */
-  .tmon h2{font-size:clamp(1.8rem,3.6vw,2.6rem);max-width:14ch}
-  .tmon-intro{max-width:44ch}
-  .tmon-intro h2{margin-top:.7rem}
-  .tmon-lead{color:var(--body);font-size:1.05rem;line-height:1.65;margin:1.1rem 0 0;max-width:38ch}
+  .tmon h2{font-size:clamp(1.8rem,3.6vw,2.6rem);max-width:18ch}
+  .tmon .shead{margin-bottom:clamp(2.2rem,4vw,3.2rem)}
   /* video placeholder beside the quotes -- two calm columns rather than a
      row of three cards with a fourth thing bolted on the end */
-  /* copy on the left, video on the right, centred against each other */
-  .tmon-layout{display:grid;grid-template-columns:.92fr 1.08fr;gap:clamp(1.8rem,4.5vw,4rem);align-items:center}
-  @media (max-width:900px){.tmon-layout{grid-template-columns:1fr;gap:clamp(1.6rem,4vw,2.2rem)}.tmon-intro{max-width:none}.tmon-lead{max-width:56ch}}
+  .tmon-layout{display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(1.5rem,3.4vw,2.8rem);align-items:center}
+  @media (max-width:980px){.tmon-layout{grid-template-columns:1fr;gap:clamp(1.6rem,4vw,2.2rem)}}
   .tmon-video{margin:0;position:relative}
   .vidph{position:relative;aspect-ratio:16/10;border-radius:var(--r);overflow:hidden;
     border:1px solid var(--border);
@@ -324,6 +321,20 @@
     font-family:var(--sans);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
     color:color-mix(in srgb,var(--ink) 48%,transparent);
     background:color-mix(in srgb,var(--bg) 62%,transparent);padding:.26rem .58rem;border-radius:800px;white-space:nowrap}
+  .tmon-grid{display:grid;grid-template-columns:1fr;gap:clamp(.8rem,1.6vw,1rem)}
+  .tmon-grid .tmon-card{padding:clamp(1.05rem,1.9vw,1.35rem);gap:.85rem}
+  .tmon-grid .tmon-q{font-size:clamp(.98rem,1.15vw,1.05rem);line-height:1.48}
+  .tmon-grid .tmon-av{width:38px;height:38px}
+  .tmon-card{margin:0;position:relative;background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:clamp(1.4rem,2.5vw,1.9rem);display:flex;flex-direction:column;gap:1.3rem;transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s}
+  .tmon-card::before{content:"";position:absolute;left:clamp(1.4rem,2.5vw,1.9rem);right:clamp(1.4rem,2.5vw,1.9rem);top:0;height:2px;background:var(--signal);border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+  .tmon-card:hover,.tmon-card.active{transform:translateY(-6px);box-shadow:0 24px 50px -30px rgba(20,32,26,.18);border-color:color-mix(in srgb,var(--signal) 28%,var(--border))}
+  .tmon-card:hover::before,.tmon-card.active::before{transform:scaleX(1)}
+  .tmon-card:hover .tmon-av,.tmon-card.active .tmon-av{border-color:var(--signal)}
+  .tmon-q{font-family:var(--serif);font-size:clamp(1.05rem,1.5vw,1.2rem);line-height:1.5;color:var(--ink);margin:0}
+  .tmon-by{display:flex;align-items:center;gap:.8rem;margin-top:auto}
+  .tmon-av{width:44px;height:44px;flex:none;border-radius:50%;background:var(--surface);border:1px solid var(--hair);transition:border-color .4s var(--ease)}
+  .tmon-name{display:block;font-weight:600;color:var(--ink);font-size:.92rem}
+  .tmon-role{display:block;font-size:.8rem;color:var(--muted)}
 
   /* ---- PARTNERS & CLIENTS (logo marquee) ---- */
   .sec.partners{background:var(--surface);padding-block:var(--section)}
@@ -333,7 +344,23 @@
   .pmarquee{overflow:hidden;margin-top:clamp(2.2rem,4vw,3rem);-webkit-mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent)}
   .pmarquee-track{display:flex;width:max-content;animation:pmarquee 40s linear infinite}
   .pmarquee-set{display:flex;gap:clamp(1rem,2vw,1.6rem);padding-right:clamp(1rem,2vw,1.6rem)}
-  .plogo{flex:none;width:clamp(140px,14vw,180px);height:clamp(58px,6vw,74px);display:grid;place-items:center;border:1px solid var(--hair);border-radius:var(--r);background:var(--panel);color:var(--faint);font-family:var(--sans);font-weight:600;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
+  /* No card behind a logo -- just the mark on the page background. Every logo
+     gets the same box and contains itself inside it, so a tall square mark and
+     a long wordmark read at the same visual weight instead of one dwarfing the
+     other. */
+  /* Every logo is drawn to the SAME HEIGHT and given whatever width its shape
+     needs -- matching height is what reads as "same size" in a row of marks.
+     A uniform square box instead would leave a 6:1 wordmark a third the
+     height of a square logo. Extreme shapes are still capped by max-width.
+     Flex, not grid: a percentage max-height is indeterminate against an
+     auto-sized grid row, so a tall logo escaped its box. */
+  .plogo{flex:none;box-sizing:border-box;height:clamp(58px,6vw,74px);
+    width:auto;min-width:clamp(110px,11vw,140px);max-width:clamp(190px,20vw,250px);
+    display:flex;align-items:center;justify-content:center;padding:.5rem .7rem;background:none;border:0}
+  .plogo img{height:100%;width:auto;max-width:100%;object-fit:contain;display:block}
+  /* one static, centred row while there are too few logos to loop cleanly */
+  .pmarquee.is-static{-webkit-mask-image:none;mask-image:none}
+  .pmarquee.is-static .pmarquee-track{animation:none;width:100%;justify-content:center}
   @keyframes pmarquee{to{transform:translateX(-50%)}}
   @media (prefers-reduced-motion:reduce){.pmarquee-track{animation:none}.pmarquee{overflow-x:auto}}
 
@@ -684,13 +711,12 @@
 <!-- TESTIMONIALS -->
 <section class="sec tmon" id="testimonials">
   <div class="wrap">
+    <div class="shead">
+      <span class="eyebrow" data-i="tmo_eye">Testimonials</span>
+      <h2 data-i="tmo_h">In their words</h2>
+    </div>
     <div class="tmon-layout">
-      <div class="tmon-intro" data-reveal>
-        <span class="eyebrow" data-i="tmo_eye">Testimonials</span>
-        <h2 data-i="tmo_h">In their words</h2>
-        <p class="tmon-lead" data-i="tmo_lead">The ministries, donors and institutions we work alongside are best placed to describe what these missions changed on the ground.</p>
-      </div>
-      <figure class="tmon-video" data-reveal style="--d:.08s">
+      <figure class="tmon-video" data-reveal>
         <div class="vidph">
           <span class="playbtn" aria-hidden="true">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.2v13.6a.6.6 0 0 0 .92.5l10.6-6.8a.6.6 0 0 0 0-1l-10.6-6.8A.6.6 0 0 0 8 5.2z"/></svg>
@@ -698,6 +724,20 @@
           <span class="vidph-lbl" data-i="tmo_vph">Video testimonial</span>
         </div>
       </figure>
+    <div class="tmon-grid">
+      <blockquote class="tmon-card" data-reveal>
+        <p class="tmon-q" data-i="tmo_q1">“OASYS brought the technical depth and local knowledge our programme needed, and delivered every milestone on time.”</p>
+        <figcaption class="tmon-by"><span class="tmon-av" aria-hidden="true"></span><span><span class="tmon-name" data-i="tmo_n1">Name Surname</span><span class="tmon-role" data-i="tmo_r1">Programme Director · Organisation</span></span></figcaption>
+      </blockquote>
+      <blockquote class="tmon-card" data-reveal style="--d:.08s">
+        <p class="tmon-q" data-i="tmo_q2">“A rigorous, hands-on partner from the first planning session through to the final evaluation.”</p>
+        <figcaption class="tmon-by"><span class="tmon-av" aria-hidden="true"></span><span><span class="tmon-name" data-i="tmo_n2">Name Surname</span><span class="tmon-role" data-i="tmo_r2">Head of Operations · Ministry</span></span></figcaption>
+      </blockquote>
+      <blockquote class="tmon-card" data-reveal style="--d:.16s">
+        <p class="tmon-q" data-i="tmo_q3">“They understood our objectives and translated them into measurable results on the ground.”</p>
+        <figcaption class="tmon-by"><span class="tmon-av" aria-hidden="true"></span><span><span class="tmon-name" data-i="tmo_n3">Name Surname</span><span class="tmon-role" data-i="tmo_r3">Country Lead · Foundation</span></span></figcaption>
+      </blockquote>
+    </div>
     </div>
   </div>
 </section>
@@ -811,6 +851,20 @@
   (function(){var burger=document.getElementById('burger'),links=document.querySelector('.navlinks');
     burger.addEventListener('click',function(){var open=links.style.display==='flex';
       links.style.cssText=open?'':'display:flex;position:absolute;top:70px;left:0;right:0;flex-direction:column;gap:1.1rem;background:var(--bg);padding:1.5rem var(--gutter);border-bottom:1px solid var(--hair)';});})();
+
+  /* testimonials: gentle auto-cycling highlight */
+  (function(){
+    var cards=document.querySelectorAll('#testimonials .tmon-card'); if(cards.length<2)return;
+    if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+    var i=0,hover=false;
+    function set(n){cards.forEach(function(c,k){c.classList.toggle('active',k===n);});}
+    cards.forEach(function(c){
+      c.addEventListener('mouseenter',function(){hover=true;set(-1);});
+      c.addEventListener('mouseleave',function(){hover=false;});
+    });
+    set(0);
+    setInterval(function(){ if(hover)return; i=(i+1)%cards.length; set(i); },3600);
+  })();
 
   /* worldwide map sync (real map, two-way).
      Hover only exists on pointer devices, so a click/tap LOCKS a region lit --
@@ -973,7 +1027,12 @@
     pt_eye:"Partenaires & clients",pt_h:"Ils nous font confiance",
     pt_p:"OASYS a mené des missions de conseil et d'assistance technique en Afrique, en Asie, en Europe et dans les Caraïbes, aux côtés de partenaires nationaux et internationaux dans de nombreux secteurs.",
     tmo_eye:"Témoignages",tmo_h:"Ce qu'ils en disent",
-    tmo_lead:"Les ministères, bailleurs et institutions à nos côtés sont les mieux placés pour décrire ce que ces missions ont changé sur le terrain.",tmo_vph:"Témoignage vidéo",
+    tmo_q1:"« OASYS a apporté la profondeur technique et la connaissance du terrain dont notre programme avait besoin, et a livré chaque étape dans les délais. »",
+    tmo_n1:"Nom Prénom",tmo_r1:"Directeur de programme · Organisation",
+    tmo_q2:"« Un partenaire rigoureux et impliqué, de la première séance de planification jusqu'à l'évaluation finale. »",
+    tmo_n2:"Nom Prénom",tmo_r2:"Responsable des opérations · Ministère",
+    tmo_q3:"« Ils ont compris nos objectifs et les ont traduits en résultats mesurables sur le terrain. »",
+    tmo_n3:"Nom Prénom",tmo_r3:"Responsable pays · Fondation",tmo_vph:"Témoignage vidéo",
     res_eye:"Actualités",res_h:"Travaux récents sur le terrain",
     tm_eye:"Notre équipe",tm_h:"L'équipe derrière chaque mission",tm_sub:"Basée à Dakar, notre équipe identifie, mobilise et accompagne les experts déployés sur le terrain.",
     tm1r:"PDG · Directeur Général",tm2r:"Directeur Technique",tm3r:"Responsable des Opérations",tm4r:"Chargée de Projets",tm_link:"Découvrir toute l'équipe",
@@ -1129,14 +1188,26 @@
     function renderPartnersHome(){
       var host=document.getElementById('pmarqueeTrack');
       if(!host||!DATA.partners)return;
+      var marquee=host.parentElement;
+      /* a partner with no logo uploaded yet is simply not shown -- a row of
+         "Logo" boxes reads as broken, not as work in progress */
+      var withLogo=DATA.partners.filter(function(p){return p.logo;});
+      if(!withLogo.length){ host.innerHTML=''; marquee.hidden=true; return; }
+      marquee.hidden=false;
       function set(hidden){
-        return '<div class="pmarquee-set"'+(hidden?' aria-hidden="true"':'')+'>'+DATA.partners.map(function(p){
-          return p.logo
-            ? '<span class="plogo" title="'+esc(p.name)+'"><img src="'+esc(p.logo)+'" alt="'+esc(p.name)+'" loading="lazy" style="max-width:100%;max-height:70%;object-fit:contain"></span>'
-            : '<span class="plogo">Logo</span>';
+        return '<div class="pmarquee-set"'+(hidden?' aria-hidden="true"':'')+'>'+withLogo.map(function(p){
+          return '<span class="plogo" title="'+esc(p.name)+'"><img src="'+esc(p.logo)+'" alt="'+esc(p.name)+'" loading="lazy"></span>';
         }).join('')+'</div>';
       }
       host.innerHTML=set(false)+set(true);
+      /* scrolling a row that does not even fill the screen just shows a gap
+         looping past, so hold it still and centre it until there are enough */
+      requestAnimationFrame(function(){
+        var one=host.firstElementChild;
+        var fits=one && one.getBoundingClientRect().width < marquee.getBoundingClientRect().width;
+        marquee.classList.toggle('is-static',!!fits);
+        if(fits) host.innerHTML=set(false);
+      });
     }
     window.__renderDynamicSections=function(lang){
       curLang=lang;
