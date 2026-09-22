@@ -312,8 +312,15 @@
      top rather than centred -- a fixed 16:10 video can never match a stack of
      text that rewraps, so flush tops is the alignment that actually holds.
      Below 1150px the two are too far apart in height to sit side by side. */
-  .tmon-layout{display:grid;grid-template-columns:1.3fr .7fr;gap:clamp(1.5rem,3.4vw,2.8rem);align-items:start}
+  .tmon-layout{display:grid;grid-template-columns:1.3fr .7fr;gap:clamp(1.5rem,3.4vw,2.8rem);align-items:stretch}
   @media (max-width:1150px){.tmon-layout{grid-template-columns:1fr;gap:clamp(1.6rem,4vw,2.2rem)}}
+  /* Side by side, the video panel stretches to the exact height of the quote
+     stack, so top AND bottom line up whatever the quotes wrap to. Its 16:10
+     ratio only applies when stacked, where there is no stack to match. */
+  @media (min-width:1151px){
+    .tmon-video{display:flex;flex-direction:column}
+    .tmon-video .vidph{flex:1;aspect-ratio:auto;min-height:0}
+  }
   .tmon-video{margin:0;position:relative}
   .vidph{position:relative;aspect-ratio:16/10;border-radius:var(--r);overflow:hidden;
     border:1px solid var(--border);
