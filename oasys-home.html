@@ -103,18 +103,16 @@
   @keyframes heroZoom{to{transform:scale(1)}}
   .hero-scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(94deg,rgba(6,20,14,.74) 0%,rgba(6,20,14,.5) 38%,rgba(6,20,14,.12) 72%,rgba(6,20,14,.28) 100%)}
   .hero .wrap{position:relative;min-height:calc(100svh - 108px);display:flex;flex-direction:column;justify-content:center;padding-block:clamp(3rem,6vw,4.5rem)}
-  .hero .kick{display:inline-flex;align-items:center;gap:.6rem;font-size:.8rem;font-weight:600;letter-spacing:.04em;color:#f1f0ec;width:max-content;max-width:100%;flex-wrap:wrap}
-  .hero .kick .pip{width:7px;height:7px;border-radius:50%;background:var(--signal);box-shadow:0 0 0 4px rgba(31,158,61,.28)}
   .hero h1{color:#fff;font-weight:500;font-size:clamp(2rem,3.5vw,3.05rem);line-height:1.1;margin:1.2rem 0 0;max-width:26ch;letter-spacing:-0.02em;text-shadow:0 2px 24px rgba(0,0,0,.28)}
   .hero .sub{color:#edece8;font-size:clamp(1rem,1.1vw,1.1rem);max-width:56ch;margin:1.2rem 0 0;line-height:1.55;text-shadow:0 1px 16px rgba(0,0,0,.28)}
   .hero .cta-row{display:flex;flex-wrap:wrap;gap:.9rem 1.4rem;align-items:center;margin-top:2rem}
   .hero .cta-row .btn{padding:.66rem 1.25rem;font-size:.9rem}
   .hero .btn-hero{background:#fff;color:var(--forest);border-color:#fff}
   .hero .btn-hero:hover{background:#f2f1ee;transform:translateY(-2px)}
-  .hero .btn-hero-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.6)}
-  .hero .btn-hero-ghost:hover{background:rgba(255,255,255,.12);border-color:#fff;transform:translateY(-2px)}
-  .hero .btn-hero-dl{background:transparent;color:#fff;border-color:rgba(255,255,255,.3)}
-  .hero .btn-hero-dl:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.75);transform:translateY(-2px)}
+  /* both outline buttons share one quiet stroke so the hero reads
+     primary -> two equal secondaries, not three competing weights */
+  .hero .btn-hero-ghost,.hero .btn-hero-dl{background:transparent;color:#fff;border-color:rgba(255,255,255,.3)}
+  .hero .btn-hero-ghost:hover,.hero .btn-hero-dl:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.75);transform:translateY(-2px)}
   .hero .btn-hero-dl svg{display:block;flex:none}
   .hero .cta-row .txtlink{color:#fff}
   .glasscard{position:absolute;right:var(--gutter);bottom:clamp(1.4rem,4vw,2.4rem);z-index:3;display:flex;align-items:center;gap:1.1rem;padding:.9rem 1rem;border-radius:18px;
@@ -300,8 +298,8 @@
   .tmon .shead{margin-bottom:clamp(2.2rem,4vw,3.2rem)}
   /* video placeholder beside the quotes -- two calm columns rather than a
      row of three cards with a fourth thing bolted on the end */
-  .tmon-layout{display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(1.5rem,3.4vw,2.8rem);align-items:center}
-  @media (max-width:980px){.tmon-layout{grid-template-columns:1fr;gap:clamp(1.6rem,4vw,2.2rem)}}
+  /* video only — the quote cards were removed, so it centres on its own */
+  .tmon-layout{max-width:min(860px,100%);margin-inline:auto}
   .tmon-video{margin:0;position:relative}
   .vidph{position:relative;aspect-ratio:16/10;border-radius:var(--r);overflow:hidden;
     border:1px solid var(--border);
@@ -314,20 +312,6 @@
     font-family:var(--sans);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
     color:color-mix(in srgb,var(--ink) 48%,transparent);
     background:color-mix(in srgb,var(--bg) 62%,transparent);padding:.26rem .58rem;border-radius:800px;white-space:nowrap}
-  .tmon-grid{display:grid;grid-template-columns:1fr;gap:clamp(.8rem,1.6vw,1rem)}
-  .tmon-grid .tmon-card{padding:clamp(1.05rem,1.9vw,1.35rem);gap:.85rem}
-  .tmon-grid .tmon-q{font-size:clamp(.98rem,1.15vw,1.05rem);line-height:1.48}
-  .tmon-grid .tmon-av{width:38px;height:38px}
-  .tmon-card{margin:0;position:relative;background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:clamp(1.4rem,2.5vw,1.9rem);display:flex;flex-direction:column;gap:1.3rem;transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s}
-  .tmon-card::before{content:"";position:absolute;left:clamp(1.4rem,2.5vw,1.9rem);right:clamp(1.4rem,2.5vw,1.9rem);top:0;height:2px;background:var(--signal);border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
-  .tmon-card:hover,.tmon-card.active{transform:translateY(-6px);box-shadow:0 24px 50px -30px rgba(20,32,26,.18);border-color:color-mix(in srgb,var(--signal) 28%,var(--border))}
-  .tmon-card:hover::before,.tmon-card.active::before{transform:scaleX(1)}
-  .tmon-card:hover .tmon-av,.tmon-card.active .tmon-av{border-color:var(--signal)}
-  .tmon-q{font-family:var(--serif);font-size:clamp(1.05rem,1.5vw,1.2rem);line-height:1.5;color:var(--ink);margin:0}
-  .tmon-by{display:flex;align-items:center;gap:.8rem;margin-top:auto}
-  .tmon-av{width:44px;height:44px;flex:none;border-radius:50%;background:var(--surface);border:1px solid var(--hair);transition:border-color .4s var(--ease)}
-  .tmon-name{display:block;font-weight:600;color:var(--ink);font-size:.92rem}
-  .tmon-role{display:block;font-size:.8rem;color:var(--muted)}
 
   /* ---- PARTNERS & CLIENTS (logo marquee) ---- */
   .sec.partners{background:var(--surface);padding-block:var(--section)}
@@ -553,7 +537,6 @@
   <div class="hero-photo" id="heroPhoto"></div>
   <div class="hero-scrim"></div>
   <div class="wrap">
-    <span class="kick" data-reveal><span class="pip"></span><span id="heroKick">Consulting &amp; technical assistance · Dakar, since 2009</span></span>
     <h1 data-reveal style="--d:.08s" id="heroH">Technical expertise, delivered where development happens</h1>
     <p class="sub" data-reveal style="--d:.16s" id="heroSub">We bring the right expertise directly to the governments, NGOs, and institutions running development projects, from plan to real results.</p>
     <div class="cta-row" data-reveal style="--d:.24s">
@@ -702,20 +685,6 @@
           <span class="vidph-lbl" data-i="tmo_vph">Video testimonial</span>
         </div>
       </figure>
-    <div class="tmon-grid">
-      <blockquote class="tmon-card" data-reveal>
-        <p class="tmon-q" data-i="tmo_q1">“OASYS brought the technical depth and local knowledge our programme needed, and delivered every milestone on time.”</p>
-        <figcaption class="tmon-by"><span class="tmon-av" aria-hidden="true"></span><span><span class="tmon-name" data-i="tmo_n1">Name Surname</span><span class="tmon-role" data-i="tmo_r1">Programme Director · Organisation</span></span></figcaption>
-      </blockquote>
-      <blockquote class="tmon-card" data-reveal style="--d:.08s">
-        <p class="tmon-q" data-i="tmo_q2">“A rigorous, hands-on partner from the first planning session through to the final evaluation.”</p>
-        <figcaption class="tmon-by"><span class="tmon-av" aria-hidden="true"></span><span><span class="tmon-name" data-i="tmo_n2">Name Surname</span><span class="tmon-role" data-i="tmo_r2">Head of Operations · Ministry</span></span></figcaption>
-      </blockquote>
-      <blockquote class="tmon-card" data-reveal style="--d:.16s">
-        <p class="tmon-q" data-i="tmo_q3">“They understood our objectives and translated them into measurable results on the ground.”</p>
-        <figcaption class="tmon-by"><span class="tmon-av" aria-hidden="true"></span><span><span class="tmon-name" data-i="tmo_n3">Name Surname</span><span class="tmon-role" data-i="tmo_r3">Country Lead · Foundation</span></span></figcaption>
-      </blockquote>
-    </div>
     </div>
   </div>
 </section>
@@ -885,19 +854,6 @@
     });
   })();
 
-  /* testimonials: gentle auto-cycling highlight */
-  (function(){
-    var cards=document.querySelectorAll('#testimonials .tmon-card'); if(cards.length<2)return;
-    if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
-    var i=0,hover=false;
-    function set(n){cards.forEach(function(c,k){c.classList.toggle('active',k===n);});}
-    cards.forEach(function(c){
-      c.addEventListener('mouseenter',function(){hover=true;set(-1);});
-      c.addEventListener('mouseleave',function(){hover=false;});
-    });
-    set(0);
-    setInterval(function(){ if(hover)return; i=(i+1)%cards.length; set(i); },3600);
-  })();
 
   /* services alt: index + preview with wipe-up — bound by renderServicesHome() below,
      since #svcxList is now populated dynamically from data/services.json */
@@ -975,7 +931,6 @@
   /* bilingual */
   var FR={
     nav_home:"Accueil",nav_about:"À propos",nav_services:"Services",nav_sectors:"Secteurs",nav_team:"Équipe",nav_blog:"Actualités",nav_contact:"Contact",
-    hero_kick:"Conseil & assistance technique · Dakar, depuis 2009",
     hero_h:"L'expertise technique, là où le développement se joue",
     hero_sub:"Nous apportons la bonne expertise directement aux gouvernements, ONG et institutions qui pilotent les projets de développement, du plan aux résultats.",
     hero_cta1:"Découvrir nos travaux",hero_cta2:"Nous contacter",hero_cta3:"Télécharger notre profil",hero_stat:"Ans d'expérience",
@@ -1005,12 +960,6 @@
     pt_eye:"Partenaires & clients",pt_h:"Ils nous font confiance",
     pt_p:"OASYS a mené des missions de conseil et d'assistance technique en Afrique, en Asie, en Europe et dans les Caraïbes, aux côtés de partenaires nationaux et internationaux dans de nombreux secteurs.",
     tmo_eye:"Témoignages",tmo_h:"Ce qu'ils en disent",tmo_vph:"Témoignage vidéo",
-    tmo_q1:"« OASYS a apporté la profondeur technique et la connaissance du terrain dont notre programme avait besoin, et a livré chaque étape dans les délais. »",
-    tmo_n1:"Nom Prénom",tmo_r1:"Directeur de programme · Organisation",
-    tmo_q2:"« Un partenaire rigoureux et impliqué, de la première séance de planification jusqu'à l'évaluation finale. »",
-    tmo_n2:"Nom Prénom",tmo_r2:"Responsable des opérations · Ministère",
-    tmo_q3:"« Ils ont compris nos objectifs et les ont traduits en résultats mesurables sur le terrain. »",
-    tmo_n3:"Nom Prénom",tmo_r3:"Responsable pays · Fondation",
     res_eye:"Actualités",res_h:"Travaux récents sur le terrain",
     tm_eye:"Notre équipe",tm_h:"L'équipe derrière chaque mission",tm_sub:"Basée à Dakar, notre équipe identifie, mobilise et accompagne les experts déployés sur le terrain.",
     tm1r:"PDG · Directeur Général",tm2r:"Directeur Technique",tm3r:"Responsable des Opérations",tm4r:"Chargée de Projets",tm_link:"Découvrir toute l'équipe",
@@ -1059,7 +1008,6 @@
     function renderHero(lang){
       if(!DATA.hero)return;
       var h=DATA.hero;
-      document.getElementById('heroKick').textContent=lang==='fr'?h.kick_fr:h.kick_en;
       document.getElementById('heroH').textContent=lang==='fr'?h.h_fr:h.h_en;
       document.getElementById('heroSub').textContent=lang==='fr'?h.sub_fr:h.sub_en;
       document.getElementById('heroCta1').textContent=lang==='fr'?h.cta1_fr:h.cta1_en;

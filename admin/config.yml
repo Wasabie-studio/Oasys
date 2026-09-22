@@ -32,8 +32,6 @@ collections:
         name: "hero"
         fields:
           - {label: "Background photo", name: photo, widget: image, required: false}
-          - {label: "Eyebrow tag (English)", name: kick_en, widget: string}
-          - {label: "Eyebrow tag (French)", name: kick_fr, widget: string}
           - {label: "Headline (English)", name: h_en, widget: string}
           - {label: "Headline (French)", name: h_fr, widget: string}
           - {label: "Subtext (English)", name: sub_en, widget: text}
