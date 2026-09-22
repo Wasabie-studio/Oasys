@@ -42,6 +42,13 @@ collections:
           - {label: "Primary button label (French)", name: cta1_fr, widget: string}
           - {label: "Secondary button label (English)", name: cta2_en, widget: string}
           - {label: "Secondary button label (French)", name: cta2_fr, widget: string}
+          - label: "Company profile (PDF)"
+            name: profile
+            widget: file
+            required: false
+            hint: "Upload the company profile here. Leave this empty and the download button is hidden entirely, so the hero never shows a broken download."
+          - {label: "Download button label (English)", name: cta3_en, widget: string, required: false}
+          - {label: "Download button label (French)", name: cta3_fr, widget: string, required: false}
 
   - name: "team_photo_home"
     label: "Team Photo — Homepage"

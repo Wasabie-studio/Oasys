@@ -9,5 +9,8 @@
   "cta2_fr": "Nous contacter",
   "cta1_fr": "Découvrir nos travaux",
   "sub_fr": "Nous apportons la bonne expertise directement aux gouvernements, ONG et institutions qui pilotent les projets de développement, du plan aux résultats.",
-  "photo": "assets/hero-photo.webp"
+  "photo": "assets/hero-photo.webp",
+  "cta3_en": "Download company profile",
+  "cta3_fr": "Télécharger la plaquette",
+  "profile": "assets/oasys-company-profile.pdf"
 }
