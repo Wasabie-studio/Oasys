@@ -102,6 +102,15 @@
   .field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23676662' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center}
   .frow{display:grid;grid-template-columns:1fr 1fr;gap:1.15rem}
   @media (max-width:560px){.frow{grid-template-columns:1fr}}
+  /* segmented client/expert control — same component as the homepage form */
+  .segblock{margin-bottom:1.15rem}
+  .segq{font-weight:600;color:var(--ink);font-size:.98rem;margin-bottom:.8rem}
+  .segs{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+  @media (max-width:480px){.segs{grid-template-columns:1fr}}
+  .seg{border:1.5px solid var(--border);background:transparent;border-radius:12px;padding:.95rem;text-align:left;cursor:pointer;font-family:var(--sans);transition:border-color .2s,background .2s}
+  .seg[aria-pressed="true"]{border-color:var(--signal);background:color-mix(in srgb,var(--signal) 9%,transparent)}
+  .seg .segt{display:block;font-weight:600;color:var(--ink);font-size:.9rem}
+  .seg .segd{display:block;font-size:.77rem;color:var(--muted);margin-top:.2rem;line-height:1.35}
   .cform-card .btn-solid{width:100%;justify-content:center;margin-top:.3rem}
   .cform-note{margin-top:.9rem;color:var(--muted);font-size:.84rem;text-align:center}
 
@@ -173,27 +182,20 @@
       <!-- RIGHT: universal contact form -->
       <div class="cform-card" data-reveal style="--d:.08s">
       <form id="contactForm" novalidate>
+        <div class="segblock">
+          <p class="segq" data-i="ct_seg">Are you a client with a project, or an expert looking to join our network?</p>
+          <div class="segs">
+            <button type="button" class="seg" id="seg-client" aria-pressed="true"><span class="segt" data-i="seg1t">A client with a project</span><span class="segd" data-i="seg1d">You need technical expertise</span></button>
+            <button type="button" class="seg" id="seg-expert" aria-pressed="false"><span class="segt" data-i="seg2t">An expert or consultant</span><span class="segd" data-i="seg2d">You want to join our network</span></button>
+          </div>
+        </div>
         <div class="frow">
           <div class="field"><label for="c-name" data-i="f_name">Name</label><input id="c-name" name="name" type="text" placeholder="Full name" data-i-ph="f_name_ph"></div>
-          <div class="field"><label for="c-org" data-i="f_org">Organisation</label><input id="c-org" name="org" type="text" placeholder="Organisation (optional)" data-i-ph="f_org_ph"></div>
+          <div class="field"><label for="c-phone" data-i="f_phone">Phone</label><input id="c-phone" name="phone" type="tel" placeholder="+221 ..." data-i-ph="f_phone_ph"></div>
         </div>
-        <div class="frow">
-          <div class="field"><label for="c-email" data-i="f_email">Email</label><input id="c-email" name="email" type="email" placeholder="you@organisation.org" data-i-ph="f_email_ph"></div>
-          <div class="field"><label for="c-phone" data-i="f_phone">Phone</label><input id="c-phone" name="phone" type="tel" placeholder="+221 …" data-i-ph="f_phone_ph"></div>
-        </div>
-        <div class="field"><label for="c-subject" data-i="f_subject">Subject</label>
-          <select id="c-subject" name="subject">
-            <option value="" data-i="f_sub_0">Select a topic…</option>
-            <option value="project" data-i="f_sub_1">A project or programme</option>
-            <option value="expertise" data-i="f_sub_2">Technical expertise / experts</option>
-            <option value="partnership" data-i="f_sub_3">Partnership</option>
-            <option value="careers" data-i="f_sub_4">Careers</option>
-            <option value="press" data-i="f_sub_5">Press &amp; media</option>
-            <option value="other" data-i="f_sub_6">Something else</option>
-          </select>
-        </div>
-        <div class="field"><label for="c-msg" data-i="f_msg">Message</label><textarea id="c-msg" name="message" placeholder="Tell us how we can help" data-i-ph="f_msg_ph"></textarea></div>
-        <button class="btn btn-solid" type="submit" data-i="f_submit">Send message </button>
+        <div class="field"><label for="c-email" data-i="f_email">Email</label><input id="c-email" name="email" type="email" placeholder="you@organisation.org" data-i-ph="f_email_ph"></div>
+        <div class="field"><label for="c-msg" data-i="f_msg">Message</label><textarea id="c-msg" name="message" rows="4" placeholder="Tell us about your project or expertise" data-i-ph="f_msg_ph"></textarea></div>
+        <button class="btn btn-solid" type="submit"><span data-i="f_send">Send message</span></button>
         <p class="cform-note" id="cformNote" data-i="f_note">We usually reply within a few working days.</p>
       </form>
       </div><!-- /cform-card -->
@@ -235,6 +237,11 @@
     var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});},{threshold:.14,rootMargin:'0px 0px -6% 0px'});
     document.querySelectorAll('[data-reveal]').forEach(function(el){io.observe(el);});
   })();
+  /* segmented client/expert control */
+  (function(){var c=document.getElementById('seg-client'),e=document.getElementById('seg-expert');
+    if(!c||!e)return;
+    c.addEventListener('click',function(){c.setAttribute('aria-pressed','true');e.setAttribute('aria-pressed','false');});
+    e.addEventListener('click',function(){e.setAttribute('aria-pressed','true');c.setAttribute('aria-pressed','false');});})();
   /* contact form (mockup — no backend) */
   (function(){
     var f=document.getElementById('contactForm'),note=document.getElementById('cformNote');
@@ -250,9 +257,11 @@
     nav_home:"Accueil",nav_about:"À propos",nav_services:"Services",nav_blog:"Actualités",nav_contact:"Contact",
     c_eye:"Contact",c_h:"Parlons de votre projet",
     c_lead:"Que vous planifiiez un projet, cherchiez la bonne expertise ou exploriez un partenariat — dites-nous ce dont vous avez besoin et notre équipe vous répondra.",
-    f_name:"Nom",f_org:"Organisation",f_email:"E-mail",f_phone:"Téléphone",f_subject:"Sujet",f_msg:"Message",f_submit:"Envoyer le message",
-    f_name_ph:"Nom complet",f_org_ph:"Organisation (facultatif)",f_email_ph:"vous@organisation.org",f_phone_ph:"+221 …",f_msg_ph:"Dites-nous comment nous pouvons aider",
-    f_sub_0:"Choisissez un sujet…",f_sub_1:"Un projet ou programme",f_sub_2:"Expertise technique / experts",f_sub_3:"Partenariat",f_sub_4:"Carrières",f_sub_5:"Presse & médias",f_sub_6:"Autre chose",
+    ct_seg:"Êtes-vous un client avec un projet, ou un expert souhaitant rejoindre notre réseau ?",
+    seg1t:"Un client avec un projet",seg1d:"Vous avez besoin d'expertise technique",
+    seg2t:"Un expert ou consultant",seg2d:"Vous voulez rejoindre notre réseau",
+    f_name:"Nom",f_email:"E-mail",f_phone:"Téléphone",f_msg:"Message",f_send:"Envoyer le message",
+    f_name_ph:"Nom complet",f_email_ph:"vous@organisation.org",f_phone_ph:"+221 …",f_msg_ph:"Parlez-nous de votre projet ou de votre expertise",
     f_note:"Nous répondons généralement sous quelques jours ouvrés.",
     ci_eye:"Nous joindre directement",ci_h:"Toutes les façons de nous contacter",
     ci_p:"Vous préférez nous contacter directement ? Voici où nous trouver.",
