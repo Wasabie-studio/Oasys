@@ -87,11 +87,12 @@
   .navtools{display:flex;align-items:center;gap:.7rem}
   .lang{display:inline-flex;gap:.1rem;font-size:.78rem;font-weight:600}
   .lang button{border:0;background:transparent;color:var(--faint);cursor:pointer;padding:.3rem .3rem;font-family:var(--sans);font-weight:600}
+  @media (max-width:880px){.lang button{display:inline-grid;place-items:center;min-width:40px;min-height:44px;padding:0 .3rem;font-size:.84rem}}
   .lang button[aria-pressed="true"]{color:var(--ink)}.lang .sep{color:var(--hair)}
   .icobtn{border:1px solid var(--border);background:transparent;color:var(--muted);border-radius:50%;width:34px;height:34px;cursor:pointer;display:grid;place-items:center;font-size:.85rem;transition:border-color .2s,color .2s}
   .icobtn:hover{border-color:var(--forest);color:var(--forest)}
   .burger{display:none}
-  @media (max-width:880px){.navlinks{display:none}.burger{display:grid;place-items:center;width:38px;height:38px;border:1px solid var(--border);border-radius:9px;background:transparent;color:var(--ink);cursor:pointer;font-size:1.1rem}}
+  @media (max-width:880px){.navlinks{display:none}.burger{display:grid;place-items:center;width:44px;height:44px;border:1px solid var(--border);border-radius:9px;background:transparent;color:var(--ink);cursor:pointer;font-size:1.1rem}}
 
   /* ---- HERO (full-bleed photo, left text, glass card) ---- */
   .hero{position:relative;isolation:isolate;overflow:hidden;background:#0e2b20}
@@ -99,7 +100,7 @@
   @keyframes heroZoom{to{transform:scale(1)}}
   .hero-scrim{position:absolute;inset:0;z-index:-1;background:linear-gradient(94deg,rgba(6,20,14,.74) 0%,rgba(6,20,14,.5) 38%,rgba(6,20,14,.12) 72%,rgba(6,20,14,.28) 100%)}
   .hero .wrap{position:relative;min-height:calc(100svh - 108px);display:flex;flex-direction:column;justify-content:center;padding-block:clamp(3rem,6vw,4.5rem)}
-  .hero .kick{display:inline-flex;align-items:center;gap:.6rem;font-size:.8rem;font-weight:600;letter-spacing:.04em;color:#f1f0ec;width:max-content}
+  .hero .kick{display:inline-flex;align-items:center;gap:.6rem;font-size:.8rem;font-weight:600;letter-spacing:.04em;color:#f1f0ec;width:max-content;max-width:100%;flex-wrap:wrap}
   .hero .kick .pip{width:7px;height:7px;border-radius:50%;background:var(--signal);box-shadow:0 0 0 4px rgba(31,158,61,.28)}
   .hero h1{color:#fff;font-weight:500;font-size:clamp(2rem,3.5vw,3.05rem);line-height:1.1;margin:1.2rem 0 0;max-width:26ch;letter-spacing:-0.02em;text-shadow:0 2px 24px rgba(0,0,0,.28)}
   .hero .sub{color:#edece8;font-size:clamp(1rem,1.1vw,1.1rem);max-width:56ch;margin:1.2rem 0 0;line-height:1.55;text-shadow:0 1px 16px rgba(0,0,0,.28)}
@@ -256,7 +257,7 @@
   .worldmap{width:100%;height:auto;display:block;overflow:visible}
   .worldmap .cc{fill:#18402f;stroke:#0c261c;stroke-width:.35;transition:fill .4s var(--ease),opacity .4s,filter .4s}
   .world.armed .worldmap .cc{opacity:.55}
-  .world.armed .worldmap .cc.hot{opacity:1;fill:var(--signal)}
+  .world.armed .worldmap .cc.hot{opacity:1;fill:var(--signal);filter:drop-shadow(0 0 7px rgba(42,179,78,.5))}
   .regions{display:flex;flex-direction:column}
   .region{display:grid;grid-template-columns:auto 1fr auto;gap:.9rem;align-items:baseline;padding:1.05rem 0;border-top:1px solid var(--on-dark-hair);cursor:pointer;transition:padding-left .3s var(--ease)}
   .region:last-child{border-bottom:1px solid var(--on-dark-hair)}
@@ -265,6 +266,7 @@
   .region:hover .rarw,.region.active .rarw{opacity:1}
   .region .rn{font-family:var(--serif);color:var(--on-dark-mut);font-size:1.15rem;font-weight:500;transition:color .25s}
   .region:hover,.region.active{padding-left:.5rem}
+  .region:focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:4px}
   .region .rc{color:var(--on-dark-mut);font-size:.9rem;font-variant-numeric:tabular-nums;text-align:right}
   .region .rc b{color:var(--signal);font-weight:600}
 
@@ -343,6 +345,9 @@
   .sec.partner-cta .wrap{padding-block:var(--section)}
   .pcta-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(2.5rem,6vw,6rem);align-items:center}
   @media (max-width:960px){.pcta-grid{grid-template-columns:1fr;gap:2.4rem}}
+  /* a 1fr track floors at its items' min-content, which pushed this column
+     wider than a 320px screen -- min-width:0 lets it shrink and the text wrap */
+  .pcta-grid>*{min-width:0}
   .partner-cta .eyebrow{color:var(--on-dark-mut)}
   .pcta-h{font-family:var(--serif);font-size:clamp(2.3rem,5vw,4.4rem);line-height:1.08;max-width:26ch;font-weight:600;color:var(--on-dark);margin:1.1rem 0 0;letter-spacing:-0.015em}
   @media (max-width:600px){.pcta-h{max-width:none}}
@@ -351,7 +356,7 @@
   .pcta-rows{margin-top:1.9rem}
   .pcta-row{display:flex;flex-direction:column;gap:.35rem;padding:1rem 0;border-top:1px solid var(--on-dark-hair)}
   .pcta-k{font-family:var(--sans);font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--on-dark-mut)}
-  .pcta-v{font-size:1.08rem;font-weight:600;color:var(--on-dark);text-decoration:none;width:max-content;transition:color .25s var(--ease)}
+  .pcta-v{font-size:1.08rem;font-weight:600;color:var(--on-dark);text-decoration:none;width:max-content;max-width:100%;transition:color .25s var(--ease)}
   a.pcta-v:hover{color:var(--signal)}
   .partner-cta .btn-solid{background:var(--signal);color:var(--forest-deeper);border-color:var(--signal)}
   .partner-cta .btn-solid:hover{background:#26a247;border-color:#26a247;color:var(--forest-deeper)}
@@ -412,6 +417,7 @@
   footer ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.6rem}
   footer ul a,footer ul span{color:var(--on-dark);text-decoration:none;font-size:.92rem}footer ul a:hover{color:var(--signal)}
   footer .logo-img{height:36px}
+  @media (max-width:640px){footer ul{gap:.1rem}footer ul a,footer ul span{display:inline-block;padding-block:.45rem}}
   .fbottom{border-top:1px solid var(--on-dark-hair);margin-top:clamp(2.5rem,5vw,3.5rem);padding-top:1.5rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.82rem;color:var(--on-dark-mut)}
   /* ---- SERVICES ALT (index + preview) ---- */
   .svcx{background:var(--forest-deep);color:var(--on-dark)}
@@ -440,6 +446,40 @@
   .pv-desc{color:#dedcd7;max-width:44ch}
   .pv-arw{position:absolute;top:1.2rem;right:1.2rem;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.92);color:var(--forest);display:grid;place-items:center;font-size:1rem}
   [hidden]{display:none!important}
+
+  /* ---- PHONES: sliding tracks become fixed two-column grids ---- */
+  @media (max-width:640px){
+    /* Sectors: the swipe carousel is laid out as a static 2-up grid instead. */
+    .sectors .sx-viewport{overflow:visible;scroll-snap-type:none}
+    .sectors .sx-track{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;width:auto;
+      max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gutter)}
+    .sectors .sx-track .scell{width:auto;height:auto;min-height:0;aspect-ratio:1/1.06;
+      padding:1rem;scroll-snap-align:none}
+    .sectors .sx-track .scell h4{font-size:.9rem;line-height:1.2;max-width:none}
+    .sectors .sx-track .scell .snum{top:.75rem;left:1rem;font-size:.72rem}
+    .sectors .sx-stage{padding-block:clamp(3rem,10vw,4.5rem)}
+
+    /* Team: same, so the photos sit still rather than sliding under a finger. */
+    .team .t-track{grid-auto-flow:row;grid-template-columns:1fr 1fr;grid-auto-columns:auto;
+      gap:1.4rem .75rem;overflow-x:visible;scroll-snap-type:none;padding-bottom:0}
+    .team .tcard{scroll-snap-align:none}
+    .team .tname{font-size:1rem;margin-top:.7rem}
+    .team .trole{font-size:.8rem}
+
+    /* Results: the lead card stops reserving desktop-sized empty space. */
+    .rbig{min-height:290px}
+    .rbig .rc-in{padding:1.4rem}
+    .rbig h3{font-size:1.35rem}
+  }
+
+  /* A tap leaves :hover stuck on touch devices, so hold every image still there. */
+  @media (hover:none){
+    .tcard:hover .tphoto .fill{filter:grayscale(1) contrast(.95);transform:none;
+      background:linear-gradient(160deg,#c9d2cc,#9fb0a6)}
+    .scell:hover .scell-bg,.scell.has-img:hover .scell-bg{transform:scale(1.04)}
+    .rbig:hover .rimg{transform:none}
+    .rsmall:hover{transform:none;box-shadow:none}
+  }
 </style>
 
 
@@ -731,29 +771,49 @@
     burger.addEventListener('click',function(){var open=links.style.display==='flex';
       links.style.cssText=open?'':'display:flex;position:absolute;top:70px;left:0;right:0;flex-direction:column;gap:1.1rem;background:var(--bg);padding:1.5rem var(--gutter);border-bottom:1px solid var(--hair)';});})();
 
-  /* worldwide map sync (real map, glow on hover, two-way) */
+  /* worldwide map sync (real map, two-way).
+     Hover only exists on pointer devices, so a click/tap LOCKS a region lit --
+     that is what makes the map work on a phone. Tapping it again, or anywhere
+     off the map, clears it. */
   (function(){
     var section=document.querySelector('.world');
-    var regions=document.querySelectorAll('.region');
-    var paths=document.querySelectorAll('.worldmap .cc');
     if(!section)return;
-    function setActive(reg){
+    var regions=section.querySelectorAll('.region');
+    var paths=section.querySelectorAll('.worldmap .cc');
+    var mapWrap=section.querySelector('.worldmap');
+    var locked=null;
+    function paint(reg){
       section.classList.toggle('armed',!!reg);
       paths.forEach(function(p){p.classList.toggle('hot',!!reg&&p.getAttribute('data-region')===reg);});
       regions.forEach(function(r){r.classList.toggle('active',!!reg&&r.getAttribute('data-region')===reg);});
     }
+    function hover(reg){ if(!locked) paint(reg); }
+    function lock(reg){ locked=(locked===reg)?null:reg; paint(locked); }
     regions.forEach(function(r){
-      r.addEventListener('mouseenter',function(){setActive(r.getAttribute('data-region'));});
-      r.addEventListener('mouseleave',function(){setActive(null);});
+      var reg=r.getAttribute('data-region');
+      r.setAttribute('role','button');
+      r.setAttribute('tabindex','0');
+      r.addEventListener('mouseenter',function(){hover(reg);});
+      r.addEventListener('mouseleave',function(){hover(null);});
+      r.addEventListener('click',function(){lock(reg);});
+      r.addEventListener('keydown',function(e){
+        if(e.key==='Enter'||e.key===' '||e.key==='Spacebar'){e.preventDefault();lock(reg);}
+      });
     });
     paths.forEach(function(p){
       var reg=p.getAttribute('data-region');
-      if(reg==='other')return;
+      if(!reg||reg==='other')return;
       p.style.cursor='pointer';
-      p.addEventListener('mouseenter',function(){setActive(reg);});
+      p.addEventListener('mouseenter',function(){hover(reg);});
+      p.addEventListener('click',function(e){e.stopPropagation();lock(reg);});
     });
-    var mapWrap=document.querySelector('.worldmap');
-    mapWrap&&mapWrap.addEventListener('mouseleave',function(){setActive(null);});
+    mapWrap&&mapWrap.addEventListener('mouseleave',function(){hover(null);});
+    document.addEventListener('click',function(e){
+      if(!locked)return;
+      var t=e.target;
+      if(t.closest&&t.closest('.region'))return;
+      locked=null; paint(null);
+    });
   })();
 
   /* numbers: highlight one stat, hover to switch */
