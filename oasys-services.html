@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -268,7 +268,7 @@
     <a href="oasys-contact.html" data-i="nav_contact">Contact</a>
   </div>
   <div class="navtools">
-    <div class="lang" role="group" aria-label="Language"><button id="lang-en" aria-pressed="true">EN</button><span class="sep">/</span><button id="lang-fr" aria-pressed="false">FR</button></div>
+    <div class="lang" role="group" aria-label="Language"><button id="lang-en" aria-pressed="false">EN</button><span class="sep">/</span><button id="lang-fr" aria-pressed="true">FR</button></div>
     <button class="burger" id="burger" aria-label="Menu">≡</button>
   </div>
 </div></nav>
@@ -400,7 +400,7 @@
     });
   }
 
-  var LANG="en";
+  var LANG="fr";
   var FOCUS_LBL={en:"Focus areas",fr:"Domaines d'intervention"};
   var SVC_LBL={en:"Service",fr:"Service"};
   var activeSvc=0;
@@ -575,7 +575,9 @@
     function apply(m,l){document.querySelectorAll('[data-i]').forEach(function(el){var k=el.getAttribute('data-i');if(m[k]!=null)el.innerHTML=m[k];});document.documentElement.setAttribute('lang',l);}
     en.addEventListener('click',function(){try{localStorage.setItem('oasysLang','en');}catch(e){}LANG='en';apply(EN,'en');en.setAttribute('aria-pressed','true');fr.setAttribute('aria-pressed','false');renderServices();renderSectors();});
     fr.addEventListener('click',function(){try{localStorage.setItem('oasysLang','fr');}catch(e){}LANG='fr';apply(FR,'fr');fr.setAttribute('aria-pressed','true');en.setAttribute('aria-pressed','false');renderServices();renderSectors();});
-    try{ if(localStorage.getItem('oasysLang')==='fr') fr.click(); }catch(e){}
+    /* French is the default; English only for a visitor who picked it before */
+    var saved=null; try{saved=localStorage.getItem('oasysLang');}catch(e){}
+    (saved==='en'?en:fr).click();
   })();
 </script>
 </body>

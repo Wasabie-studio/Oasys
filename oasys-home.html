@@ -541,7 +541,7 @@
     <a href="oasys-contact.html" data-i="nav_contact">Contact</a>
   </div>
   <div class="navtools">
-    <div class="lang" role="group" aria-label="Language"><button id="lang-en" aria-pressed="true">EN</button><span class="sep">/</span><button id="lang-fr" aria-pressed="false">FR</button></div>
+    <div class="lang" role="group" aria-label="Language"><button id="lang-en" aria-pressed="false">EN</button><span class="sep">/</span><button id="lang-fr" aria-pressed="true">FR</button></div>
     <button class="burger" id="burger" aria-label="Menu">≡</button>
   </div>
 </div></nav>
@@ -771,11 +771,11 @@
             </div>
           </div>
           <div class="frow">
-            <div class="field"><label data-i="f_name">Name</label><input type="text" placeholder="Full name"></div>
-            <div class="field"><label data-i="f_phone">Phone</label><input type="tel" placeholder="+221 ..."></div>
+            <div class="field"><label data-i="f_name">Name</label><input type="text" placeholder="Full name" data-i-ph="f_name_ph"></div>
+            <div class="field"><label data-i="f_phone">Phone</label><input type="tel" placeholder="+221 ..." data-i-ph="f_phone_ph"></div>
           </div>
-          <div class="field"><label data-i="f_email">Email</label><input type="email" placeholder="you@organisation.org"></div>
-          <div class="field"><label data-i="f_msg">Message</label><textarea rows="4" placeholder="Tell us about your project or expertise"></textarea></div>
+          <div class="field"><label data-i="f_email">Email</label><input type="email" placeholder="you@organisation.org" data-i-ph="f_email_ph"></div>
+          <div class="field"><label data-i="f_msg">Message</label><textarea rows="4" placeholder="Tell us about your project or expertise" data-i-ph="f_msg_ph"></textarea></div>
           <button class="btn btn-solid" type="submit"><span data-i="f_send">Send message</span> </button>
         </form>
       </div>
@@ -1019,6 +1019,7 @@
     ct_seg:"Êtes-vous un client avec un projet, ou un expert souhaitant rejoindre notre réseau ?",
     seg1t:"Un client avec un projet",seg1d:"Vous avez besoin d'expertise technique",seg2t:"Un expert ou consultant",seg2d:"Vous voulez rejoindre notre réseau",
     f_name:"Nom",f_phone:"Téléphone",f_email:"E-mail",f_msg:"Message",f_send:"Envoyer le message",
+    f_name_ph:"Nom complet",f_phone_ph:"+221 …",f_email_ph:"vous@organisation.org",f_msg_ph:"Parlez-nous de votre projet ou de votre expertise",
     pc_eye:"Devenez partenaire",pc_h:"Apportez l'expertise OASYS<br>dans votre région.",
     pc_p:"Devenez partenaire et apportez une expertise technique de confiance aux projets et institutions de développement de votre région.",
     pc_cta:"Devenir partenaire",pc_email_k:"E-mail",pc_phone_k:"Dakar",pc_office_k:"Bureau",
@@ -1027,14 +1028,24 @@
     nav_about2:"À propos",nav_services2:"Services",nav_sectors2:"Secteurs",nav_team2:"Équipe",nav_contact2:"Contact",ft_addr:"Dakar-Fann, Sénégal",
     ft_rights:"Tous droits réservés.",ft_credit:"Concept de refonte · Wasabie Studio"
   };
-  var EN={};
+  var EN={},ENph={};
   (function(){
     document.querySelectorAll('[data-i]').forEach(function(el){EN[el.getAttribute('data-i')]=el.innerHTML;});
+    /* placeholders live in an attribute, which apply() cannot reach, so they
+       get their own harvest + swap -- otherwise a French visitor reads
+       "Full name" under a label that says "Nom". */
+    document.querySelectorAll('[data-i-ph]').forEach(function(el){ENph[el.getAttribute('data-i-ph')]=el.getAttribute('placeholder');});
     var en=document.getElementById('lang-en'),fr=document.getElementById('lang-fr');
-    function apply(m,l){document.querySelectorAll('[data-i]').forEach(function(el){var k=el.getAttribute('data-i');if(m[k]!=null)el.innerHTML=m[k];});document.documentElement.setAttribute('lang',l);}
+    function apply(m,l){
+      document.querySelectorAll('[data-i]').forEach(function(el){var k=el.getAttribute('data-i');if(m[k]!=null)el.innerHTML=m[k];});
+      document.querySelectorAll('[data-i-ph]').forEach(function(el){var k=el.getAttribute('data-i-ph');var v=(l==='fr')?FR[k]:ENph[k];if(v!=null)el.setAttribute('placeholder',v);});
+      document.documentElement.setAttribute('lang',l);
+    }
     en.addEventListener('click',function(){try{localStorage.setItem('oasysLang','en');}catch(e){}apply(EN,'en');en.setAttribute('aria-pressed','true');fr.setAttribute('aria-pressed','false');if(window.__renderDynamicSections)window.__renderDynamicSections('en');});
     fr.addEventListener('click',function(){try{localStorage.setItem('oasysLang','fr');}catch(e){}apply(FR,'fr');fr.setAttribute('aria-pressed','true');en.setAttribute('aria-pressed','false');if(window.__renderDynamicSections)window.__renderDynamicSections('fr');});
-    try{ if(localStorage.getItem('oasysLang')==='fr') fr.click(); }catch(e){}
+    /* French is the default; English only for a visitor who picked it before */
+    var saved=null; try{saved=localStorage.getItem('oasysLang');}catch(e){}
+    (saved==='en'?en:fr).click();
   })();
 </script>
 <script>
@@ -1043,7 +1054,7 @@
   (function(){
     function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
     var DATA={sectors:null,team:null,partners:null,hero:null,teamPhoto:null,services:null,posts:null};
-    var curLang=(function(){try{return localStorage.getItem('oasysLang')==='fr'?'fr':'en';}catch(e){return 'en';}})();
+    var curLang=(function(){try{return localStorage.getItem('oasysLang')==='en'?'en':'fr';}catch(e){return 'fr';}})();
 
     function renderHero(lang){
       if(!DATA.hero)return;

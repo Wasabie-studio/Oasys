@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -156,7 +156,7 @@
     <a href="oasys-contact.html" data-i="nav_contact">Contact</a>
   </div>
   <div class="navtools">
-    <div class="lang" role="group" aria-label="Language"><button id="lang-en" aria-pressed="true">EN</button><span class="sep">/</span><button id="lang-fr" aria-pressed="false">FR</button></div>
+    <div class="lang" role="group" aria-label="Language"><button id="lang-en" aria-pressed="false">EN</button><span class="sep">/</span><button id="lang-fr" aria-pressed="true">FR</button></div>
     <button class="burger" id="burger" aria-label="Menu">≡</button>
   </div>
 </div></nav>
@@ -222,7 +222,7 @@
   var ARTICLES=[];
   var FR={"nav_home": "Accueil", "nav_about": "À propos", "nav_services": "Services", "nav_blog": "Actualités", "nav_contact": "Contact", "crumb_home": "Accueil", "crumb_news": "Actualités", "crumb_art": "Article", "art_all": "Toutes les actualités", "ft_about": "Conseil et assistance technique pour les projets et programmes de développement dans le monde. Basé à Dakar, au Sénégal, depuis 2009.", "ft_nav": "Naviguer", "ft_more": "Plus", "ft_reach": "Nous joindre", "ft_blog": "Actualités", "ft_sectors": "Secteurs", "ft_careers": "Carrières", "nav_about2": "À propos", "nav_services2": "Services", "nav_team2": "Équipe", "nav_contact2": "Contact", "ft_addr": "Dakar-Fann, Sénégal", "ft_rights": "Tous droits réservés.", "ft_credit": "Concept de refonte · Wasabie Studio"};
   var EN={};
-  var lang='en';
+  var lang='fr';
 
   function current(){
     var m=/[#?&]a=(\d+)/.exec(location.hash) || /[?&]a=(\d+)/.exec(location.search);
@@ -270,7 +270,9 @@
     function applyUI(m,l){document.querySelectorAll('[data-i]').forEach(function(el){var k=el.getAttribute('data-i');if(m[k]!=null)el.innerHTML=m[k];});document.documentElement.setAttribute('lang',l);}
     en.addEventListener('click',function(){try{localStorage.setItem('oasysLang','en');}catch(e){}lang='en';applyUI(EN,'en');render();en.setAttribute('aria-pressed','true');frb.setAttribute('aria-pressed','false');});
     frb.addEventListener('click',function(){try{localStorage.setItem('oasysLang','fr');}catch(e){}lang='fr';applyUI(FR,'fr');render();frb.setAttribute('aria-pressed','true');en.setAttribute('aria-pressed','false');});
-    try{ if(localStorage.getItem('oasysLang')==='fr') frb.click(); }catch(e){}
+    /* French is the default; English only for a visitor who picked it before */
+    var saved=null; try{saved=localStorage.getItem('oasysLang');}catch(e){}
+    (saved==='en'?en:frb).click();
   })();
 
   fetch('data/posts.json').then(function(r){return r.json();}).then(function(d){
