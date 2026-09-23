@@ -1,0 +1,115 @@
+# Publishes the site to o2switch whenever main changes.
+#
+# Why this exists: the CMS at /admin writes its changes to THIS repository,
+# not to the web server. On GitHub Pages that was enough, because Pages
+# rebuilds itself on every commit. o2switch does not, so without this
+# workflow Samba would publish in the CMS, the commit would land here, and
+# the live site would sit unchanged.
+#
+# Setup, including the three secrets it needs, is in admin/DEPLOY-O2SWITCH.md.
+
+name: Deploy to o2switch
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run — list what would be uploaded, upload nothing"
+        type: boolean
+        default: false
+
+# One deploy at a time. If two CMS publishes land together, the later one
+# wins rather than the two interleaving mid-upload.
+concurrency:
+  group: deploy-o2switch
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Upload to o2switch over FTPS
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the site
+        uses: actions/checkout@v4
+
+      - name: Install lftp
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lftp
+
+      - name: Upload
+        env:
+          FTP_HOST: ${{ secrets.O2SWITCH_FTP_HOST }}
+          FTP_USER: ${{ secrets.O2SWITCH_FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.O2SWITCH_FTP_PASSWORD }}
+          REMOTE_DIR: ${{ vars.O2SWITCH_REMOTE_DIR }}
+          DELETE_REMOVED: ${{ vars.O2SWITCH_DELETE_REMOVED }}
+          VERIFY_CERT: ${{ vars.O2SWITCH_VERIFY_CERT }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          set -euo pipefail
+
+          missing=""
+          [ -n "$FTP_HOST" ]     || missing="$missing O2SWITCH_FTP_HOST"
+          [ -n "$FTP_USER" ]     || missing="$missing O2SWITCH_FTP_USER"
+          [ -n "$FTP_PASSWORD" ] || missing="$missing O2SWITCH_FTP_PASSWORD"
+          if [ -n "$missing" ]; then
+            echo "::error::Missing repository secret(s):$missing"
+            echo "Add them under Settings -> Secrets and variables -> Actions."
+            echo "See admin/DEPLOY-O2SWITCH.md."
+            exit 1
+          fi
+
+          # Where the site lives on the server. o2switch serves the primary
+          # domain from public_html; an add-on domain has its own folder.
+          REMOTE_DIR="${REMOTE_DIR:-public_html}"
+
+          # Off by default: never remove a file on the server just because it
+          # is not in this repo. Set the O2SWITCH_DELETE_REMOVED variable to
+          # "true" once you are sure nothing else lives in that folder.
+          if [ "${DELETE_REMOVED:-}" = "true" ]; then DELETE_FLAG="--delete"; else DELETE_FLAG=""; fi
+
+          # o2switch presents a valid certificate, so verification stays on.
+          # If their FTP hostname ever mismatches the certificate, set the
+          # O2SWITCH_VERIFY_CERT variable to "false" to get unblocked, and
+          # treat that as a thing to fix rather than leave.
+          if [ "${VERIFY_CERT:-true}" = "false" ]; then VERIFY="false"; else VERIFY="true"; fi
+
+          if [ "${DRY_RUN:-false}" = "true" ]; then DRY_FLAG="--dry-run"; else DRY_FLAG=""; fi
+
+          echo "Host        : $FTP_HOST"
+          echo "Remote dir  : $REMOTE_DIR"
+          echo "Delete stale: ${DELETE_REMOVED:-false}"
+          echo "Verify cert : $VERIFY"
+          echo "Dry run     : ${DRY_RUN:-false}"
+
+          # -R mirrors LOCAL -> REMOTE. Everything excluded below is repo
+          # plumbing or docs that should not be served.
+          lftp -c "
+            set cmd:fail-exit true;
+            set ftp:ssl-force true;
+            set ftp:ssl-protect-data true;
+            set ssl:verify-certificate $VERIFY;
+            set net:max-retries 3;
+            set net:timeout 20;
+            open -u '$FTP_USER','$FTP_PASSWORD' '$FTP_HOST';
+            # --no-perms: shared hosting often refuses SITE CHMOD, and with
+            # fail-exit on, one refusal would abort the whole deploy.
+            mirror -R $DELETE_FLAG $DRY_FLAG --no-perms --verbose --parallel=4 \
+              --exclude-glob .git \
+              --exclude-glob .git/ \
+              --exclude-glob .github/ \
+              --exclude-glob cloudflare-worker/ \
+              --exclude-glob .DS_Store \
+              --exclude-glob .gitignore \
+              --exclude-glob README.md \
+              --exclude-glob brand.md \
+              --exclude-glob admin/SETUP.md \
+              --exclude-glob admin/DEPLOY-O2SWITCH.md \
+              ./ '$REMOTE_DIR';
+          "
+
+      - name: Done
+        run: echo "Deployed ${{ github.sha }} to o2switch."
