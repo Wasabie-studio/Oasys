@@ -1,0 +1,21 @@
+/* Partner logo ticker shared by the homepage and the About page
+   (behaviour in partner-logos.js). */
+.pmarquee{overflow:hidden;margin-top:clamp(2.2rem,4vw,3rem);-webkit-mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(to right,transparent,#000 7%,#000 93%,transparent)}
+.pmarquee-track{display:flex;width:max-content;animation:pmarquee 40s linear infinite}
+.pmarquee-set{display:flex;gap:clamp(1rem,2vw,1.6rem);padding-right:clamp(1rem,2vw,1.6rem)}
+/* No card behind a logo -- just the mark on the page background. The row
+   height is fixed; partner-logos.js trims each file's built-in padding and
+   sizes the mark by visual area inside it (see that file for why). */
+.plogo{flex:none;box-sizing:border-box;height:clamp(72px,7vw,92px);
+  display:flex;align-items:center;justify-content:center;padding:.4rem .9rem;background:none;border:0;position:relative}
+.plogo img{display:block;flex:none;max-width:none;transition:opacity .35s}
+/* until it is measured and sized, a logo must not take up its full natural
+   width (a 1000px file would stretch the row it is then measured against) */
+html.logo-fit .plogo img:not(.is-fitted){position:absolute;opacity:0}
+/* one static, centred row while there are too few logos to loop cleanly */
+.pmarquee.is-static{-webkit-mask-image:none;mask-image:none}
+.pmarquee.is-static .pmarquee-track{animation:none;width:100%;justify-content:center}
+.pmarquee.is-static .pmarquee-set{padding-right:0}
+.pmarquee.is-static .pmarquee-set[aria-hidden]{display:none}
+@keyframes pmarquee{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.pmarquee-track{animation:none}.pmarquee{overflow-x:auto}}
