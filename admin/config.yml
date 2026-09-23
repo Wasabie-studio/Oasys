@@ -48,6 +48,34 @@ collections:
           - {label: "Download button label (English)", name: cta3_en, widget: string, required: false}
           - {label: "Download button label (French)", name: cta3_fr, widget: string, required: false}
 
+  - name: "world_map"
+    label: "World Map — Homepage"
+    description: "The 'Worldwide projects' map. Each row lights up every country in that region and shows its project count; the heading's 'across four continents' updates itself to match the number of rows."
+    files:
+      - file: "data/map.json"
+        label: "Regions & project counts"
+        name: "world_map"
+        fields:
+          - label: "Regions"
+            name: items
+            widget: list
+            summary: "{{fields.region}} — {{fields.projects}} projects"
+            hint: "Add a row per region. Drag the handle on the left to reorder — the order here is the order shown next to the map."
+            fields:
+              - label: "Region"
+                name: region
+                widget: select
+                options:
+                  - {label: "Africa", value: "africa"}
+                  - {label: "Europe", value: "europe"}
+                  - {label: "Asia", value: "asia"}
+                  - {label: "North America", value: "north_america"}
+                  - {label: "Central America", value: "central_america"}
+                  - {label: "South America", value: "south_america"}
+                  - {label: "Caribbean", value: "caribbean"}
+                  - {label: "Oceania", value: "oceania"}
+              - {label: "Number of projects", name: projects, widget: number, value_type: int, min: 0}
+
   - name: "team_photo_home"
     label: "Team Photo — Homepage"
     description: "Same photo as 'Team Photo — About Page' — publishing here updates both."
