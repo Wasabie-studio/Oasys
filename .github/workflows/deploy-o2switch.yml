@@ -40,6 +40,7 @@ jobs:
           sudo apt-get install -y -qq lftp
 
       - name: Upload
+        id: upload
         env:
           FTP_HOST: ${{ secrets.O2SWITCH_FTP_HOST }}
           FTP_USER: ${{ secrets.O2SWITCH_FTP_USER }}
@@ -51,13 +52,32 @@ jobs:
         run: |
           set -euo pipefail
 
+          set_count=0
           missing=""
-          [ -n "$FTP_HOST" ]     || missing="$missing O2SWITCH_FTP_HOST"
-          [ -n "$FTP_USER" ]     || missing="$missing O2SWITCH_FTP_USER"
-          [ -n "$FTP_PASSWORD" ] || missing="$missing O2SWITCH_FTP_PASSWORD"
+          for name in O2SWITCH_FTP_HOST O2SWITCH_FTP_USER O2SWITCH_FTP_PASSWORD; do
+            case "$name" in
+              O2SWITCH_FTP_HOST)     value="$FTP_HOST" ;;
+              O2SWITCH_FTP_USER)     value="$FTP_USER" ;;
+              O2SWITCH_FTP_PASSWORD) value="$FTP_PASSWORD" ;;
+            esac
+            if [ -n "$value" ]; then set_count=$((set_count + 1)); else missing="$missing $name"; fi
+          done
+
+          # Not set up yet (no secrets at all): skip quietly. o2switch hosting
+          # is not live until someone adds them, and until then every CMS
+          # publish would otherwise post a red X and mail a failure.
+          if [ "$set_count" -eq 0 ]; then
+            echo "::notice::o2switch deploy is not configured yet, so this push was not deployed."
+            echo "To turn it on, add O2SWITCH_FTP_HOST, O2SWITCH_FTP_USER and"
+            echo "O2SWITCH_FTP_PASSWORD under Settings -> Secrets and variables -> Actions."
+            echo "Full instructions: admin/DEPLOY-O2SWITCH.md"
+            echo "skipped=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Half configured is a real mistake, so say so loudly.
           if [ -n "$missing" ]; then
-            echo "::error::Missing repository secret(s):$missing"
-            echo "Add them under Settings -> Secrets and variables -> Actions."
+            echo "::error::o2switch deploy is partly configured. Missing secret(s):$missing"
             echo "See admin/DEPLOY-O2SWITCH.md."
             exit 1
           fi
@@ -111,5 +131,36 @@ jobs:
               ./ '$REMOTE_DIR';
           "
 
+      # Optional: set the repository variable O2SWITCH_SITE_URL (e.g.
+      # https://oasysgroupe.com/) and each deploy checks the live page
+      # afterwards, so a silent half-upload cannot look like success.
+      - name: Check the live site
+        if: steps.upload.outputs.skipped != 'true'
+        env:
+          SITE_URL: ${{ vars.O2SWITCH_SITE_URL }}
+        run: |
+          set -euo pipefail
+          if [ -z "${SITE_URL:-}" ]; then
+            echo "::notice::Set the O2SWITCH_SITE_URL variable to have each deploy verify the live page."
+            exit 0
+          fi
+          url="${SITE_URL%/}/oasys-home.html"
+          echo "Checking $url"
+          code=$(curl -sS -o /tmp/live.html -w '%{http_code}' --max-time 30 --retry 3 --retry-delay 5 "$url" || echo 000)
+          if [ "$code" != "200" ]; then
+            echo "::error::$url returned HTTP $code after deploying."
+            exit 1
+          fi
+          if ! grep -q 'id="heroH"' /tmp/live.html; then
+            echo "::error::$url returned 200 but does not look like the OASYS homepage."
+            exit 1
+          fi
+          echo "Live site responded 200 and looks right."
+
       - name: Done
-        run: echo "Deployed ${{ github.sha }} to o2switch."
+        run: |
+          if [ "${{ steps.upload.outputs.skipped }}" = "true" ]; then
+            echo "Skipped: o2switch not configured yet."
+          else
+            echo "Deployed ${{ github.sha }} to o2switch."
+          fi

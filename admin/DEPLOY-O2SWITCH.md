@@ -40,7 +40,23 @@ Then tell us **one** thing here in chat (it is not a secret):
   `public_html`, add a repository *variable* (same screen, **Variables** tab)
   named `O2SWITCH_REMOTE_DIR` with that path.
 
+Optionally, one more repository *variable* (Variables tab, not Secrets):
+
+- `O2SWITCH_SITE_URL` — e.g. `https://oasysgroupe.com/`. Set it and every
+  deploy fetches the live homepage afterwards and fails if it does not come
+  back as the real page. Worth setting: it turns "the upload reported no
+  error" into "the site is actually up".
+
 That is the whole list. Everything else is already done.
+
+## Before the secrets exist
+
+The workflow is already live, and until the three secrets are added it
+**skips quietly** on every push — no failed runs, no failure emails. Once they
+are there it starts deploying on the very next push, with no further changes.
+
+If only *some* of the three are set, it fails loudly instead of skipping: half
+a configuration is a mistake worth hearing about, not a reason to stay silent.
 
 ---
 
