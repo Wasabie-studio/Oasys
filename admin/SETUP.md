@@ -58,32 +58,46 @@ access token and hands it back to the CMS.
 
 1. Go to `https://wasabie-studio.github.io/Oasys/admin/`.
 2. Click **Login with GitHub**, authorize the app once.
-3. You'll see nine sections in the sidebar:
+3. The sidebar is grouped **by page**, in the order the sections appear as
+   you scroll that page:
 
-   | Section | What it controls |
-   |---|---|
-   | **Homepage hero** | Headline, background photo, buttons, company-profile PDF, and which article shows as the small photo in the corner |
-   | **Homepage world map** | One entry per region, each with its project count |
-   | **Sectors** | One entry per sector — *homepage and Services page* |
-   | **Services** | One entry per service — *homepage and Services page* |
-   | **Partners** | One entry per partner — *homepage and About page* |
-   | **Team photo** | The group photo — *homepage and About page* |
-   | **Team — homepage strip** | One entry per person on the homepage strip |
-   | **Team — full roster** | One entry per person on the About page grid |
-   | **News articles** | One entry per article — News page, "Recent work", and each article's own page |
+   | Homepage | About page | Services page | News page |
+   |---|---|---|---|
+   | Hero | Team photo | Services | News articles |
+   | Services | Team — full roster | Sectors | |
+   | Sectors | Partners | | |
+   | World map | | | |
+   | Partners | | | |
+   | Recent work | | | |
+   | Team photo | | | |
+   | Team — the faces | | | |
 
-   Each thing is edited in **one** place. Where it appears on more than one
-   page, the table says so and the CMS repeats it in the section's own
-   description — there is no second copy to keep in step.
+   So you pick "the sectors on the homepage", not just "sectors", and you
+   always know which page you are working on.
 
-4. Click a section and you get a list of the real items — the actual partners,
-   the actual sectors. Click one to open just that item. **Homepage hero** and
-   **Team photo** hold a single thing each, so they open straight into the
-   form.
+   **Some sections are on more than one page.** Those are listed under each
+   page they appear on, and carry a grey **"also on …"** note. Those repeats
+   are links to the *same one* set of content — there is only ever one copy.
+   Edit Partners under Homepage or under About page and you are editing the
+   same partners; both pages update. The note is there so that is never a
+   surprise. When you open a shared section, the row you clicked lights up
+   and its twin greys out, so you can see the connection.
+
+   Sections with nothing to edit are not listed, because they are not in the
+   CMS at all: the story text on About, the testimonial video, the contact
+   block and the footer are all in the page code.
+
+4. Click a section and you get a list of the real items — the actual
+   partners, the actual sectors. Click one to open just that item. **Hero**
+   and **Team photo** hold a single thing each, so they open straight into
+   the form.
 
 5. Edit the fields, upload photos directly in the form, then click **Publish**.
    Changes are committed straight to the `main` branch on GitHub and go live
    within a minute or two — no developer involved.
+
+   While you are editing one item the sidebar is hidden — that is Decap's own
+   behaviour, not a fault. The **←** arrow at the top left brings it back.
 
 ## How the content is stored
 

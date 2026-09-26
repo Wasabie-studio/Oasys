@@ -52,7 +52,7 @@ collections:
     description: "The top of the homepage: the big headline, the photo behind it, the three buttons, and the small article photo in the corner."
     files:
       - file: "data/hero.json"
-        label: "Homepage hero"
+        label: "Headline, photo & buttons"
         name: "hero"
         fields:
           - {label: "Background photo", name: photo, widget: image, required: false}
@@ -211,7 +211,7 @@ collections:
     description: "The group photo. Used on BOTH the homepage and the About page."
     files:
       - file: "data/team_photo.json"
-        label: "Team photo"
+        label: "The group photo"
         name: "team_photo"
         fields:
           - {label: "Photo", name: photo, widget: image, required: false}

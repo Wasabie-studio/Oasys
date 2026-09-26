@@ -9,35 +9,190 @@
 <body>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script>
-  /* Open one-of-a-kind sections straight away.
-     ------------------------------------------
-     "Homepage hero" and "Team photo" hold a single thing each, so Decap's
-     collection screen lists exactly one card with the same name as the
-     heading above it — you read "Team photo", then click "Team photo". Every
-     other section is a folder collection whose cards are the actual items
-     (each partner, each sector), so only these two need it.
+  /* ═══════════════════════════════════════════════════════════════════════
+     OASYS — two small additions to the stock Decap interface.
 
-     Decap has no setting for this, so we do it on the hash route it already
-     uses. If the URL scheme ever changes, the redirect simply stops firing
-     and you get the extra click back — nothing breaks. */
+     Groups the sidebar BY PAGE, so you pick "the sectors on the homepage"
+     rather than "sectors", and can see at a glance when something is shared
+     with another page.
+
+     Decap has no setting for this — its config schema has no group, divider
+     or section option (checked against decap-cms 3.16). This fails safe: if
+     the interface ever changes shape it simply stops applying and you get
+     the stock sidebar back. It never touches your content.
+     ═══════════════════════════════════════════════════════════════════════ */
+
+  /* ── Page-grouped sidebar ───────────────────────────────────────────
+     Nine collections, but a section can live on more than one page, so it
+     is listed under each page it appears on. Those repeats are LINKS to the
+     same one collection — there is still only one copy of the content, and
+     the "also on …" note says so out loud, so editing is never a surprise.
+
+     Rows are in the order the sections actually appear as you scroll each
+     page. Sections with nothing to edit (the story text on About, the
+     testimonial video, the contact block) are not listed — they are not in
+     the CMS. */
   (function () {
-    // collection name -> the entry name under its `files:` in config.yml
-    var SINGLE = { hero: 'hero', team_photo: 'team_photo' };
+    var PAGES = [
+      { page: 'Homepage', rows: [
+        { c: 'hero',          label: 'Hero',               entry: 'hero' },
+        { c: 'services',      label: 'Services',            also: 'Services page' },
+        { c: 'sectors',       label: 'Sectors',             also: 'Services page' },
+        { c: 'map',           label: 'World map' },
+        { c: 'partners',      label: 'Partners',            also: 'About page' },
+        { c: 'articles',      label: 'Recent work',        also: 'News page' },
+        { c: 'team_photo',    label: 'Team photo',          entry: 'team_photo', also: 'About page' },
+        { c: 'team_homepage', label: 'Team — the faces' }
+      ]},
+      { page: 'About page', rows: [
+        { c: 'team_photo',    label: 'Team photo',          entry: 'team_photo', also: 'Homepage' },
+        { c: 'team_roster',   label: 'Team — full roster' },
+        { c: 'partners',      label: 'Partners',            also: 'Homepage' }
+      ]},
+      { page: 'Services page', rows: [
+        { c: 'services',      label: 'Services',            also: 'Homepage' },
+        { c: 'sectors',       label: 'Sectors',             also: 'Homepage' }
+      ]},
+      { page: 'News page', rows: [
+        { c: 'articles',      label: 'News articles',       also: 'Homepage' }
+      ]}
+    ];
 
-    function jump() {
-      var m = /^#\/collections\/([^\/?]+)\/?$/.exec(location.hash);
-      if (!m) return;
-      var entry = SINGLE[m[1]];
-      if (!entry) return;
-      // replace(), not assign(), so Back doesn't bounce off this redirect
-      location.replace(
-        location.pathname + location.search +
-        '#/collections/' + m[1] + '/entries/' + entry
-      );
+    var CSS = ''
+      + '.oz-nav{padding:4px 0 10px}'
+      + '.oz-grp{font:600 11px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;'
+      +   'letter-spacing:.09em;text-transform:uppercase;color:#7b8290;'
+      +   'padding:16px 16px 6px;margin-top:4px;border-top:1px solid #eaecef}'
+      + '.oz-nav>.oz-grp:first-child{border-top:0;margin-top:0;padding-top:6px}'
+      + '.oz-a{display:flex;align-items:baseline;gap:8px;padding:7px 16px;'
+      +   'font:500 14px/1.35 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;'
+      +   'color:#313d3e;text-decoration:none;border-left:3px solid transparent}'
+      + '.oz-a:hover{background:#f4f6f8}'
+      + '.oz-a.on{color:#3a69c7;background:#eef3fd;border-left-color:#3a69c7}'
+      + '.oz-also{margin-left:auto;font-size:10.5px;font-weight:500;color:#8a929e;white-space:nowrap}'
+      + '.oz-a.on .oz-also{color:#6f8dcd}'
+      + '.oz-dim{opacity:.55}';
+
+    var lastClicked = null;
+
+    function sidebarList() {
+      // Structural, not class-based: Emotion's class names are hashed and
+      // change between Decap releases, but the aside > ul > li > a shape has
+      // been stable. If it ever isn't, we find nothing and do nothing.
+      var asides = document.querySelectorAll('aside');
+      for (var i = 0; i < asides.length; i++) {
+        var ul = asides[i].querySelector('ul');
+        if (ul && ul.querySelector('a[href*="#/collections/"]')) return ul;
+      }
+      return null;
     }
 
-    window.addEventListener('hashchange', jump);
-    jump();
+    function currentCollection() {
+      var m = /#\/collections\/([^\/?]+)/.exec(location.hash);
+      return m ? m[1] : null;
+    }
+
+    function paint(nav) {
+      var cur = currentCollection();
+      var rows = nav.querySelectorAll('.oz-a');
+      // If a shared section is open, highlight the row that was actually
+      // clicked; otherwise the first row pointing at it.
+      var chosen = null;
+      for (var i = 0; i < rows.length; i++) {
+        if (rows[i].dataset.c !== cur) continue;
+        if (lastClicked && rows[i].dataset.k === lastClicked) { chosen = rows[i]; break; }
+        if (!chosen) chosen = rows[i];
+      }
+      for (var j = 0; j < rows.length; j++) {
+        var on = rows[j] === chosen;
+        rows[j].classList.toggle('on', on);
+        rows[j].classList.toggle('oz-dim', !on && rows[j].dataset.c === cur);
+      }
+    }
+
+    function build(known) {
+      var nav = document.createElement('nav');
+      nav.className = 'oz-nav';
+      PAGES.forEach(function (grp) {
+        var visible = grp.rows.filter(function (r) { return known[r.c]; });
+        if (!visible.length) return;
+        var h = document.createElement('div');
+        h.className = 'oz-grp';
+        h.textContent = grp.page;
+        nav.appendChild(h);
+        visible.forEach(function (r) {
+          var a = document.createElement('a');
+          a.className = 'oz-a';
+          // A section holding exactly one thing links straight to its form,
+          // so you never land on a list of one card repeating the heading.
+          a.href = '#/collections/' + r.c + (r.entry ? '/entries/' + r.entry : '');
+          a.dataset.c = r.c;
+          a.dataset.k = grp.page + '|' + r.label;
+          var t = document.createElement('span');
+          t.textContent = r.label;
+          a.appendChild(t);
+          if (r.also) {
+            var s = document.createElement('span');
+            s.className = 'oz-also';
+            s.textContent = 'also on ' + r.also;
+            s.title = 'The same content. Editing it here changes both pages.';
+            a.appendChild(s);
+          }
+          a.addEventListener('click', function () {
+            lastClicked = a.dataset.k;
+            // Clicking the row for a section that is ALREADY open changes no
+            // hash, so no hashchange fires — repaint on the next tick or the
+            // highlight would stay on the other page's row for the same thing.
+            setTimeout(function () { paint(nav); }, 0);
+          });
+          nav.appendChild(a);
+        });
+      });
+      return nav;
+    }
+
+    function retitle(aside) {
+      // Decap's own heading reads "Collections", which means nothing to an
+      // editor. Renamed in place; if the heading isn't found, nothing happens.
+      var h = aside.querySelector('h2, h1');
+      if (h && /^\s*Collections\s*$/.test(h.textContent)) h.textContent = 'Edit by page';
+    }
+
+    function apply() {
+      var ul = sidebarList();
+      if (!ul) return false;
+      var aside = ul.closest('aside');
+      retitle(aside);
+      if (aside.querySelector('.oz-nav')) { paint(aside.querySelector('.oz-nav')); return true; }
+
+      // Only list collections Decap actually rendered, so a row can never
+      // point at a collection that isn't there.
+      var known = {};
+      ul.querySelectorAll('a[href*="#/collections/"]').forEach(function (a) {
+        var m = /#\/collections\/([^\/?]+)/.exec(a.getAttribute('href'));
+        if (m) known[m[1]] = true;
+      });
+
+      var nav = build(known);
+      if (!nav.querySelector('.oz-a')) return false;   // nothing matched — leave Decap alone
+
+      ul.parentNode.insertBefore(nav, ul);
+      ul.style.display = 'none';                       // hide only after ours is in
+      paint(nav);
+      return true;
+    }
+
+    var style = document.createElement('style');
+    style.textContent = CSS;
+    document.head.appendChild(style);
+
+    // Decap mounts asynchronously and swaps the aside as you navigate, so
+    // re-apply on DOM changes (cheap: apply() exits immediately once the
+    // nav is present) and whenever the route changes.
+    var mo = new MutationObserver(function () { apply(); });
+    mo.observe(document.body, { childList: true, subtree: true });
+    window.addEventListener('hashchange', function () { apply(); });
+    apply();
   })();
   </script>
 </body>
