@@ -62,16 +62,26 @@
       + '.oz-nav{padding:4px 0 10px}'
       + '.oz-grp{font:600 11px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;'
       +   'letter-spacing:.09em;text-transform:uppercase;color:#7b8290;'
-      +   'padding:16px 16px 6px;margin-top:4px;border-top:1px solid #eaecef}'
+      +   'padding:12px 16px 4px;margin-top:2px;border-top:1px solid #eaecef}'
       + '.oz-nav>.oz-grp:first-child{border-top:0;margin-top:0;padding-top:6px}'
-      + '.oz-a{display:flex;align-items:baseline;gap:8px;padding:7px 16px;'
+      + '.oz-a{display:flex;align-items:baseline;gap:8px;padding:6px 16px;'
       +   'font:500 14px/1.35 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;'
       +   'color:#313d3e;text-decoration:none;border-left:3px solid transparent}'
       + '.oz-a:hover{background:#f4f6f8}'
       + '.oz-a.on{color:#3a69c7;background:#eef3fd;border-left-color:#3a69c7}'
       + '.oz-also{margin-left:auto;font-size:10.5px;font-weight:500;color:#8a929e;white-space:nowrap}'
       + '.oz-a.on .oz-also{color:#6f8dcd}'
-      + '.oz-dim{opacity:.55}';
+      + '.oz-dim{opacity:.55}'
+      // Decap's sidebar is position:fixed with a max-height and no overflow,
+      // and the page behind it does not scroll. A list taller than the panel
+      // therefore falls off the bottom with no way to reach it — which is
+      // exactly what happens to the News page group on a shorter window. Make
+      // the panel a flex column so the heading and search box stay put and
+      // only the list scrolls. Applied INLINE, because Decap injects its
+      // Emotion styles after this stylesheet and would otherwise win.
+      + '.oz-nav::-webkit-scrollbar{width:8px}'
+      + '.oz-nav::-webkit-scrollbar-thumb{background:#d4d8de;border-radius:4px}'
+      + '.oz-nav::-webkit-scrollbar-thumb:hover{background:#b9bfc8}';
 
     var lastClicked = null;
 
@@ -178,6 +188,12 @@
 
       ul.parentNode.insertBefore(nav, ul);
       ul.style.display = 'none';                       // hide only after ours is in
+      aside.style.display = 'flex';
+      aside.style.flexDirection = 'column';
+      nav.style.flex = '1 1 auto';
+      nav.style.overflowY = 'auto';
+      nav.style.minHeight = '0';
+      nav.style.overscrollBehavior = 'contain';
       paint(nav);
       return true;
     }
