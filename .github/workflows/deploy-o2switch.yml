@@ -17,7 +17,7 @@ on:
   # bot commit from "Rebuild article index" would otherwise never reach
   # o2switch. `workflow_run` does fire for it.
   workflow_run:
-    workflows: ["Rebuild article index"]
+    workflows: ["Rebuild site content"]
     types: [completed]
   workflow_dispatch:
     inputs:

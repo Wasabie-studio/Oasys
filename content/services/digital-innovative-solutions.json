@@ -1,0 +1,22 @@
+{
+  "order": 5,
+  "img": "assets/digital-service.webp",
+  "title_en": "Digital & Innovative Solutions",
+  "desc_en": "Digital tools that make projects easier to manage, track, and report on.",
+  "body_en": "We put practical technology to work — project management platforms, mobile data collection, live dashboards and e-government tools — integrated into how teams already operate so managing and reporting gets simpler, not harder.",
+  "focus_en": [
+    "Project management platforms",
+    "Data collection & dashboards",
+    "e-Government & service delivery",
+    "Systems integration"
+  ],
+  "title_fr": "Solutions numériques & innovantes",
+  "desc_fr": "Des outils numériques qui simplifient la gestion, le suivi et le reporting des projets.",
+  "body_fr": "Nous mettons la technologie au service du concret — plateformes de gestion de projet, collecte de données mobile, tableaux de bord en temps réel et outils d'e-gouvernement — intégrés aux pratiques des équipes pour simplifier la gestion et le reporting.",
+  "focus_fr": [
+    "Plateformes de gestion de projet",
+    "Collecte de données & tableaux de bord",
+    "e-Gouvernement & services publics",
+    "Intégration de systèmes"
+  ]
+}

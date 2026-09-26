@@ -1,0 +1,22 @@
+{
+  "order": 3,
+  "img": "assets/procurement-service.webp",
+  "title_en": "Procurement & Supply Chain Management",
+  "desc_en": "The right supplies and equipment, at the right place, at the right time.",
+  "body_en": "We plan and run procurement end to end — tendering, sourcing and contracting the right suppliers, then managing logistics, distribution and quality control so equipment and supplies arrive where they're needed, when they're needed.",
+  "focus_en": [
+    "Procurement planning & tendering",
+    "Supplier sourcing & contracting",
+    "Logistics & distribution",
+    "Inventory & quality control"
+  ],
+  "title_fr": "Approvisionnement & gestion de la chaîne logistique",
+  "desc_fr": "Les bons fournitures et équipements, au bon endroit, au bon moment.",
+  "body_fr": "Nous planifions et menons les achats de bout en bout — appels d'offres, sourcing et contractualisation des bons fournisseurs, puis logistique, distribution et contrôle qualité pour que fournitures et équipements arrivent au bon endroit, au bon moment.",
+  "focus_fr": [
+    "Planification des achats & appels d'offres",
+    "Sourcing fournisseurs & contractualisation",
+    "Logistique & distribution",
+    "Gestion des stocks & contrôle qualité"
+  ]
+}

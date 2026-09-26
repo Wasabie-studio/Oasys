@@ -1,0 +1,22 @@
+{
+  "order": 4,
+  "img": "assets/governance-service.webp",
+  "title_en": "Governance, Reform & Strategic Monitoring",
+  "desc_en": "Strengthening how institutions are run and following reforms through.",
+  "body_en": "We help institutions diagnose what holds them back, design realistic reform roadmaps, and stay the course — with the strategic and performance monitoring that keeps reforms and public policies on track.",
+  "focus_en": [
+    "Institutional diagnostics",
+    "Reform roadmaps & change management",
+    "Strategic & performance monitoring",
+    "Public policy support"
+  ],
+  "title_fr": "Gouvernance, réforme & suivi stratégique",
+  "desc_fr": "Renforcer le fonctionnement des institutions et mener les réformes à leur terme.",
+  "body_fr": "Nous aidons les institutions à diagnostiquer leurs freins, à concevoir des feuilles de route de réforme réalistes et à tenir le cap — avec le suivi stratégique et de la performance qui maintient réformes et politiques publiques sur la bonne voie.",
+  "focus_fr": [
+    "Diagnostics institutionnels",
+    "Feuilles de route de réforme & conduite du changement",
+    "Suivi stratégique & de la performance",
+    "Appui aux politiques publiques"
+  ]
+}

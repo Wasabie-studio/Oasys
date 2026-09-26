@@ -1,0 +1,22 @@
+{
+  "order": 1,
+  "img": "assets/funding-card.webp",
+  "title_en": "Funding & Grants Management",
+  "desc_en": "Project financing and grants, from planning and disbursement through to reporting.",
+  "body_en": "We help projects secure, manage and account for their financing — designing grant budgets, steering disbursements, and producing the financial and narrative reporting that keeps donors confident and audits smooth.",
+  "focus_en": [
+    "Grant design & budgeting",
+    "Fund disbursement & tracking",
+    "Financial & narrative reporting",
+    "Donor compliance & audit readiness"
+  ],
+  "title_fr": "Financement & gestion des subventions",
+  "desc_fr": "Financement de projets et subventions, de la planification et du décaissement jusqu'au reporting.",
+  "body_fr": "Nous aidons les projets à sécuriser, gérer et justifier leur financement — conception des budgets de subvention, pilotage des décaissements et production des rapports financiers et narratifs qui rassurent les bailleurs et facilitent les audits.",
+  "focus_fr": [
+    "Conception & budgétisation des subventions",
+    "Décaissement & suivi des fonds",
+    "Rapports financiers & narratifs",
+    "Conformité bailleurs & préparation aux audits"
+  ]
+}

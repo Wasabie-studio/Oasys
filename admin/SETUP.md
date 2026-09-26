@@ -58,50 +58,67 @@ access token and hands it back to the CMS.
 
 1. Go to `https://wasabie-studio.github.io/Oasys/admin/`.
 2. Click **Login with GitHub**, authorize the app once.
-3. You'll see seven sections in the sidebar:
+3. You'll see nine sections in the sidebar:
 
    | Section | What it controls |
    |---|---|
-   | **Homepage hero** | The headline, the photo behind it, the buttons, the company-profile PDF, and which article shows as the small photo in the corner |
-   | **Homepage world map** | The regions that light up on the map, and each one's project count |
-   | **Sectors** | The sector cards — *homepage and Services page* |
-   | **Services** | The service entries — *homepage and Services page* |
-   | **Team** | The group photo, the homepage strip of faces, and the full roster on the About page |
-   | **Partners** | The logo strip — *homepage and About page* |
-   | **News articles** | One entry per article. Feeds the News page, the homepage's "Recent work" block, and each article's own page |
+   | **Homepage hero** | Headline, background photo, buttons, company-profile PDF, and which article shows as the small photo in the corner |
+   | **Homepage world map** | One entry per region, each with its project count |
+   | **Sectors** | One entry per sector — *homepage and Services page* |
+   | **Services** | One entry per service — *homepage and Services page* |
+   | **Partners** | One entry per partner — *homepage and About page* |
+   | **Team photo** | The group photo — *homepage and About page* |
+   | **Team — homepage strip** | One entry per person on the homepage strip |
+   | **Team — full roster** | One entry per person on the About page grid |
+   | **News articles** | One entry per article — News page, "Recent work", and each article's own page |
 
-   Each section is edited in **one** place. Where a section appears on more
-   than one page, the table says so and the CMS repeats it in the section's
-   own description — there is no second copy to keep in step.
+   Each thing is edited in **one** place. Where it appears on more than one
+   page, the table says so and the CMS repeats it in the section's own
+   description — there is no second copy to keep in step.
 
-4. Click a section, edit the fields or add/remove list items, upload photos
-   directly in the form, then click **Publish**. Changes are committed straight
-   to the `main` branch on GitHub and go live within a minute or two —
-   no developer involved.
+4. Click a section and you get a list of the real items — the actual partners,
+   the actual sectors. Click one to open just that item. **Homepage hero** and
+   **Team photo** hold a single thing each, so they open straight into the
+   form.
 
-## How News articles are stored
+5. Edit the fields, upload photos directly in the form, then click **Publish**.
+   Changes are committed straight to the `main` branch on GitHub and go live
+   within a minute or two — no developer involved.
 
-Articles are the one section that is **not** a single list. Each one is its own
-file in `content/articles/`, so it gets its own screen, its own history, a
-**New Article** button and a bin icon — the same shape as the MyDNAPedia blog.
+## How the content is stored
 
-The website itself still reads one file, `data/posts.json`. That file is
-**generated** — `.github/workflows/build-articles.yml` rebuilds it from
-`content/articles/` on every push, via `scripts/build-posts.mjs`. Two things
-follow from that:
+Every section that holds a list keeps **one file per item** under `content/` —
+`content/partners/gavi.json`, `content/sectors/sme-support.json` and so on. That
+is what gives each item its own screen, its own history and a real New/delete
+button.
 
-- **Never edit `data/posts.json` by hand.** The next publish overwrites it.
-- After publishing an article, the CMS updates immediately but the live site
-  takes an extra ~30–60 seconds, while the rebuild runs. That is normal.
+The website itself reads the `data/*.json` files, one per section. Those are
+**generated** — `.github/workflows/build-content.yml` rebuilds them from
+`content/` on every push, via `scripts/build-content.mjs`. Two things follow:
 
-Why not have the site read the folder directly? Because listing a folder from a
+- **Never edit anything under `data/` by hand.** The next publish overwrites it.
+  Edit `content/` (or just use the CMS).
+- After publishing, the CMS updates immediately but the live site takes an extra
+  ~30–60 seconds while the rebuild runs. That is normal.
+
+Why not have the site read `content/` directly? Because listing a folder from a
 static page means calling the GitHub API on every visit — an outside dependency
-with a 60-requests-per-hour limit, which would not survive the move to
-o2switch. Generating one JSON keeps the site self-contained.
+with a 60-requests-per-hour limit, which would not survive the move to o2switch.
+Generating one JSON per section keeps the site self-contained.
 
-Ordering: **Position on the site** (1 shows first) decides the order; articles
-sharing a number fall back to the newest date. The homepage's "Recent work"
-block shows positions 1, 2 and 3.
+### Ordering
+
+A folder of separate files cannot be drag-reordered the way the old single list
+could, so **every item has a "Position" number**. 1 shows first. Items sharing a
+number keep the order they are already in (for articles, the newer date wins).
+The homepage's "Recent work" block shows article positions 1, 2 and 3.
+
+To run the build by hand:
+
+```bash
+node scripts/build-content.mjs          # rebuild data/ from content/
+node scripts/build-content.mjs --check  # verify only, changes nothing
+```
 
 ## Notes / limits
 

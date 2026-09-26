@@ -4,20 +4,27 @@
 # HOW THIS IS ORGANISED
 #
 # One sidebar entry per THING, named for what it is — not for the page it
-# shows up on. An earlier version of this file listed the same content twice
-# or three times ("Sectors — Homepage" and "Sectors — Services Page", and so
-# on) so that an editor looking for a page would find it. That backfired: it
-# read as fourteen separate things to keep in step when there were only
-# seven, and editing either copy silently changed the other. Now each entry
-# is edited in exactly one place and its description names every page it
-# appears on.
+# shows up on. An earlier version listed the same content twice or three times
+# ("Sectors — Homepage" and "Sectors — Services Page", and so on) so an editor
+# looking for a page would find it. That backfired: fourteen entries for seven
+# pieces of content, and editing either copy silently rewrote the other. Now
+# each thing is edited in exactly one place and its description names every
+# page it appears on.
 #
-# Articles are a FOLDER collection — one entry per article, with a real "New
-# article" button, its own screen and its own history, the same way the
-# MyDNAPedia blog works. The website still reads a single data/posts.json,
-# which .github/workflows/build-articles.yml regenerates on every push; that
-# keeps the site free of any GitHub API call, so it will go on working once
-# it moves to o2switch. Nobody should edit data/posts.json by hand.
+# Every section that holds a LIST is a "folder" collection, so clicking
+# Partners lists the actual partners and clicking one opens just that partner.
+# Each item is its own file under content/, with its own screen, its own
+# history and a real New/delete button.
+#
+# The website itself reads the single data/*.json files, which
+# scripts/build-content.mjs regenerates from content/ on every push (see
+# .github/workflows/build-articles.yml). That keeps the site free of any
+# GitHub API call, so it will go on working once it moves to o2switch.
+# NOTHING under data/ should be edited by hand — the next publish overwrites
+# it.
+#
+# Ordering: folder collections cannot be drag-reordered the way a list widget
+# could, so every item carries a "Position" number instead. 1 shows first.
 # ─────────────────────────────────────────────────────────────────────────────
 
 backend:
@@ -39,13 +46,13 @@ publish_mode: simple
 show_preview_links: false
 
 collections:
-  # ───────────────────────────────── 1. Hero ─────────────────────────────────
+  # ───────────────────────────────── Hero ────────────────────────────────────
   - name: "hero"
     label: "Homepage hero"
     description: "The top of the homepage: the big headline, the photo behind it, the three buttons, and the small article photo in the corner."
     files:
       - file: "data/hero.json"
-        label: "Hero"
+        label: "Homepage hero"
         name: "hero"
         fields:
           - {label: "Background photo", name: photo, widget: image, required: false}
@@ -74,164 +81,210 @@ collections:
             required: false
             hint: "Pick ONE article from News to show as a small clickable photo in the corner of the hero. It only appears if that article has a photo. Leave blank to hide it — this is separate from the three articles in 'Recent work' further down the homepage."
 
-  # ──────────────────────────────── 2. Map ──────────────────────────────────
-  - name: "world_map"
+  # ──────────────────────────────── Map ──────────────────────────────────────
+  - name: "map"
     label: "Homepage world map"
-    description: "The 'Worldwide projects' map. Each row lights up every country in that region and shows its project count; the heading's 'across four continents' updates itself to match the number of rows."
-    files:
-      - file: "data/map.json"
-        label: "Regions & project counts"
-        name: "world_map"
-        fields:
-          - label: "Regions"
-            name: items
-            widget: list
-            summary: "{{fields.region}} — {{fields.projects}} projects"
-            hint: "Add a row per region. Drag the handle on the left to reorder — the order here is the order shown next to the map."
-            fields:
-              - label: "Region"
-                name: region
-                widget: select
-                options:
-                  - {label: "Africa", value: "africa"}
-                  - {label: "Europe", value: "europe"}
-                  - {label: "Asia", value: "asia"}
-                  - {label: "North America", value: "north_america"}
-                  - {label: "Central America", value: "central_america"}
-                  - {label: "South America", value: "south_america"}
-                  - {label: "Caribbean", value: "caribbean"}
-                  - {label: "Oceania", value: "oceania"}
-              - {label: "Number of projects", name: projects, widget: number, value_type: int, min: 0}
+    label_singular: "Region"
+    description: "The 'Worldwide projects' map. Each region lights up every country in it and shows its project count; the heading's 'across four continents' updates itself to match how many regions there are."
+    folder: "content/map"
+    create: true
+    extension: "json"
+    format: "json"
+    identifier_field: "region"
+    slug: "{{region}}"
+    summary: "{{region}} — {{projects}} projects"
+    sortable_fields: ["order", "region", "projects"]
+    fields:
+      - label: "Position"
+        name: order
+        widget: number
+        value_type: int
+        min: 1
+        default: 1
+        hint: "1 shows first. Give two items the same number and they keep the order they are in."
+      - label: "Region"
+        name: region
+        widget: select
+        options:
+          - {label: "Africa", value: "africa"}
+          - {label: "Europe", value: "europe"}
+          - {label: "Asia", value: "asia"}
+          - {label: "North America", value: "north_america"}
+          - {label: "Central America", value: "central_america"}
+          - {label: "South America", value: "south_america"}
+          - {label: "Caribbean", value: "caribbean"}
+          - {label: "Oceania", value: "oceania"}
+        hint: "Each region can only be listed once."
+      - {label: "Number of projects", name: projects, widget: number, value_type: int, min: 0}
 
-  # ─────────────────────────────── 3. Sectors ───────────────────────────────
+  # ─────────────────────────────── Sectors ───────────────────────────────────
   - name: "sectors"
     label: "Sectors"
-    description: "Appears on the HOMEPAGE and the SERVICES page. One list, shown in both places — edit it here and both update."
-    files:
-      - file: "data/sectors.json"
-        label: "Sectors"
-        name: "sectors"
-        fields:
-          - label: "Sectors"
-            name: items
-            widget: list
-            summary: "{{fields.en}}"
-            hint: "Drag the handle on the left of each card to reorder — this same order is used on the homepage and the Services page."
-            fields:
-              - {label: "Title (English)", name: en, widget: string}
-              - {label: "Title (French)", name: fr, widget: string}
-              - {label: "Photo", name: img, widget: image, required: false}
+    label_singular: "Sector"
+    description: "The sector cards. Shown on the HOMEPAGE and the SERVICES page — one set, both places."
+    folder: "content/sectors"
+    create: true
+    extension: "json"
+    format: "json"
+    identifier_field: "en"
+    slug: "{{slug}}"
+    summary: "{{en}}"
+    sortable_fields: ["order", "en"]
+    fields:
+      - label: "Position"
+        name: order
+        widget: number
+        value_type: int
+        min: 1
+        default: 1
+        hint: "1 shows first. Give two items the same number and they keep the order they are in."
+      - {label: "Title (English)", name: en, widget: string}
+      - {label: "Title (French)", name: fr, widget: string}
+      - {label: "Photo", name: img, widget: image, required: false}
 
-  # ─────────────────────────────── 4. Services ──────────────────────────────
+  # ─────────────────────────────── Services ──────────────────────────────────
   - name: "services"
     label: "Services"
-    description: "Appears on the HOMEPAGE and the SERVICES page. One list, shown in both places — edit it here and both update."
-    files:
-      - file: "data/services.json"
-        label: "Services"
-        name: "services"
-        fields:
-          - label: "Services"
-            name: items
-            widget: list
-            summary: "{{fields.title_en}}"
-            hint: "Drag the handle on the left of each card to reorder — this same order is used on the homepage and the Services page."
-            fields:
-              - {label: "Photo", name: img, widget: image, required: false}
-              - {label: "Title (English)", name: title_en, widget: string}
-              - {label: "Short description (English)", name: desc_en, widget: string}
-              - {label: "Full description (English)", name: body_en, widget: text, required: false}
-              - label: "Focus areas (English)"
-                name: focus_en
-                widget: list
-                required: false
-                field: {label: "Item", name: item, widget: string}
-              - {label: "Title (French)", name: title_fr, widget: string}
-              - {label: "Short description (French)", name: desc_fr, widget: string}
-              - {label: "Full description (French)", name: body_fr, widget: text, required: false}
-              - label: "Focus areas (French)"
-                name: focus_fr
-                widget: list
-                required: false
-                field: {label: "Item", name: item, widget: string}
+    label_singular: "Service"
+    description: "Shown on the HOMEPAGE and the SERVICES page — one set, both places."
+    folder: "content/services"
+    create: true
+    extension: "json"
+    format: "json"
+    identifier_field: "title_en"
+    slug: "{{slug}}"
+    summary: "{{title_en}}"
+    sortable_fields: ["order", "title_en"]
+    fields:
+      - label: "Position"
+        name: order
+        widget: number
+        value_type: int
+        min: 1
+        default: 1
+        hint: "1 shows first. Give two items the same number and they keep the order they are in."
+      - {label: "Photo", name: img, widget: image, required: false}
+      - {label: "Title (English)", name: title_en, widget: string}
+      - {label: "Short description (English)", name: desc_en, widget: string}
+      - {label: "Full description (English)", name: body_en, widget: text, required: false}
+      - label: "Focus areas (English)"
+        name: focus_en
+        widget: list
+        required: false
+        field: {label: "Item", name: item, widget: string}
+      - {label: "Title (French)", name: title_fr, widget: string}
+      - {label: "Short description (French)", name: desc_fr, widget: string}
+      - {label: "Full description (French)", name: body_fr, widget: text, required: false}
+      - label: "Focus areas (French)"
+        name: focus_fr
+        widget: list
+        required: false
+        field: {label: "Item", name: item, widget: string}
 
-  # ──────────────────────────────── 5. Team ─────────────────────────────────
-  - name: "team"
-    label: "Team"
-    description: "The group photo, plus two separate people lists. Click a row below to open it."
-    files:
-      - file: "data/team_photo.json"
-        label: "Group photo"
-        name: "team_photo"
-        description: "One photo, used on BOTH the homepage and the About page."
-        fields:
-          - {label: "Photo", name: photo, widget: image, required: false}
-      - file: "data/team_home.json"
-        label: "People — homepage strip"
-        name: "team_home"
-        description: "The few faces on the homepage's 'Meet the team' strip. This list is independent — changing it does NOT change the About page."
-        fields:
-          - label: "Featured Team Members"
-            name: items
-            widget: list
-            summary: "{{fields.name}}"
-            hint: "Drag the handle on the left of each card to reorder — the order here is the order they appear on the homepage."
-            fields:
-              - {label: "Name", name: name, widget: string}
-              - {label: "Photo", name: photo, widget: image, required: false}
-              - {label: "Role (English)", name: role_en, widget: string}
-              - {label: "Role (French)", name: role_fr, widget: string}
-      - file: "data/team.json"
-        label: "People — full roster (About page)"
-        name: "team_roster"
-        description: "The complete team grid on the About page. This list is independent — changing it does NOT change the homepage strip."
-        fields:
-          - label: "Team Members"
-            name: items
-            widget: list
-            summary: "{{fields.role_en}}{{fields.name}}"
-            hint: "Drag the handle on the left of each card to reorder — the order here is the order they appear on the About page."
-            fields:
-              - {label: "Name (leave blank to show role only)", name: name, widget: string, required: false}
-              - {label: "Photo", name: photo, widget: image, required: false}
-              - {label: "Group (English)", name: group_en, widget: string}
-              - {label: "Group (French)", name: group_fr, widget: string}
-              - {label: "Role (English)", name: role_en, widget: string}
-              - {label: "Role (French)", name: role_fr, widget: string}
-
-  # ─────────────────────────────── 6. Partners ──────────────────────────────
+  # ─────────────────────────────── Partners ──────────────────────────────────
   - name: "partners"
     label: "Partners"
-    description: "The logo strip. Appears on the HOMEPAGE and the ABOUT page. One list, shown in both places — edit it here and both update."
-    files:
-      - file: "data/partners.json"
-        label: "Partners"
-        name: "partners"
-        fields:
-          - label: "Partners"
-            name: items
-            widget: list
-            summary: "{{fields.name}}"
-            hint: "Drag the handle on the left of each card to reorder — this same order is used on the homepage and the About page."
-            fields:
-              - {label: "Name", name: name, widget: string}
-              - {label: "Logo", name: logo, widget: image, required: false}
+    label_singular: "Partner"
+    description: "The logo strip. Shown on the HOMEPAGE and the ABOUT page — one set, both places. A partner with no logo yet shows as a neutral placeholder."
+    folder: "content/partners"
+    create: true
+    extension: "json"
+    format: "json"
+    identifier_field: "name"
+    slug: "{{slug}}"
+    summary: "{{name}}"
+    sortable_fields: ["order", "name"]
+    fields:
+      - label: "Position"
+        name: order
+        widget: number
+        value_type: int
+        min: 1
+        default: 1
+        hint: "1 shows first. Give two items the same number and they keep the order they are in."
+      - {label: "Name", name: name, widget: string}
+      - {label: "Logo", name: logo, widget: image, required: false, hint: "Any shape or size — the site trims the background and scales every logo to look the same weight beside the others."}
 
-  # ─────────────────────────────── 7. Articles ──────────────────────────────
+  # ──────────────────────────── Team photo ───────────────────────────────────
+  - name: "team_photo"
+    label: "Team photo"
+    description: "The group photo. Used on BOTH the homepage and the About page."
+    files:
+      - file: "data/team_photo.json"
+        label: "Team photo"
+        name: "team_photo"
+        fields:
+          - {label: "Photo", name: photo, widget: image, required: false}
+
+  # ──────────────────────── Team — homepage strip ────────────────────────────
+  - name: "team_homepage"
+    label: "Team — homepage strip"
+    label_singular: "Person"
+    description: "The few faces on the homepage's 'Meet the team' strip. Independent of the About page roster — changing one does NOT change the other."
+    folder: "content/team-homepage"
+    create: true
+    extension: "json"
+    format: "json"
+    identifier_field: "name"
+    slug: "{{slug}}"
+    summary: "{{name}} — {{role_en}}"
+    sortable_fields: ["order", "name"]
+    fields:
+      - label: "Position"
+        name: order
+        widget: number
+        value_type: int
+        min: 1
+        default: 1
+        hint: "1 shows first. Give two items the same number and they keep the order they are in."
+      - {label: "Name", name: name, widget: string}
+      - {label: "Photo", name: photo, widget: image, required: false}
+      - {label: "Role (English)", name: role_en, widget: string}
+      - {label: "Role (French)", name: role_fr, widget: string}
+
+  # ───────────────────────── Team — full roster ──────────────────────────────
+  - name: "team_roster"
+    label: "Team — full roster"
+    label_singular: "Person"
+    description: "The complete team grid on the About page. Independent of the homepage strip — changing one does NOT change the other."
+    folder: "content/team-roster"
+    create: true
+    extension: "json"
+    format: "json"
+    identifier_field: "role_en"
+    slug: "{{slug}}"
+    summary: "{{role_en}}{{name}}"
+    sortable_fields: ["order", "role_en", "group_en"]
+    fields:
+      - label: "Position"
+        name: order
+        widget: number
+        value_type: int
+        min: 1
+        default: 1
+        hint: "1 shows first. Give two items the same number and they keep the order they are in."
+      - {label: "Name (leave blank to show the role only)", name: name, widget: string, required: false}
+      - {label: "Photo", name: photo, widget: image, required: false}
+      - {label: "Group (English)", name: group_en, widget: string, hint: "People are grouped under this heading on the About page, e.g. Leadership, Delivery."}
+      - {label: "Group (French)", name: group_fr, widget: string}
+      - {label: "Role (English)", name: role_en, widget: string}
+      - {label: "Role (French)", name: role_fr, widget: string}
+
+  # ─────────────────────────────── Articles ──────────────────────────────────
   - name: "articles"
     label: "News articles"
     label_singular: "Article"
-    description: "One entry per article. These feed the News page, the 'Recent work' block on the homepage, and each article's own page — all three at once. Use 'New Article' to add one, and the bin icon to remove one."
+    description: "Feeds the News page, the 'Recent work' block on the homepage, and each article's own page — all three at once."
     folder: "content/articles"
     create: true
     extension: "json"
     format: "json"
     identifier_field: "title_en"
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    summary: "{{order}} · {{title_en}}"
+    summary: "{{title_en}}"
     sortable_fields: ["order", "date", "title_en"]
     fields:
-      - label: "Position on the site"
+      - label: "Position"
         name: order
         widget: number
         value_type: int

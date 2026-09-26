@@ -1,0 +1,22 @@
+{
+  "order": 6,
+  "img": "assets/facilitation-service.webp",
+  "title_en": "Process & Activity Facilitation",
+  "desc_en": "Facilitating the workshops and activities that keep projects moving.",
+  "body_en": "We design and facilitate the moments where a project comes together — stakeholder consultations, strategic planning sessions and multi-actor coordination — so decisions get made and everyone leaves aligned.",
+  "focus_en": [
+    "Workshop design & facilitation",
+    "Stakeholder consultations",
+    "Strategic planning sessions",
+    "Multi-actor coordination"
+  ],
+  "title_fr": "Facilitation de processus & d'activités",
+  "desc_fr": "Animer les ateliers et les activités qui font avancer les projets.",
+  "body_fr": "Nous concevons et animons les moments clés d'un projet — consultations des parties prenantes, sessions de planification stratégique et coordination multi-acteurs — pour que les décisions soient prises et chacun reparte aligné.",
+  "focus_fr": [
+    "Conception & animation d'ateliers",
+    "Consultations des parties prenantes",
+    "Sessions de planification stratégique",
+    "Coordination multi-acteurs"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "order": 2,
+  "img": "assets/planning-service.webp",
+  "title_en": "Planning, Monitoring, Evaluation & Learning",
+  "desc_en": "Tracking progress, measuring results, and turning lessons into knowledge.",
+  "body_en": "From the theory of change to the final evaluation, we build the systems that show whether a project is working — clear indicators, honest measurement, and a learning loop that turns findings into better decisions.",
+  "focus_en": [
+    "Theory of change & logframes",
+    "Results frameworks & indicators",
+    "Baseline, mid-term & final evaluations",
+    "Knowledge management & learning"
+  ],
+  "title_fr": "Planification, suivi, évaluation & apprentissage",
+  "desc_fr": "Suivre l'avancement, mesurer les résultats et transformer les leçons en savoirs.",
+  "body_fr": "De la théorie du changement à l'évaluation finale, nous construisons les systèmes qui montrent si un projet fonctionne — indicateurs clairs, mesure honnête et boucle d'apprentissage qui transforme les constats en meilleures décisions.",
+  "focus_fr": [
+    "Théorie du changement & cadres logiques",
+    "Cadres de résultats & indicateurs",
+    "Évaluations initiales, à mi-parcours & finales",
+    "Gestion des connaissances & apprentissage"
+  ]
+}

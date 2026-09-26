@@ -1,0 +1,67 @@
+# Keeps the data/*.json files the website fetches in step with the per-item
+# entries under content/.
+#
+# Why this exists: the CMS edits each partner, sector, service, team member
+# and article as its OWN entry, so clicking a section lists the real items and
+# clicking one opens just that item. Decap can only do that with a "folder"
+# collection — one file per item. The website, though, is a plain static site
+# that must keep working on o2switch with no GitHub API calls, and a static
+# page cannot list a directory. So content/ is what editors touch, data/ is
+# what the browser fetches, and this workflow is the bridge.
+#
+# It cannot loop: it only ever writes data/, which is not in the paths that
+# trigger it.
+
+name: Rebuild site content
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "content/**"
+      - "scripts/build-content.mjs"
+  workflow_dispatch:
+
+concurrency:
+  group: build-content
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Rebuild data/*.json
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the site
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Rebuild
+        run: node scripts/build-content.mjs
+
+      - name: Commit it if it changed
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- data/; then
+            echo "::notice::data/ was already up to date — nothing to commit."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/
+          git commit -m "Rebuild data/*.json from content/"
+          # Someone may have pushed while we were building; rebase rather
+          # than fail, so a CMS publish never ends in a red workflow.
+          for attempt in 1 2 3; do
+            if git push; then exit 0; fi
+            echo "Push rejected (attempt $attempt) — rebasing on the latest main."
+            git pull --rebase origin main
+          done
+          echo "::error::Could not push the rebuilt data/*.json after 3 attempts."
+          exit 1

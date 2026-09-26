@@ -8,5 +8,37 @@
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script>
+  /* Open one-of-a-kind sections straight away.
+     ------------------------------------------
+     "Homepage hero" and "Team photo" hold a single thing each, so Decap's
+     collection screen lists exactly one card with the same name as the
+     heading above it — you read "Team photo", then click "Team photo". Every
+     other section is a folder collection whose cards are the actual items
+     (each partner, each sector), so only these two need it.
+
+     Decap has no setting for this, so we do it on the hash route it already
+     uses. If the URL scheme ever changes, the redirect simply stops firing
+     and you get the extra click back — nothing breaks. */
+  (function () {
+    // collection name -> the entry name under its `files:` in config.yml
+    var SINGLE = { hero: 'hero', team_photo: 'team_photo' };
+
+    function jump() {
+      var m = /^#\/collections\/([^\/?]+)\/?$/.exec(location.hash);
+      if (!m) return;
+      var entry = SINGLE[m[1]];
+      if (!entry) return;
+      // replace(), not assign(), so Back doesn't bounce off this redirect
+      location.replace(
+        location.pathname + location.search +
+        '#/collections/' + m[1] + '/entries/' + entry
+      );
+    }
+
+    window.addEventListener('hashchange', jump);
+    jump();
+  })();
+  </script>
 </body>
 </html>

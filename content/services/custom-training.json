@@ -1,0 +1,22 @@
+{
+  "order": 7,
+  "img": "assets/training-service.webp",
+  "title_en": "Custom Training",
+  "desc_en": "From transformational leadership to PBF, AI, and data protection.",
+  "body_en": "We build training around what your teams actually need — from transformational leadership and performance-based financing to artificial intelligence, data and data protection — practical, contextual, and designed to stick.",
+  "focus_en": [
+    "Transformational leadership",
+    "Performance-Based Financing (PBF)",
+    "Artificial intelligence & data",
+    "Data protection & privacy"
+  ],
+  "title_fr": "Formations sur mesure",
+  "desc_fr": "Du leadership transformationnel au FBP, à l'IA et à la protection des données.",
+  "body_fr": "Nous construisons des formations à partir des besoins réels de vos équipes — du leadership transformationnel et du financement basé sur la performance à l'intelligence artificielle, aux données et à leur protection — pratiques, contextuelles et durables.",
+  "focus_fr": [
+    "Leadership transformationnel",
+    "Financement basé sur la performance (FBP)",
+    "Intelligence artificielle & données",
+    "Protection & confidentialité des données"
+  ]
+}

@@ -1,8 +1,20 @@
 {
   "items": [
-    {"region": "africa", "projects": 48},
-    {"region": "asia", "projects": 11},
-    {"region": "europe", "projects": 23},
-    {"region": "caribbean", "projects": 13}
+    {
+      "region": "africa",
+      "projects": 48
+    },
+    {
+      "region": "asia",
+      "projects": 11
+    },
+    {
+      "region": "europe",
+      "projects": 23
+    },
+    {
+      "region": "caribbean",
+      "projects": 13
+    }
   ]
 }
