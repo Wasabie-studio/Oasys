@@ -7,6 +7,21 @@
   <link rel="icon" href="data:,">
 </head>
 <body>
+  <script>
+  /* Always fetch a fresh config.yml.
+     Browsers cache it happily, so a published change to the sections could
+     sit invisible behind a stale copy while the rest of the page updated —
+     which looks exactly like the change never shipped. Decap reads this
+     link if it is present, so the query string forces a fresh copy every
+     load. The file is a few KB; the extra request costs nothing. */
+  (function () {
+    var l = document.createElement('link');
+    l.rel = 'cms-config-url';
+    l.type = 'text/yaml';
+    l.href = 'config.yml?t=' + Date.now();
+    document.head.appendChild(l);
+  })();
+  </script>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   <script>
   /* ═══════════════════════════════════════════════════════════════════════
@@ -72,6 +87,15 @@
       + '.oz-also{margin-left:auto;font-size:10.5px;font-weight:500;color:#8a929e;white-space:nowrap}'
       + '.oz-a.on .oz-also{color:#6f8dcd}'
       + '.oz-dim{opacity:.55}'
+      // A list that simply stops at the panel edge reads as broken even when
+      // it scrolls fine. These two gradient pairs sit on the scroll box: the
+      // white ones travel with the content, the grey ones stay put, so a
+      // shadow shows only on the edge that has more content beyond it.
+      + '.oz-nav{background:'
+      +   'linear-gradient(#fff 30%,rgba(255,255,255,0)) top/100% 16px local no-repeat,'
+      +   'linear-gradient(rgba(255,255,255,0),#fff 70%) bottom/100% 16px local no-repeat,'
+      +   'radial-gradient(farthest-side at 50% 0,rgba(15,23,42,.13),rgba(15,23,42,0)) top/100% 7px scroll no-repeat,'
+      +   'radial-gradient(farthest-side at 50% 100%,rgba(15,23,42,.13),rgba(15,23,42,0)) bottom/100% 7px scroll no-repeat}'
       // Decap's sidebar is position:fixed with a max-height and no overflow,
       // and the page behind it does not scroll. A list taller than the panel
       // therefore falls off the bottom with no way to reach it — which is
