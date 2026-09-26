@@ -13,6 +13,12 @@ name: Deploy to o2switch
 on:
   push:
     branches: [main]
+  # A commit made by a workflow does not itself trigger a `push` run, so the
+  # bot commit from "Rebuild article index" would otherwise never reach
+  # o2switch. `workflow_run` does fire for it.
+  workflow_run:
+    workflows: ["Rebuild article index"]
+    types: [completed]
   workflow_dispatch:
     inputs:
       dry_run:
@@ -122,6 +128,8 @@ jobs:
               --exclude-glob .git/ \
               --exclude-glob .github/ \
               --exclude-glob cloudflare-worker/ \
+              --exclude-glob content/ \
+              --exclude-glob scripts/ \
               --exclude-glob .DS_Store \
               --exclude-glob .gitignore \
               --exclude-glob README.md \

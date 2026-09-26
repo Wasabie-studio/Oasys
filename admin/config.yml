@@ -1,3 +1,25 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# OASYS Groupe — content manager
+#
+# HOW THIS IS ORGANISED
+#
+# One sidebar entry per THING, named for what it is — not for the page it
+# shows up on. An earlier version of this file listed the same content twice
+# or three times ("Sectors — Homepage" and "Sectors — Services Page", and so
+# on) so that an editor looking for a page would find it. That backfired: it
+# read as fourteen separate things to keep in step when there were only
+# seven, and editing either copy silently changed the other. Now each entry
+# is edited in exactly one place and its description names every page it
+# appears on.
+#
+# Articles are a FOLDER collection — one entry per article, with a real "New
+# article" button, its own screen and its own history, the same way the
+# MyDNAPedia blog works. The website still reads a single data/posts.json,
+# which .github/workflows/build-articles.yml regenerates on every push; that
+# keeps the site free of any GitHub API call, so it will go on working once
+# it moves to o2switch. Nobody should edit data/posts.json by hand.
+# ─────────────────────────────────────────────────────────────────────────────
+
 backend:
   name: github
   repo: Wasabie-studio/Oasys
@@ -13,19 +35,14 @@ public_folder: "assets/uploads"
 
 publish_mode: simple
 
-# NOTE on collections that appear in pairs/triples below (Team Photo, Sectors,
-# Services, Partners, Articles): each one is a SEPARATE top-level collection,
-# not grouped as sub-items of a parent. Decap CMS has a bug/limitation where
-# multiple *files* inside ONE collection that point at the identical file path
-# all render with the same (first) label in the sidebar — verified locally
-# with Decap's no-login test-repo backend before shipping this structure.
-# Separate top-level collections pointing at the same file path display and
-# save correctly, so that's the pattern used here. They're declared next to
-# each other so they stay visually grouped in the sidebar.
+# There is no preview template for this site, so don't offer a broken one.
+show_preview_links: false
 
 collections:
+  # ───────────────────────────────── 1. Hero ─────────────────────────────────
   - name: "hero"
-    label: "Homepage Hero"
+    label: "Homepage hero"
+    description: "The top of the homepage: the big headline, the photo behind it, the three buttons, and the small article photo in the corner."
     files:
       - file: "data/hero.json"
         label: "Hero"
@@ -47,9 +64,19 @@ collections:
             hint: "Upload the company profile here. Leave this empty and the download button is hidden entirely, so the hero never shows a broken download."
           - {label: "Download button label (English)", name: cta3_en, widget: string, required: false}
           - {label: "Download button label (French)", name: cta3_fr, widget: string, required: false}
+          - label: "Featured article photo"
+            name: featured_hero_post
+            widget: relation
+            collection: "articles"
+            search_fields: ["title_en"]
+            value_field: "title_en"
+            display_fields: ["title_en"]
+            required: false
+            hint: "Pick ONE article from News to show as a small clickable photo in the corner of the hero. It only appears if that article has a photo. Leave blank to hide it — this is separate from the three articles in 'Recent work' further down the homepage."
 
+  # ──────────────────────────────── 2. Map ──────────────────────────────────
   - name: "world_map"
-    label: "World Map — Homepage"
+    label: "Homepage world map"
     description: "The 'Worldwide projects' map. Each row lights up every country in that region and shows its project count; the heading's 'across four continents' updates itself to match the number of rows."
     files:
       - file: "data/map.json"
@@ -76,33 +103,73 @@ collections:
                   - {label: "Oceania", value: "oceania"}
               - {label: "Number of projects", name: projects, widget: number, value_type: int, min: 0}
 
-  - name: "team_photo_home"
-    label: "Team Photo — Homepage"
-    description: "Same photo as 'Team Photo — About Page' — publishing here updates both."
+  # ─────────────────────────────── 3. Sectors ───────────────────────────────
+  - name: "sectors"
+    label: "Sectors"
+    description: "Appears on the HOMEPAGE and the SERVICES page. One list, shown in both places — edit it here and both update."
     files:
-      - file: "data/team_photo.json"
-        label: "Team Photo"
-        name: "team_photo_home"
+      - file: "data/sectors.json"
+        label: "Sectors"
+        name: "sectors"
         fields:
-          - {label: "Photo", name: photo, widget: image, required: false}
-  - name: "team_photo_about"
-    label: "Team Photo — About Page"
-    description: "Same photo as 'Team Photo — Homepage' — publishing here updates both."
-    files:
-      - file: "data/team_photo.json"
-        label: "Team Photo"
-        name: "team_photo_about"
-        fields:
-          - {label: "Photo", name: photo, widget: image, required: false}
+          - label: "Sectors"
+            name: items
+            widget: list
+            summary: "{{fields.en}}"
+            hint: "Drag the handle on the left of each card to reorder — this same order is used on the homepage and the Services page."
+            fields:
+              - {label: "Title (English)", name: en, widget: string}
+              - {label: "Title (French)", name: fr, widget: string}
+              - {label: "Photo", name: img, widget: image, required: false}
 
+  # ─────────────────────────────── 4. Services ──────────────────────────────
+  - name: "services"
+    label: "Services"
+    description: "Appears on the HOMEPAGE and the SERVICES page. One list, shown in both places — edit it here and both update."
+    files:
+      - file: "data/services.json"
+        label: "Services"
+        name: "services"
+        fields:
+          - label: "Services"
+            name: items
+            widget: list
+            summary: "{{fields.title_en}}"
+            hint: "Drag the handle on the left of each card to reorder — this same order is used on the homepage and the Services page."
+            fields:
+              - {label: "Photo", name: img, widget: image, required: false}
+              - {label: "Title (English)", name: title_en, widget: string}
+              - {label: "Short description (English)", name: desc_en, widget: string}
+              - {label: "Full description (English)", name: body_en, widget: text, required: false}
+              - label: "Focus areas (English)"
+                name: focus_en
+                widget: list
+                required: false
+                field: {label: "Item", name: item, widget: string}
+              - {label: "Title (French)", name: title_fr, widget: string}
+              - {label: "Short description (French)", name: desc_fr, widget: string}
+              - {label: "Full description (French)", name: body_fr, widget: text, required: false}
+              - label: "Focus areas (French)"
+                name: focus_fr
+                widget: list
+                required: false
+                field: {label: "Item", name: item, widget: string}
+
+  # ──────────────────────────────── 5. Team ─────────────────────────────────
   - name: "team"
     label: "Team"
-    description: "Two separate, independently-editable lists — updating one does NOT update the other. Click a row below to open it."
+    description: "The group photo, plus two separate people lists. Click a row below to open it."
     files:
+      - file: "data/team_photo.json"
+        label: "Group photo"
+        name: "team_photo"
+        description: "One photo, used on BOTH the homepage and the About page."
+        fields:
+          - {label: "Photo", name: photo, widget: image, required: false}
       - file: "data/team_home.json"
-        label: "Team — Homepage Preview"
+        label: "People — homepage strip"
         name: "team_home"
-        description: "Shown ONLY on the homepage's 'Meet the team' strip — not the About page."
+        description: "The few faces on the homepage's 'Meet the team' strip. This list is independent — changing it does NOT change the About page."
         fields:
           - label: "Featured Team Members"
             name: items
@@ -115,9 +182,9 @@ collections:
               - {label: "Role (English)", name: role_en, widget: string}
               - {label: "Role (French)", name: role_fr, widget: string}
       - file: "data/team.json"
-        label: "Team — Full Roster (About page)"
+        label: "People — full roster (About page)"
         name: "team_roster"
-        description: "Shown ONLY on the About page's full team grid — not the homepage."
+        description: "The complete team grid on the About page. This list is independent — changing it does NOT change the homepage strip."
         fields:
           - label: "Team Members"
             name: items
@@ -132,210 +199,57 @@ collections:
               - {label: "Role (English)", name: role_en, widget: string}
               - {label: "Role (French)", name: role_fr, widget: string}
 
-  - name: "sectors_home"
-    label: "Sectors — Homepage"
-    description: "Same list as 'Sectors — Services Page' — publishing here updates both."
-    files:
-      - file: "data/sectors.json"
-        label: "Sectors"
-        name: "sectors_home"
-        fields:
-          - label: "Sectors"
-            name: items
-            widget: list
-            summary: "{{fields.en}}"
-            hint: "Drag the handle on the left of each card to reorder — this same order is used on both the homepage and the Services page."
-            fields:
-              - {label: "Title (English)", name: en, widget: string}
-              - {label: "Title (French)", name: fr, widget: string}
-              - {label: "Photo", name: img, widget: image, required: false}
-  - name: "sectors_services"
-    label: "Sectors — Services Page"
-    description: "Same list as 'Sectors — Homepage' — publishing here updates both."
-    files:
-      - file: "data/sectors.json"
-        label: "Sectors"
-        name: "sectors_services"
-        fields:
-          - label: "Sectors"
-            name: items
-            widget: list
-            summary: "{{fields.en}}"
-            hint: "Drag the handle on the left of each card to reorder — this same order is used on both the homepage and the Services page."
-            fields:
-              - {label: "Title (English)", name: en, widget: string}
-              - {label: "Title (French)", name: fr, widget: string}
-              - {label: "Photo", name: img, widget: image, required: false}
-
-  - name: "services_home"
-    label: "Services — Homepage"
-    description: "Same list as 'Services — Services Page' — publishing here updates both."
-    files:
-      - file: "data/services.json"
-        label: "Services"
-        name: "services_home"
-        fields:
-          - label: "Services"
-            name: items
-            widget: list
-            summary: "{{fields.title_en}}"
-            hint: "Drag the handle on the left of each card to reorder — this same order is used on both the homepage and the Services page."
-            fields:
-              - {label: "Photo", name: img, widget: image, required: false}
-              - {label: "Title (English)", name: title_en, widget: string}
-              - {label: "Short description (English)", name: desc_en, widget: string}
-              - {label: "Full description (English)", name: body_en, widget: text, required: false}
-              - label: "Focus areas (English)"
-                name: focus_en
-                widget: list
-                required: false
-                field: {label: "Item", name: item, widget: string}
-              - {label: "Title (French)", name: title_fr, widget: string}
-              - {label: "Short description (French)", name: desc_fr, widget: string}
-              - {label: "Full description (French)", name: body_fr, widget: text, required: false}
-              - label: "Focus areas (French)"
-                name: focus_fr
-                widget: list
-                required: false
-                field: {label: "Item", name: item, widget: string}
-  - name: "services_page"
-    label: "Services — Services Page"
-    description: "Same list as 'Services — Homepage' — publishing here updates both."
-    files:
-      - file: "data/services.json"
-        label: "Services"
-        name: "services_page"
-        fields:
-          - label: "Services"
-            name: items
-            widget: list
-            summary: "{{fields.title_en}}"
-            hint: "Drag the handle on the left of each card to reorder — this same order is used on both the homepage and the Services page."
-            fields:
-              - {label: "Photo", name: img, widget: image, required: false}
-              - {label: "Title (English)", name: title_en, widget: string}
-              - {label: "Short description (English)", name: desc_en, widget: string}
-              - {label: "Full description (English)", name: body_en, widget: text, required: false}
-              - label: "Focus areas (English)"
-                name: focus_en
-                widget: list
-                required: false
-                field: {label: "Item", name: item, widget: string}
-              - {label: "Title (French)", name: title_fr, widget: string}
-              - {label: "Short description (French)", name: desc_fr, widget: string}
-              - {label: "Full description (French)", name: body_fr, widget: text, required: false}
-              - label: "Focus areas (French)"
-                name: focus_fr
-                widget: list
-                required: false
-                field: {label: "Item", name: item, widget: string}
-
-  - name: "partners_home"
-    label: "Partners — Homepage"
-    description: "Same list as 'Partners — About Page' — publishing here updates both."
+  # ─────────────────────────────── 6. Partners ──────────────────────────────
+  - name: "partners"
+    label: "Partners"
+    description: "The logo strip. Appears on the HOMEPAGE and the ABOUT page. One list, shown in both places — edit it here and both update."
     files:
       - file: "data/partners.json"
         label: "Partners"
-        name: "partners_home"
+        name: "partners"
         fields:
           - label: "Partners"
             name: items
             widget: list
             summary: "{{fields.name}}"
-            hint: "Drag the handle on the left of each card to reorder — this same order is used on both the homepage and the About page."
-            fields:
-              - {label: "Name", name: name, widget: string}
-              - {label: "Logo", name: logo, widget: image, required: false}
-  - name: "partners_about"
-    label: "Partners — About Page"
-    description: "Same list as 'Partners — Homepage' — publishing here updates both."
-    files:
-      - file: "data/partners.json"
-        label: "Partners"
-        name: "partners_about"
-        fields:
-          - label: "Partners"
-            name: items
-            widget: list
-            summary: "{{fields.name}}"
-            hint: "Drag the handle on the left of each card to reorder — this same order is used on both the homepage and the About page."
+            hint: "Drag the handle on the left of each card to reorder — this same order is used on the homepage and the About page."
             fields:
               - {label: "Name", name: name, widget: string}
               - {label: "Logo", name: logo, widget: image, required: false}
 
-  - name: "posts_home"
-    label: "Articles — Homepage"
-    description: "Same list as 'Articles — News Page' and 'Articles — Article Pages' — publishing here updates all three."
-    files:
-      - file: "data/posts.json"
-        label: "Articles"
-        name: "posts_home"
-        fields:
-          - label: "Featured on Homepage Hero banner"
-            name: featured_hero_post
-            widget: relation
-            collection: "posts_article"
-            file: "posts_article"
-            search_fields: ["items.*.title_en"]
-            value_field: "items.*.title_en"
-            display_fields: ["items.*.title_en"]
-            required: false
-            hint: "Pick ONE article to show as a small clickable photo on the homepage's top Hero banner. Leave blank to hide it. This is separate from the 3 articles listed below in 'Recent work'."
-          - label: "Articles"
-            name: items
-            widget: list
-            summary: "{{fields.title_en}}"
-            hint: "Drag the handle on the left of each card to reorder — this same order is used on the homepage and the News page."
-            fields:
-              - {label: "Photo", name: photo, widget: image, required: false}
-              - {label: "Category (English)", name: cat_en, widget: string, hint: "e.g. Digital, Governance, Health & Social — type anything"}
-              - {label: "Category (French)", name: cat_fr, widget: string}
-              - {label: "Date", name: date, widget: string, hint: "Format: DD.MM.YYYY"}
-              - {label: "Title (English)", name: title_en, widget: string}
-              - {label: "Title (French)", name: title_fr, widget: string}
-              - {label: "Body (English) — leave blank for a headline-only item with no article page", name: body_en, widget: text, required: false}
-              - {label: "Body (French)", name: body_fr, widget: text, required: false}
-  - name: "posts_news"
-    label: "Articles — News Page"
-    description: "Same list as 'Articles — Homepage' and 'Articles — Article Pages' — publishing here updates all three."
-    files:
-      - file: "data/posts.json"
-        label: "Articles"
-        name: "posts_news"
-        fields:
-          - label: "Articles"
-            name: items
-            widget: list
-            summary: "{{fields.title_en}}"
-            hint: "Drag the handle on the left of each card to reorder — this same order is used on the homepage and the News page."
-            fields:
-              - {label: "Photo", name: photo, widget: image, required: false}
-              - {label: "Category (English)", name: cat_en, widget: string, hint: "e.g. Digital, Governance, Health & Social — type anything"}
-              - {label: "Category (French)", name: cat_fr, widget: string}
-              - {label: "Date", name: date, widget: string, hint: "Format: DD.MM.YYYY"}
-              - {label: "Title (English)", name: title_en, widget: string}
-              - {label: "Title (French)", name: title_fr, widget: string}
-              - {label: "Body (English) — leave blank for a headline-only item with no article page", name: body_en, widget: text, required: false}
-              - {label: "Body (French)", name: body_fr, widget: text, required: false}
-  - name: "posts_article"
-    label: "Articles — Article Pages"
-    description: "Same list as 'Articles — Homepage' and 'Articles — News Page' — publishing here updates all three."
-    files:
-      - file: "data/posts.json"
-        label: "Articles"
-        name: "posts_article"
-        fields:
-          - label: "Articles"
-            name: items
-            widget: list
-            summary: "{{fields.title_en}}"
-            hint: "Drag the handle on the left of each card to reorder — this same order is used on the homepage and the News page."
-            fields:
-              - {label: "Photo", name: photo, widget: image, required: false}
-              - {label: "Category (English)", name: cat_en, widget: string, hint: "e.g. Digital, Governance, Health & Social — type anything"}
-              - {label: "Category (French)", name: cat_fr, widget: string}
-              - {label: "Date", name: date, widget: string, hint: "Format: DD.MM.YYYY"}
-              - {label: "Title (English)", name: title_en, widget: string}
-              - {label: "Title (French)", name: title_fr, widget: string}
-              - {label: "Body (English) — leave blank for a headline-only item with no article page", name: body_en, widget: text, required: false}
-              - {label: "Body (French)", name: body_fr, widget: text, required: false}
+  # ─────────────────────────────── 7. Articles ──────────────────────────────
+  - name: "articles"
+    label: "News articles"
+    label_singular: "Article"
+    description: "One entry per article. These feed the News page, the 'Recent work' block on the homepage, and each article's own page — all three at once. Use 'New Article' to add one, and the bin icon to remove one."
+    folder: "content/articles"
+    create: true
+    extension: "json"
+    format: "json"
+    identifier_field: "title_en"
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{order}} · {{title_en}}"
+    sortable_fields: ["order", "date", "title_en"]
+    fields:
+      - label: "Position on the site"
+        name: order
+        widget: number
+        value_type: int
+        min: 1
+        default: 1
+        hint: "1 shows first. The homepage's 'Recent work' block shows positions 1, 2 and 3; the News page shows them all in this order. Give two articles the same number and the newer date wins."
+      - label: "Date"
+        name: date
+        widget: datetime
+        format: "YYYY-MM-DD"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+        picker_utc: false
+        hint: "Pick the date of the event. The site displays it as DD.MM.YYYY."
+      - {label: "Photo", name: photo, widget: image, required: false, hint: "Optional. An article with no photo still appears in the list, just without an image."}
+      - {label: "Category (English)", name: cat_en, widget: string, hint: "e.g. Digital, Governance, Health & Social — type anything"}
+      - {label: "Category (French)", name: cat_fr, widget: string}
+      - {label: "Title (English)", name: title_en, widget: string}
+      - {label: "Title (French)", name: title_fr, widget: string}
+      - {label: "Body (English) — leave blank for a headline-only item with no article page", name: body_en, widget: text, required: false}
+      - {label: "Body (French)", name: body_fr, widget: text, required: false}

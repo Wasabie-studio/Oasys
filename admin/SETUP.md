@@ -1,8 +1,8 @@
 # OASYS Content Manager — one-time setup
 
 The site's Team, News, Services, Sectors and Partner logos now live in `/data/*.json`
-and can be edited through a login-protected form at `yoursite.com/admin`, instead of
-by editing code. This only needs to be set up once. It uses two free accounts —
+and `/content/articles/`, and can be edited through a login-protected form at
+`yoursite.com/admin`, instead of by editing code. This only needs to be set up once. It uses two free accounts —
 GitHub (which you already have, since the site lives here) and Cloudflare (used only
 to run a tiny script that hands out logins — the site itself is **not** hosted on
 Cloudflare).
@@ -58,12 +58,50 @@ access token and hands it back to the CMS.
 
 1. Go to `https://wasabie-studio.github.io/Oasys/admin/`.
 2. Click **Login with GitHub**, authorize the app once.
-3. You'll see six sections: **Sectors**, **Services**, **Team — Full Roster**,
-   **Team — Homepage Preview**, **Partner & Client Logos**, **News**.
+3. You'll see seven sections in the sidebar:
+
+   | Section | What it controls |
+   |---|---|
+   | **Homepage hero** | The headline, the photo behind it, the buttons, the company-profile PDF, and which article shows as the small photo in the corner |
+   | **Homepage world map** | The regions that light up on the map, and each one's project count |
+   | **Sectors** | The sector cards — *homepage and Services page* |
+   | **Services** | The service entries — *homepage and Services page* |
+   | **Team** | The group photo, the homepage strip of faces, and the full roster on the About page |
+   | **Partners** | The logo strip — *homepage and About page* |
+   | **News articles** | One entry per article. Feeds the News page, the homepage's "Recent work" block, and each article's own page |
+
+   Each section is edited in **one** place. Where a section appears on more
+   than one page, the table says so and the CMS repeats it in the section's
+   own description — there is no second copy to keep in step.
+
 4. Click a section, edit the fields or add/remove list items, upload photos
    directly in the form, then click **Publish**. Changes are committed straight
    to the `main` branch on GitHub and go live within a minute or two —
    no developer involved.
+
+## How News articles are stored
+
+Articles are the one section that is **not** a single list. Each one is its own
+file in `content/articles/`, so it gets its own screen, its own history, a
+**New Article** button and a bin icon — the same shape as the MyDNAPedia blog.
+
+The website itself still reads one file, `data/posts.json`. That file is
+**generated** — `.github/workflows/build-articles.yml` rebuilds it from
+`content/articles/` on every push, via `scripts/build-posts.mjs`. Two things
+follow from that:
+
+- **Never edit `data/posts.json` by hand.** The next publish overwrites it.
+- After publishing an article, the CMS updates immediately but the live site
+  takes an extra ~30–60 seconds, while the rebuild runs. That is normal.
+
+Why not have the site read the folder directly? Because listing a folder from a
+static page means calling the GitHub API on every visit — an outside dependency
+with a 60-requests-per-hour limit, which would not survive the move to
+o2switch. Generating one JSON keeps the site self-contained.
+
+Ordering: **Position on the site** (1 shows first) decides the order; articles
+sharing a number fall back to the newest date. The homepage's "Recent work"
+block shows positions 1, 2 and 3.
 
 ## Notes / limits
 
