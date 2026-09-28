@@ -126,33 +126,30 @@
   /* ---- project: OASYS DCA ---- */
   .dca{border-top:1px solid var(--hair)}
   .dca .wrap{padding-block:var(--section)}
-  /* Heading, text and film share one 820px column so they line up on a single
-     left edge instead of the text sitting in a narrow band beside empty space. */
-  /* Sits at the page gutter like every other section's head — capped only
-     so the text keeps a readable measure and the 640x352 film is not
-     upscaled past about 820px, where it visibly softens. */
-  .dca-col{max-width:820px}
-  .dca-head h2{font-size:clamp(1.8rem,3.6vw,2.5rem)}
-  .dca-head p{color:var(--muted);margin-top:1rem;font-size:1.05rem;line-height:1.7}
-  /* The source render is 640x352, so the player is capped rather than let
-     run full-bleed — past about 820px it visibly softens. */
-  /* The text stays on the page gutter with everything else; the film is
-     centred on its own, with a little breathing room at the sides. */
-  .dca-video{margin:clamp(1.8rem,4vw,2.6rem) auto 0;max-width:820px;
-    padding-inline:clamp(0rem,1.5vw,1.25rem)}
+  /* Text left, film right — the same two-column rhythm as the partner band
+     lower down. At roughly half the page the 640x352 render also sits close
+     to its native width, so it stays sharp. */
+  .dca-grid{display:grid;grid-template-columns:0.92fr 1.08fr;gap:clamp(2rem,4.5vw,3.5rem);align-items:center}
+  .dca-head h2{font-size:clamp(1.8rem,3.4vw,2.4rem)}
+  .dca-head p{color:var(--muted);margin-top:1rem;font-size:1.04rem;line-height:1.7}
+  .dca-video{margin:0}
   .dca-video video{display:block;width:100%;height:auto;aspect-ratio:640/352;
     background:#0b1a14;border-radius:var(--r);box-shadow:0 18px 50px rgba(13,92,68,.16)}
 
   /* ---- ISO 9001 certification ---- */
   .iso{background:var(--surface);border-top:1px solid var(--hair)}
   .iso .wrap{padding-block:var(--section)}
-  .iso-col{max-width:950px}
-  .iso-head h2{font-size:clamp(1.7rem,3.4vw,2.3rem)}
-  .iso-body{margin-top:1.2rem}
-  .iso-body p{color:var(--muted);font-size:1.02rem;line-height:1.78}
-  .iso-body p+p{margin-top:1rem}
-  .iso-dl{margin-top:clamp(1.4rem,3vw,2rem)}
+  .iso-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+  .iso-head h2{font-size:clamp(1.7rem,3.2vw,2.3rem);max-width:20ch}
+  .iso-body p{color:var(--muted);font-size:1.04rem;line-height:1.62;max-width:44ch}
+  .iso-body p+p{margin-top:.9rem}
+  .iso-dl{margin-top:1.5rem;width:fit-content}
   .iso-dl svg{flex:none}
+
+  @media (max-width:880px){
+    .dca-grid,.iso-grid{grid-template-columns:1fr;gap:clamp(1.6rem,4vw,2.2rem)}
+    .iso-head h2,.iso-body p{max-width:none}
+  }
 
   .partners{background:var(--surface);border-top:1px solid var(--hair);padding-block:var(--section)}
   .partners-head{max-width:56ch}
@@ -255,14 +252,13 @@
 <!-- PROJECT: OASYS DCA -->
 <section class="dca" id="dca">
   <div class="wrap">
-    <div class="dca-col">
+    <div class="dca-grid">
       <div class="dca-head" data-reveal>
         <span class="eyebrow" id="dcaEye">Projet</span>
         <h2 id="dcaTitle">OASYS DCA</h2>
         <p id="dcaBody">OASYS prévoit de construire une académie panafricaine dédiée au conseil et à l'assistance technique pour le développement, au cœur du pôle urbain de Diamniadio. Dans ce centre d'excellence, OASYS ambitionne d'offrir des services de conseil et d'assistance technique innovants et de haute qualité, qui renforceront et amélioreront l'efficacité et la performance des projets et programmes de développement économique et social en cours en Afrique.</p>
       </div>
-    </div>
-    <figure class="dca-video" data-reveal style="--d:.1s">
+      <figure class="dca-video" data-reveal style="--d:.1s">
         <!-- preload="none" on purpose: the file is 17MB, so nothing downloads
              until someone presses play. The poster carries the page. -->
         <video id="dcaVideo" controls preload="none" playsinline
@@ -270,20 +266,21 @@
                aria-label="Architectural film of the planned OASYS DCA academy in Diamniadio">
           <source id="dcaSrc" src="assets/oasys-dca.mp4" type="video/mp4">
         </video>
-    </figure>
+      </figure>
+    </div>
   </div>
 </section>
 
 <!-- ISO 9001 CERTIFICATION -->
 <section class="iso" id="iso">
   <div class="wrap">
-    <div class="iso-col">
+    <div class="iso-grid">
       <div class="iso-head" data-reveal>
         <span class="eyebrow" id="isoEye">Certification</span>
         <h2 id="isoTitle">Qualité, innovation et performance certifiées</h2>
       </div>
-      <div class="iso-body" data-reveal style="--d:.05s">
-        <p id="isoBody">La certification ISO 9001:2015, décernée à OASYS par Bureau Veritas Sénégal le 19 décembre 2022, couvre l'ensemble de nos activités de conseil, d'assistance technique et de formation dans le secteur du développement.</p>
+      <div class="iso-body" data-reveal style="--d:.1s">
+        <p id="isoBody">Décernée par Bureau Veritas Sénégal en décembre 2022, notre certification ISO 9001:2015 couvre l'ensemble de nos activités de conseil, d'assistance technique et de formation.</p>
         <a class="btn btn-line iso-dl" id="isoDl" href="assets/oasys-iso-9001-certificate.png" download="OASYS-ISO-9001-2015-certificate.png">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 21h16"/></svg>
           <span id="isoDlText">Télécharger le certificat</span>
