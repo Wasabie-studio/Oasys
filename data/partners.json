@@ -31,6 +31,10 @@
     {
       "name": "CHAI",
       "logo": "assets/uploads/chai.png"
+    },
+    {
+      "name": "GF",
+      "logo": "assets/uploads/gf.png"
     }
   ]
 }
