@@ -220,6 +220,35 @@
   </div>
   <div class="fbottom"><span>© 2026 OASYS Groupe. <span data-i="ft_rights">All rights reserved.</span></span><span data-i="ft_credit">Redesign concept · Wasabie Studio</span></div>
 </div></footer>
+<script>
+/* Land at the top when you arrive on a page.
+   Clicking a nav link for the page you are already on is a same-URL
+   navigation, which browsers treat as a reload — and a reload restores the
+   scroll position you had. Clicking "About" from the bottom of the About page
+   therefore dropped you back at its footer, reading as a broken link.
+   Back and Forward are deliberately left alone: returning to where you were
+   is what a visitor wants there. Deep links (#team, #a=3, #svc-2) are
+   untouched, since only a hash-less arrival is reset. */
+(function(){
+  if(location.hash) return;
+  var nav=null;
+  try{ nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||null; }catch(e){}
+  var type=nav?nav.type:'navigate';
+  if(type==='back_forward') return;
+  // 'manual' is what stops the browser restoring the old position on a
+  // reload, but it is a property of this history ENTRY — leave it set and
+  // Back stops restoring too. So it goes back to 'auto' once the page has
+  // settled, and only this arrival is forced to the top.
+  var prev='auto';
+  try{ if('scrollRestoration' in history){ prev=history.scrollRestoration; history.scrollRestoration='manual'; } }catch(e){}
+  window.scrollTo(0,0);
+  window.addEventListener('load',function(){
+    if(!location.hash) window.scrollTo(0,0);
+    setTimeout(function(){ try{ history.scrollRestoration=prev; }catch(e){} },0);
+  });
+})();
+</script>
+
 
 <script>
   var LANG="fr";

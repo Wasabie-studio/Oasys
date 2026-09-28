@@ -126,36 +126,26 @@
   /* ---- project: OASYS DCA ---- */
   .dca{border-top:1px solid var(--hair)}
   .dca .wrap{padding-block:var(--section)}
-  .dca-head{max-width:64ch}
+  /* Heading, text and film share one 820px column so they line up on a single
+     left edge instead of the text sitting in a narrow band beside empty space. */
+  .dca-col{max-width:820px;margin-inline:auto}
   .dca-head h2{font-size:clamp(1.8rem,3.6vw,2.5rem)}
-  .dca-head p{color:var(--muted);margin-top:1rem;font-size:1.05rem}
+  .dca-head p{color:var(--muted);margin-top:1rem;font-size:1.05rem;line-height:1.7}
   /* The source render is 640x352, so the player is capped rather than let
      run full-bleed — past about 820px it visibly softens. */
-  .dca-video{margin:clamp(1.8rem,4vw,2.6rem) auto 0;max-width:820px}
+  .dca-video{margin:clamp(1.8rem,4vw,2.6rem) 0 0}
   .dca-video video{display:block;width:100%;height:auto;aspect-ratio:640/352;
     background:#0b1a14;border-radius:var(--r);box-shadow:0 18px 50px rgba(13,92,68,.16)}
 
   /* ---- ISO 9001 certification ---- */
   .iso{background:var(--surface);border-top:1px solid var(--hair)}
   .iso .wrap{padding-block:var(--section)}
-  .iso-head{max-width:64ch}
-  .iso-head h2{font-size:clamp(1.5rem,3vw,2.1rem);text-transform:uppercase;letter-spacing:.01em}
-  .iso-grid{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);
-    gap:clamp(1.6rem,4vw,3rem);align-items:start;margin-top:clamp(1.8rem,4vw,2.6rem)}
-  .iso-cert{margin:0}
-  .iso-cert img{display:block;width:100%;height:auto;border-radius:10px;
-    border:1px solid var(--hair);background:#fff;box-shadow:0 10px 30px rgba(13,92,68,.12)}
-  .iso-dl{display:inline-flex;align-items:center;gap:.5rem;margin-top:.9rem;
-    font-family:var(--sans);font-size:.85rem;font-weight:600;color:var(--forest);
-    text-decoration:none;border-bottom:1px solid transparent;transition:border-color .25s var(--ease)}
-  .iso-dl:hover{border-bottom-color:var(--forest)}
+  .iso-col{max-width:820px;margin-inline:auto}
+  .iso-head h2{font-size:clamp(1.7rem,3.4vw,2.3rem)}
+  .iso-body{margin-top:1.2rem}
+  .iso-body p{color:var(--muted);font-size:1.02rem;line-height:1.78}
+  .iso-dl{margin-top:clamp(1.4rem,3vw,2rem)}
   .iso-dl svg{flex:none}
-  .iso-body p{color:var(--muted);font-size:1.02rem;line-height:1.75}
-  .iso-body p+p{margin-top:1rem}
-  @media (max-width:760px){
-    .iso-grid{grid-template-columns:1fr}
-    .iso-cert{max-width:320px;margin-inline:auto}
-  }
 
   .partners{background:var(--surface);border-top:1px solid var(--hair);padding-block:var(--section)}
   .partners-head{max-width:56ch}
@@ -258,41 +248,39 @@
 <!-- PROJECT: OASYS DCA -->
 <section class="dca" id="dca">
   <div class="wrap">
-    <div class="dca-head" data-reveal>
-      <span class="eyebrow" id="dcaEye">Projet</span>
-      <h2 id="dcaTitle">OASYS DCA</h2>
-      <p id="dcaBody">OASYS prévoit de construire une académie panafricaine dédiée au conseil et à l'assistance technique pour le développement, au cœur du pôle urbain de Diamniadio. Dans ce centre d'excellence, OASYS ambitionne d'offrir des services de conseil et d'assistance technique innovants et de haute qualité, qui renforceront et amélioreront l'efficacité et la performance des projets et programmes de développement économique et social en cours en Afrique.</p>
+    <div class="dca-col">
+      <div class="dca-head" data-reveal>
+        <span class="eyebrow" id="dcaEye">Projet</span>
+        <h2 id="dcaTitle">OASYS DCA</h2>
+        <p id="dcaBody">OASYS prévoit de construire une académie panafricaine dédiée au conseil et à l'assistance technique pour le développement, au cœur du pôle urbain de Diamniadio. Dans ce centre d'excellence, OASYS ambitionne d'offrir des services de conseil et d'assistance technique innovants et de haute qualité, qui renforceront et amélioreront l'efficacité et la performance des projets et programmes de développement économique et social en cours en Afrique.</p>
+      </div>
+      <figure class="dca-video" data-reveal style="--d:.1s">
+        <!-- preload="none" on purpose: the file is 17MB, so nothing downloads
+             until someone presses play. The poster carries the page. -->
+        <video id="dcaVideo" controls preload="none" playsinline
+               poster="assets/oasys-dca-poster.webp"
+               aria-label="Architectural film of the planned OASYS DCA academy in Diamniadio">
+          <source id="dcaSrc" src="assets/oasys-dca.mp4" type="video/mp4">
+        </video>
+      </figure>
     </div>
-    <figure class="dca-video" data-reveal style="--d:.1s">
-      <!-- preload="none" on purpose: the file is 17MB, so nothing downloads
-           until someone presses play. The poster carries the page. -->
-      <video id="dcaVideo" controls preload="none" playsinline
-             poster="assets/oasys-dca-poster.webp"
-             aria-label="Architectural film of the planned OASYS DCA academy in Diamniadio">
-        <source id="dcaSrc" src="assets/oasys-dca.mp4" type="video/mp4">
-      </video>
-    </figure>
   </div>
 </section>
 
 <!-- ISO 9001 CERTIFICATION -->
 <section class="iso" id="iso">
   <div class="wrap">
-    <div class="iso-head" data-reveal>
-      <span class="eyebrow" id="isoEye">Certification</span>
-      <h2 id="isoTitle">Label OASYS = qualité &ndash; innovation &ndash; performance</h2>
-    </div>
-    <div class="iso-grid">
-      <figure class="iso-cert" data-reveal>
-        <img id="isoImg" src="assets/oasys-iso-9001-certificate.png" loading="lazy"
-             alt="OASYS ISO 9001:2015 certificate, issued by Bureau Veritas Certification">
-        <a class="iso-dl" id="isoDl" href="assets/oasys-iso-9001-certificate.png" download="OASYS-ISO-9001-2015-certificate.png">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 21h16"/></svg>
+    <div class="iso-col">
+      <div class="iso-head" data-reveal>
+        <span class="eyebrow" id="isoEye">Certification</span>
+        <h2 id="isoTitle">Qualité, innovation et performance certifiées</h2>
+      </div>
+      <div class="iso-body" data-reveal style="--d:.05s">
+        <p id="isoBody">La certification ISO 9001:2015, décernée à OASYS par Bureau Veritas Sénégal le 19 décembre 2022, couvre l'ensemble de nos activités de conseil, d'assistance technique et de formation dans le secteur du développement.</p>
+        <a class="btn btn-line iso-dl" id="isoDl" href="assets/oasys-iso-9001-certificate.png" download="OASYS-ISO-9001-2015-certificate.png">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 21h16"/></svg>
           <span id="isoDlText">Télécharger le certificat</span>
         </a>
-      </figure>
-      <div class="iso-body" data-reveal style="--d:.1s">
-        <p id="isoBody">La certification ISO 9001:2015, décernée à OASYS par Bureau Veritas Sénégal le 19 décembre 2022, couvre l'ensemble de nos activités de conseil, d'assistance technique et de formation dans le secteur du développement.</p>
       </div>
     </div>
   </div>
@@ -352,6 +340,35 @@
 
 <script src="assets/partner-logos.js"></script>
 <script>
+/* Land at the top when you arrive on a page.
+   Clicking a nav link for the page you are already on is a same-URL
+   navigation, which browsers treat as a reload — and a reload restores the
+   scroll position you had. Clicking "About" from the bottom of the About page
+   therefore dropped you back at its footer, reading as a broken link.
+   Back and Forward are deliberately left alone: returning to where you were
+   is what a visitor wants there. Deep links (#team, #a=3, #svc-2) are
+   untouched, since only a hash-less arrival is reset. */
+(function(){
+  if(location.hash) return;
+  var nav=null;
+  try{ nav=(performance.getEntriesByType&&performance.getEntriesByType('navigation')[0])||null; }catch(e){}
+  var type=nav?nav.type:'navigate';
+  if(type==='back_forward') return;
+  // 'manual' is what stops the browser restoring the old position on a
+  // reload, but it is a property of this history ENTRY — leave it set and
+  // Back stops restoring too. So it goes back to 'auto' once the page has
+  // settled, and only this arrival is forced to the top.
+  var prev='auto';
+  try{ if('scrollRestoration' in history){ prev=history.scrollRestoration; history.scrollRestoration='manual'; } }catch(e){}
+  window.scrollTo(0,0);
+  window.addEventListener('load',function(){
+    if(!location.hash) window.scrollTo(0,0);
+    setTimeout(function(){ try{ history.scrollRestoration=prev; }catch(e){} },0);
+  });
+})();
+</script>
+
+<script>
   /* ---------- DATA: team + partners now live in /data/*.json, editable
      by non-technical staff through the CMS at /admin ---------- */
   var TEAM=[];
@@ -407,8 +424,6 @@
     txt('isoTitle', fr?ISO.title_fr:ISO.title_en);
     txt('isoBody',  fr?ISO.body_fr :ISO.body_en);
     txt('isoDlText',fr?ISO.dl_fr   :ISO.dl_en);
-    var img=document.getElementById('isoImg');
-    if(img&&ISO.image)img.src=ISO.image;
     // No file uploaded yet -> hide the download rather than offer a dead link.
     var dl=document.getElementById('isoDl');
     if(dl){ if(ISO.file){dl.href=ISO.file;dl.hidden=false;} else {dl.hidden=true;} }

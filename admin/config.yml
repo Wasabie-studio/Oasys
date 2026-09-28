@@ -299,7 +299,7 @@ collections:
       - file: "data/iso.json"
         label: "ISO 9001 certification"
         name: "iso"
-        description: "The certificate picture, its download, and the text beside it."
+        description: "The text, and the button that downloads the certificate."
         fields:
           - {label: "Small label above the title (English)", name: eye_en, widget: string}
           - {label: "Small label above the title (French)", name: eye_fr, widget: string}
@@ -307,12 +307,11 @@ collections:
           - {label: "Title (French)", name: title_fr, widget: string}
           - {label: "Text (English)", name: body_en, widget: text}
           - {label: "Text (French)", name: body_fr, widget: text}
-          - {label: "Certificate picture", name: image, widget: image, required: false}
           - label: "Certificate to download"
             name: file
             widget: file
             required: false
-            hint: "Usually the PDF from Bureau Veritas. Leave this empty and the download link is hidden entirely, so the page never offers a dead link."
+            hint: "Usually the PDF from Bureau Veritas. The page shows a download button, not the certificate itself. Leave this empty and the button is hidden entirely, so the page never offers a dead link."
           - {label: "Download link text (English)", name: dl_en, widget: string, required: false}
           - {label: "Download link text (French)", name: dl_fr, widget: string, required: false}
 
