@@ -47,6 +47,10 @@
     {
       "name": "NTAP",
       "logo": "assets/uploads/ntap.png"
+    },
+    {
+      "name": "PALLADIUM",
+      "logo": "assets/uploads/palad.png"
     }
   ]
 }
