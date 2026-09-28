@@ -123,6 +123,40 @@
   .tcard .tgroup .dot{width:6px;height:6px;border-radius:50%;background:var(--signal);flex:none}
 
   /* PARTNERS */
+  /* ---- project: OASYS DCA ---- */
+  .dca{border-top:1px solid var(--hair)}
+  .dca .wrap{padding-block:var(--section)}
+  .dca-head{max-width:64ch}
+  .dca-head h2{font-size:clamp(1.8rem,3.6vw,2.5rem)}
+  .dca-head p{color:var(--muted);margin-top:1rem;font-size:1.05rem}
+  /* The source render is 640x352, so the player is capped rather than let
+     run full-bleed — past about 820px it visibly softens. */
+  .dca-video{margin:clamp(1.8rem,4vw,2.6rem) auto 0;max-width:820px}
+  .dca-video video{display:block;width:100%;height:auto;aspect-ratio:640/352;
+    background:#0b1a14;border-radius:var(--r);box-shadow:0 18px 50px rgba(13,92,68,.16)}
+
+  /* ---- ISO 9001 certification ---- */
+  .iso{background:var(--surface);border-top:1px solid var(--hair)}
+  .iso .wrap{padding-block:var(--section)}
+  .iso-head{max-width:64ch}
+  .iso-head h2{font-size:clamp(1.5rem,3vw,2.1rem);text-transform:uppercase;letter-spacing:.01em}
+  .iso-grid{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);
+    gap:clamp(1.6rem,4vw,3rem);align-items:start;margin-top:clamp(1.8rem,4vw,2.6rem)}
+  .iso-cert{margin:0}
+  .iso-cert img{display:block;width:100%;height:auto;border-radius:10px;
+    border:1px solid var(--hair);background:#fff;box-shadow:0 10px 30px rgba(13,92,68,.12)}
+  .iso-dl{display:inline-flex;align-items:center;gap:.5rem;margin-top:.9rem;
+    font-family:var(--sans);font-size:.85rem;font-weight:600;color:var(--forest);
+    text-decoration:none;border-bottom:1px solid transparent;transition:border-color .25s var(--ease)}
+  .iso-dl:hover{border-bottom-color:var(--forest)}
+  .iso-dl svg{flex:none}
+  .iso-body p{color:var(--muted);font-size:1.02rem;line-height:1.75}
+  .iso-body p+p{margin-top:1rem}
+  @media (max-width:760px){
+    .iso-grid{grid-template-columns:1fr}
+    .iso-cert{max-width:320px;margin-inline:auto}
+  }
+
   .partners{background:var(--surface);border-top:1px solid var(--hair);padding-block:var(--section)}
   .partners-head{max-width:56ch}
   .partners-head h2{font-size:clamp(1.8rem,3.6vw,2.5rem)}
@@ -221,6 +255,49 @@
   </div>
 </section>
 
+<!-- PROJECT: OASYS DCA -->
+<section class="dca" id="dca">
+  <div class="wrap">
+    <div class="dca-head" data-reveal>
+      <span class="eyebrow" id="dcaEye">Projet</span>
+      <h2 id="dcaTitle">OASYS DCA</h2>
+      <p id="dcaBody">OASYS prévoit de construire une académie panafricaine dédiée au conseil et à l'assistance technique pour le développement, au cœur du pôle urbain de Diamniadio. Dans ce centre d'excellence, OASYS ambitionne d'offrir des services de conseil et d'assistance technique innovants et de haute qualité, qui renforceront et amélioreront l'efficacité et la performance des projets et programmes de développement économique et social en cours en Afrique.</p>
+    </div>
+    <figure class="dca-video" data-reveal style="--d:.1s">
+      <!-- preload="none" on purpose: the file is 17MB, so nothing downloads
+           until someone presses play. The poster carries the page. -->
+      <video id="dcaVideo" controls preload="none" playsinline
+             poster="assets/oasys-dca-poster.webp"
+             aria-label="Architectural film of the planned OASYS DCA academy in Diamniadio">
+        <source id="dcaSrc" src="assets/oasys-dca.mp4" type="video/mp4">
+      </video>
+    </figure>
+  </div>
+</section>
+
+<!-- ISO 9001 CERTIFICATION -->
+<section class="iso" id="iso">
+  <div class="wrap">
+    <div class="iso-head" data-reveal>
+      <span class="eyebrow" id="isoEye">Certification</span>
+      <h2 id="isoTitle">Label OASYS = qualité &ndash; innovation &ndash; performance</h2>
+    </div>
+    <div class="iso-grid">
+      <figure class="iso-cert" data-reveal>
+        <img id="isoImg" src="assets/oasys-iso-9001-certificate.png" loading="lazy"
+             alt="OASYS ISO 9001:2015 certificate, issued by Bureau Veritas Certification">
+        <a class="iso-dl" id="isoDl" href="assets/oasys-iso-9001-certificate.png" download="OASYS-ISO-9001-2015-certificate.png">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 21h16"/></svg>
+          <span id="isoDlText">Télécharger le certificat</span>
+        </a>
+      </figure>
+      <div class="iso-body" data-reveal style="--d:.1s">
+        <p id="isoBody">La certification ISO 9001:2015, décernée à OASYS par Bureau Veritas Sénégal le 19 décembre 2022, couvre l'ensemble de nos activités de conseil, d'assistance technique et de formation dans le secteur du développement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- PARTNERS -->
 <section class="partners" id="partners">
   <div class="wrap">
@@ -302,10 +379,48 @@
   function renderPartners(){
     if(window.OasysLogo) OasysLogo.ticker(document.getElementById("plogos"),PARTNERS);
   }
+  /* The DCA project block and the ISO certification block are CMS-editable,
+     so they render from JSON rather than through the data-i translation map —
+     apply() would otherwise overwrite whatever was published. The markup ships
+     with the French copy so nothing flashes in the wrong language before the
+     fetch lands. */
+  var DCA=null, ISO=null;
+  function txt(id,v){var el=document.getElementById(id);if(el&&v)el.textContent=v;}
+
+  function renderDca(){
+    if(!DCA)return;
+    var fr=(LANG==='fr');
+    txt('dcaEye',   fr?DCA.eye_fr  :DCA.eye_en);
+    txt('dcaTitle', fr?DCA.title_fr:DCA.title_en);
+    txt('dcaBody',  fr?DCA.body_fr :DCA.body_en);
+    var v=document.getElementById('dcaVideo'), src=document.getElementById('dcaSrc');
+    if(v&&DCA.poster)v.setAttribute('poster',DCA.poster);
+    // Only reload the player if the file actually changed, so switching
+    // language never interrupts a video someone is already watching.
+    if(v&&src&&DCA.video&&src.getAttribute('src')!==DCA.video){src.setAttribute('src',DCA.video);v.load();}
+  }
+
+  function renderIso(){
+    if(!ISO)return;
+    var fr=(LANG==='fr');
+    txt('isoEye',   fr?ISO.eye_fr  :ISO.eye_en);
+    txt('isoTitle', fr?ISO.title_fr:ISO.title_en);
+    txt('isoBody',  fr?ISO.body_fr :ISO.body_en);
+    txt('isoDlText',fr?ISO.dl_fr   :ISO.dl_en);
+    var img=document.getElementById('isoImg');
+    if(img&&ISO.image)img.src=ISO.image;
+    // No file uploaded yet -> hide the download rather than offer a dead link.
+    var dl=document.getElementById('isoDl');
+    if(dl){ if(ISO.file){dl.href=ISO.file;dl.hidden=false;} else {dl.hidden=true;} }
+  }
+  window.__renderExtras=function(){renderDca();renderIso();};
+
   Promise.all([
     fetch('data/team.json').then(function(r){return r.json();}),
     fetch('data/partners.json').then(function(r){return r.json();}),
-    fetch('data/team_photo.json').then(function(r){return r.json();})
+    fetch('data/team_photo.json').then(function(r){return r.json();}),
+    fetch('data/project_dca.json').then(function(r){return r.json();}).catch(function(){return null;}),
+    fetch('data/iso.json').then(function(r){return r.json();}).catch(function(){return null;})
   ]).then(function(res){
     TEAM=res[0].items.map(function(d){
       return {name:d.name,photo:d.photo,group:{en:d.group_en,fr:d.group_fr},role:{en:d.role_en,fr:d.role_fr}};
@@ -313,6 +428,7 @@
     PARTNERS=res[1].items;
     renderTeam();renderPartners();
     if(res[2].photo){var img=document.getElementById('teamGroupPhoto');if(img)img.src=res[2].photo;}
+    DCA=res[3];ISO=res[4];renderDca();renderIso();
   });
 
   /* nav scroll state */
@@ -388,8 +504,8 @@
       document.querySelectorAll('[data-i-ph]').forEach(function(el){var k=el.getAttribute('data-i-ph');var v=(l==='fr')?FR[k]:ENph[k];if(v!=null)el.setAttribute('placeholder',v);});
       document.documentElement.setAttribute('lang',l);
     }
-    en.addEventListener('click',function(){try{localStorage.setItem('oasysLang','en');}catch(e){}LANG='en';apply(EN,'en');en.setAttribute('aria-pressed','true');fr.setAttribute('aria-pressed','false');renderTeam();renderPartners();});
-    fr.addEventListener('click',function(){try{localStorage.setItem('oasysLang','fr');}catch(e){}LANG='fr';apply(FR,'fr');fr.setAttribute('aria-pressed','true');en.setAttribute('aria-pressed','false');renderTeam();renderPartners();});
+    en.addEventListener('click',function(){try{localStorage.setItem('oasysLang','en');}catch(e){}LANG='en';apply(EN,'en');en.setAttribute('aria-pressed','true');fr.setAttribute('aria-pressed','false');renderTeam();renderPartners();if(window.__renderExtras)window.__renderExtras();});
+    fr.addEventListener('click',function(){try{localStorage.setItem('oasysLang','fr');}catch(e){}LANG='fr';apply(FR,'fr');fr.setAttribute('aria-pressed','true');en.setAttribute('aria-pressed','false');renderTeam();renderPartners();if(window.__renderExtras)window.__renderExtras();});
     /* French is the default; English only for a visitor who picked it before */
     var saved=null; try{saved=localStorage.getItem('oasysLang');}catch(e){}
     (saved==='en'?en:fr).click();

@@ -270,6 +270,52 @@ collections:
       - {label: "Role (English)", name: role_en, widget: string}
       - {label: "Role (French)", name: role_fr, widget: string}
 
+  # ──────────────────── Project & certification (About) ─────────────────────
+  - name: "about_blocks"
+    label: "Project & certification"
+    description: "Two blocks near the bottom of the ABOUT page: the OASYS DCA academy film, and the ISO 9001 certification. Click a row below to open it."
+    files:
+      - file: "data/project_dca.json"
+        label: "Project — OASYS DCA"
+        name: "project_dca"
+        description: "The academy planned at Diamniadio, with its film."
+        fields:
+          - {label: "Small label above the title (English)", name: eye_en, widget: string}
+          - {label: "Small label above the title (French)", name: eye_fr, widget: string}
+          - {label: "Title (English)", name: title_en, widget: string}
+          - {label: "Title (French)", name: title_fr, widget: string}
+          - {label: "Text (English)", name: body_en, widget: text}
+          - {label: "Text (French)", name: body_fr, widget: text}
+          - label: "Film"
+            name: video
+            widget: file
+            required: false
+            hint: "MP4. Nothing downloads for the visitor until they press play, so a large file does not slow the page down."
+          - label: "Still image shown before play"
+            name: poster
+            widget: image
+            required: false
+            hint: "A frame from the film. Without one the player shows a black rectangle until it starts."
+      - file: "data/iso.json"
+        label: "ISO 9001 certification"
+        name: "iso"
+        description: "The certificate picture, its download, and the text beside it."
+        fields:
+          - {label: "Small label above the title (English)", name: eye_en, widget: string}
+          - {label: "Small label above the title (French)", name: eye_fr, widget: string}
+          - {label: "Title (English)", name: title_en, widget: string}
+          - {label: "Title (French)", name: title_fr, widget: string}
+          - {label: "Text (English)", name: body_en, widget: text}
+          - {label: "Text (French)", name: body_fr, widget: text}
+          - {label: "Certificate picture", name: image, widget: image, required: false}
+          - label: "Certificate to download"
+            name: file
+            widget: file
+            required: false
+            hint: "Usually the PDF from Bureau Veritas. Leave this empty and the download link is hidden entirely, so the page never offers a dead link."
+          - {label: "Download link text (English)", name: dl_en, widget: string, required: false}
+          - {label: "Download link text (French)", name: dl_fr, widget: string, required: false}
+
   # ─────────────────────────────── Articles ──────────────────────────────────
   - name: "articles"
     label: "News articles"
