@@ -35,6 +35,10 @@
     {
       "name": "GF",
       "logo": "assets/uploads/gf.png"
+    },
+    {
+      "name": "GIZ",
+      "logo": "assets/uploads/giz.png"
     }
   ]
 }
