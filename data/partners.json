@@ -51,6 +51,10 @@
     {
       "name": "PALLADIUM",
       "logo": "assets/uploads/palad.png"
+    },
+    {
+      "name": "SANTEM",
+      "logo": "assets/uploads/santem.png"
     }
   ]
 }
