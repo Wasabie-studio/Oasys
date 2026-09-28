@@ -55,6 +55,10 @@
     {
       "name": "SANTEM",
       "logo": "assets/uploads/santem.png"
+    },
+    {
+      "name": "FRANCE",
+      "logo": "assets/uploads/france.png"
     }
   ]
 }
