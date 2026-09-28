@@ -43,6 +43,10 @@
     {
       "name": "IIPF",
       "logo": "assets/uploads/ippf.svg"
+    },
+    {
+      "name": "NTAP",
+      "logo": "assets/uploads/ntap.png"
     }
   ]
 }
