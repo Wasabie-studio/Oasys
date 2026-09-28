@@ -39,6 +39,10 @@
     {
       "name": "GIZ",
       "logo": "assets/uploads/giz.png"
+    },
+    {
+      "name": "IIPF",
+      "logo": "assets/uploads/ippf.svg"
     }
   ]
 }
