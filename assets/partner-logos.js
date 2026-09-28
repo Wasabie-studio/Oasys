@@ -64,15 +64,22 @@
      0.4 rather than a strict equal-area 0.5 keeps wordmarks a bit taller. */
   function size(item){
     var b=item.box(), r=item.ratio;
+    /* Not laid out yet (a display:none ancestor gives clientHeight 0, which
+       makes every figure below negative). Writing that produces an invalid
+       style the browser drops, leaving the logo at its natural size — so
+       report failure and let the caller try again. */
+    if(!(b.maxH>0) || !(r>0)) return false;
     var h=Math.min(b.maxH, Math.max(b.minH, b.s*Math.pow(r,-0.4)));
     if(h*r>b.maxW) h=Math.max(b.minH, b.maxW/r);
     var w=h*r;
     item.img.style.width=Math.round(w)+'px';
     item.img.style.height=Math.round(h)+'px';
+    return true;
   }
 
-  function fit(img, box){
-    var original=img.getAttribute('src');
+  function fit(img, box, onDone){
+    var original=img.getAttribute('src'), tries=0;
+    function finish(){ img.classList.add('is-fitted'); if(onDone) onDone(); }
     function go(){
       if(img.dataset.fitted) return;
       img.dataset.fitted='1';
@@ -80,10 +87,13 @@
       if(a===undefined){ try{ a=analyse(img); }catch(e){ a=null; } cache[original]=a; }
       var item={img:img, box:box, ratio:a ? a.ratio : (img.naturalWidth/img.naturalHeight || 1)};
       if(a) img.src=a.src;
-      fitted.push(item); size(item);
-      img.classList.add('is-fitted');
+      fitted.push(item);
+      (function attempt(){
+        if(size(item) || ++tries>60) return finish();
+        requestAnimationFrame(attempt);   /* box not measurable yet */
+      })();
     }
-    img.addEventListener('error',function(){ img.classList.add('is-fitted'); },{once:true});
+    img.addEventListener('error',function(){ finish(); },{once:true});
     if(img.complete && img.naturalWidth) go(); else img.addEventListener('load',go,{once:true});
   }
 
@@ -107,28 +117,70 @@
     var withLogo=(items||[]).filter(function(p){ return p.logo; });
     if(!withLogo.length){ track.innerHTML=''; marquee.hidden=true; return; }
     marquee.hidden=false;
-    function set(hidden){
-      return '<div class="pmarquee-set"'+(hidden?' aria-hidden="true"':'')+'>'+withLogo.map(function(p){
-        return '<span class="plogo" title="'+esc(p.name)+'"><img src="'+esc(p.logo)+'" alt="'+(hidden?'':esc(p.name))+'" loading="lazy"></span>';
-      }).join('')+'</div>';
-    }
-    track.innerHTML=set(false)+set(true);
-    track.querySelectorAll('.plogo img').forEach(function(img){
-      var box=img.parentNode;
-      fit(img,function(){
+
+    /* ONE real set is rendered and measured. The second is a clone of it,
+       made only once the first is completely sized.
+
+       It used to render both sets up front and size each independently, and
+       they drifted badly — 2615px against 4076px on the About page. The loop
+       translates by -50% of the track, which is one set's width only when the
+       two match, so every cycle jumped by the difference. The cause was a
+       race: before any logo is measured the row is narrow, `is-static` goes
+       on, that display:none's the second set, and a hidden element cannot be
+       measured, so its logos were flagged fitted while still unsized.
+       Cloning after the fact removes the whole class of problem: the copy is
+       identical because it IS the original. */
+    track.innerHTML='<div class="pmarquee-set">'+withLogo.map(function(p){
+      return '<span class="plogo" title="'+esc(p.name)+'"><img src="'+esc(p.logo)+'" alt="'+esc(p.name)+'" loading="lazy"></span>';
+    }).join('')+'</div>';
+
+    var first=track.firstElementChild;
+    var imgs=[].slice.call(first.querySelectorAll('.plogo img'));
+    var pending=imgs.length;
+
+    function boxOf(box){
+      return function(){
         var cs=getComputedStyle(box);
         var h=box.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom);
         return {s:h*0.78, maxH:h, maxW:h*4.6, minH:h*0.3};
-      });
-    });
+      };
+    }
+
+    function mirror(){
+      var old=first.nextElementSibling;
+      if(old) track.removeChild(old);
+      /* only worth duplicating if the row actually has to scroll */
+      if(first.scrollWidth>marquee.clientWidth){
+        var clone=first.cloneNode(true);       /* inline sizes copy with it */
+        clone.setAttribute('aria-hidden','true');
+        [].forEach.call(clone.querySelectorAll('img'),function(i){
+          i.alt=''; i.removeAttribute('loading');   /* never lazy: it must be there for the loop */
+        });
+        track.appendChild(clone);
+      }
+      mode();
+    }
+
     /* scrolling a row that does not even fill the screen just shows a gap
-       looping past, so hold it still and centre it until there are enough.
-       Re-checked whenever widths change: logos load in and get sized one by
-       one, and the window can be resized. */
-    var first=track.firstElementChild;
+       looping past, so hold it still and centre it until there are enough. */
     function mode(){ marquee.classList.toggle('is-static', first.scrollWidth<=marquee.clientWidth); }
-    if(window.ResizeObserver){ var ro=new ResizeObserver(mode); ro.observe(first); ro.observe(marquee); }
-    else mode();
+
+    imgs.forEach(function(img){
+      fit(img, boxOf(img.parentNode), function(){ if(--pending<=0) mirror(); });
+    });
+    if(!imgs.length) mirror();
+
+    /* Logo widths are derived from the row height, which is a clamp() on the
+       viewport, so a resize changes them. Re-size the real set, then rebuild
+       the clone from it so the two can never fall out of step. */
+    var rt;
+    addEventListener('resize',function(){
+      clearTimeout(rt);
+      rt=setTimeout(function(){
+        fitted.filter(function(i){ return i.img.isConnected && first.contains(i.img); }).forEach(size);
+        mirror();
+      },140);
+    });
   }
 
   window.OasysLogo={fit:fit, ticker:ticker};
