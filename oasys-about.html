@@ -146,10 +146,11 @@
   /* ---- ISO 9001 certification ---- */
   .iso{background:var(--surface);border-top:1px solid var(--hair)}
   .iso .wrap{padding-block:var(--section)}
-  .iso-col{max-width:820px}
+  .iso-col{max-width:950px}
   .iso-head h2{font-size:clamp(1.7rem,3.4vw,2.3rem)}
   .iso-body{margin-top:1.2rem}
   .iso-body p{color:var(--muted);font-size:1.02rem;line-height:1.78}
+  .iso-body p+p{margin-top:1rem}
   .iso-dl{margin-top:clamp(1.4rem,3vw,2rem)}
   .iso-dl svg{flex:none}
 
@@ -428,7 +429,23 @@
     var fr=(LANG==='fr');
     txt('isoEye',   fr?ISO.eye_fr  :ISO.eye_en);
     txt('isoTitle', fr?ISO.title_fr:ISO.title_en);
-    txt('isoBody',  fr?ISO.body_fr :ISO.body_en);
+    // A blank line in the CMS text becomes a real paragraph. Built with
+    // textContent per paragraph, so published copy can never inject markup.
+    var body=document.getElementById('isoBody');
+    var raw=(fr?ISO.body_fr:ISO.body_en)||'';
+    if(body){
+      var parts=raw.split(/\n\s*\n/).map(function(t){return t.trim();}).filter(Boolean);
+      var host=body.parentNode, first=body;
+      // drop any paragraphs a previous render added
+      while(first.nextElementSibling&&first.nextElementSibling.tagName==='P') host.removeChild(first.nextElementSibling);
+      first.textContent=parts[0]||'';
+      for(var i=1;i<parts.length;i++){
+        var el=document.createElement('p');
+        el.textContent=parts[i];
+        host.insertBefore(el, first.nextSibling);
+        first=el;
+      }
+    }
     txt('isoDlText',fr?ISO.dl_fr   :ISO.dl_en);
     // No file uploaded yet -> hide the download rather than offer a dead link.
     var dl=document.getElementById('isoDl');
